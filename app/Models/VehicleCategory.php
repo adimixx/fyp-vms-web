@@ -18,7 +18,7 @@ class VehicleCategory extends Model
         'updated_at',
     ];
 
-    public function vehicleCatalogs()
+    public function vehicleCatalog()
     {
         return $this->hasMany(VehicleCatalog::class);
     }

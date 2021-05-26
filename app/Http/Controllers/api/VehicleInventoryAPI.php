@@ -7,14 +7,22 @@ use App\Models\VehicleCategory;
 use App\Models\VehicleInventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\ValidationException;
 
 class VehicleInventoryAPI extends Controller
 {
-    public function index($vehicle_category, $catalog)
+    public function index($vehicle_category = null, $catalog = null)
     {
+        if (isset($vehicle_category) && isset($catalog)) {
+            $data = VehicleCategory::find($vehicle_category)?->vehicleCatalog()->find($catalog)?->vehicleInventory()->get();
 
-        $data = VehicleCategory::find($vehicle_category)->vehicleCatalogs()->find($catalog)->vehicleInventories()->get();
+            if (!isset($data)) {
+                return response(['message' => 'Invalid Vehicle Category / Catalog'])->setStatusCode(500);
+            }
+        } else {
+            $data = VehicleInventory::with(['vehicleCatalog', 'vehicleCatalog.vehicleCategory'])->get();
+
+
+        }
 
         return $data;
     }
@@ -30,7 +38,7 @@ class VehicleInventoryAPI extends Controller
         ]);
         $validator->validate();
 
-        $vehicleCatalog = VehicleCategory::find($vehicle_category)?->vehicleCatalogs()->find($catalog);
+        $vehicleCatalog = VehicleCategory::find($vehicle_category)?->vehicleCatalog()->find($catalog);
 
         if (!$vehicleCatalog) {
             return response(array('message' => 'Invalid Vehicle Category / Catalog'))->setStatusCode(500);

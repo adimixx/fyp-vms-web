@@ -1,17 +1,23 @@
 @extends('layouts.app')
 
-@section('header')
-    <div class="d-flex justify-content-between">
-        <div>
-            <h4 class="mb-0">
-                {{ __('Pengurusan Kenderaan') }}
-            </h4>
-            <p class="text-muted">Tambah Kenderaan Baru</p>
-        </div>
-    </div>
-@endsection
 
 @section('content')
-    <vehicle-create></vehicle-create>
+<div class="container-fluid">
+    <div class="d-flex justify-content-between mb-4">
+        <div>
+            <h3 class="text-dark mb-0">New Vehicle</h3>
+            <p class="text-muted">Please fill in vehicle information</p>
+        </div>
+    </div>
+
+
+    <div class="card shadow">
+        <div class="card-body">
+            <vehicle-create></vehicle-create>
+        </div>
+    </div>
+</div>
+
+
 @endsection
 

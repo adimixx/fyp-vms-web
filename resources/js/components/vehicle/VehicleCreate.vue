@@ -1,16 +1,13 @@
 <template>
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <legend>Maklumat Kenderaan</legend>
-
+    <div>
+            <div>
                 <FormulateForm
                     v-model="form"
                     @submit="submitForm"
                     :errors="inputErrors"
                 >
                     <div class="mb-3">
-                        <label class="form-label">Jenis Kenderaan</label>
+                        <label class="form-label">Vehicle Type</label>
                         <Multiselect
                             v-model="form.vehicleCategory"
                             :options="loadVehicleCategory"
@@ -19,9 +16,9 @@
                         <FormulateInput
                             type="hidden"
                             name="vehicleCategory"
-                            validationName="Jenis Kenderaan"
+                            validationName="Vehicle Type"
                             validation="required"
-                            help="Sila pilih jenis kenderaan"
+                            help="Please choose vehicle type"
                         />
                     </div>
 
@@ -33,20 +30,20 @@
                         <div class="mb-3" v-if="form.vehicleCategory != null">
                             <div class="text-between">
                                 <label class="form-label"
-                                    >Model Kenderaan</label
+                                    >Vehicle Model</label
                                 >
                                 <a
                                     href="#"
                                     class="text-end"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalNewVehicleModel"
-                                    >Daftar Model Kenderaan Baru</a
+                                    >Register new model</a
                                 >
                             </div>
                             <Multiselect
                                 v-model="form.vehicleModel"
                                 placeholder="Pilih Model Kenderaan"
-                                noOptionsText="Model Kenderaan tidak didaftarkan. Sila Daftar Model Kenderaan"
+                                noOptionsText="Model is not registered. Please register new model"
                                 :filterResults="false"
                                 :minChars="0"
                                 :delay="0"
@@ -58,9 +55,9 @@
                             <FormulateInput
                                 type="hidden"
                                 name="vehicleModel"
-                                validationName="Model Kenderaan"
+                                validationName="Vehicle Model"
                                 validation="required"
-                                help="Sila pilih model kenderaan"
+                                help="Please choose vehicle model"
                             />
                         </div>
                     </transition>
@@ -72,14 +69,14 @@
                         <div v-if="form.vehicleModel != null">
                             <FormulateInput
                                 type="date"
-                                label="Tarikh Terima"
+                                label="Date Received"
                                 name="dateReceived"
                                 validation="required"
                             />
 
                             <FormulateInput
                                 type="text"
-                                label="No Pendaftaran Kenderaan"
+                                label="Vehicle Registration Number"
                                 placeholder="contoh: UTEM001"
                                 name="regNo"
                                 validation="required"
@@ -87,8 +84,8 @@
 
                             <FormulateInput
                                 name="mileage"
-                                label="Mileage Terkini"
-                                placeholder="Mileage dalam unit Kilometer (KM)"
+                                label="Current Mileage"
+                                placeholder="Mileage in KM"
                                 type="number"
                                 step="0.01"
                                 min="0.01"
@@ -97,16 +94,16 @@
 
                             <div class="mb-4">
                                 <label class="form-label fw-bold"
-                                    >Maklumat Servis Seterusnya</label
+                                    >Next Service Information</label
                                 >
                                 <div class="row">
                                     <div class="col">
                                         <FormulateInput
                                             name="nextServiceMileage"
-                                            label="Mileage Servis"
+                                            label="Service Mileage"
                                             type="number"
                                             step="0.01"
-                                            placeholder="Mileage dalam unit Kilometer (KM)"
+                                            placeholder="Mileage in KM"
                                             min="0.01"
                                             :validation="[
                                                 ['required'],
@@ -118,7 +115,7 @@
                                     <div class="col">
                                         <FormulateInput
                                             name="nextServiceDate"
-                                            label="Tarikh Servis"
+                                            label="Service Date"
                                             type="date"
                                             :validation="[
                                                 ['required'],
@@ -132,7 +129,7 @@
                             <div class="d-grid gap-3 mt-4 mb-3">
                                 <input
                                     type="submit"
-                                    value="Simpan Maklumat Kenderaan"
+                                    value="Save"
                                     class="btn btn-primary text-white"
                                     id="btn-submit"
                                 />
@@ -141,7 +138,6 @@
                     </transition>
                 </FormulateForm>
             </div>
-        </div>
 
         <!-- Modal -->
         <div
@@ -156,7 +152,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            Tambah Model Kenderaan Baru
+                            Register New Vehicle Model
                         </h5>
                     </div>
                     <div class="modal-body">
@@ -166,16 +162,16 @@
                         >
                             <FormulateInput
                                 type="text"
-                                label="Jenama Kenderaan"
-                                placeholder="contoh: PROTON"
+                                label="Brand"
+                                placeholder="example: PROTON"
                                 name="brand"
                                 validation="required"
                             />
 
                             <FormulateInput
                                 type="text"
-                                label="Model Kenderaan"
-                                placeholder="contoh: PREVE"
+                                label="Model"
+                                placeholder="example: PREVE"
                                 name="model"
                                 validation="required"
                             />
@@ -183,16 +179,16 @@
                             <FormulateInput
                                 type="text"
                                 name="variant"
-                                label="Varian Kenderaan"
-                                placeholder="contoh: 1.5"
+                                label="Variant"
+                                placeholder="example: 1.5"
                             />
 
                             <FormulateInput
                                 type="number"
                                 min="1000"
                                 name="year"
-                                label="Tahun Keluaran Kenderaan"
-                                placeholder="contoh: 2020"
+                                label="Production Year"
+                                placeholder="example: 2020"
                                 validation="number|min:1000"
                             />
 
@@ -202,12 +198,12 @@
                                     class="btn btn-secondary"
                                     data-bs-dismiss="modal"
                                 >
-                                    Batal
+                                    Cancel
                                 </button>
                                 <input
                                     type="submit"
                                     class="btn btn-primary text-white"
-                                    value="Simpan"
+                                    value="Save"
                                 />
                             </div>
                         </FormulateForm>

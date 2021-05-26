@@ -1,14 +1,52 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+
+@import "@fortawesome/fontawesome-free/scss/brands.scss";
+@import "@fortawesome/fontawesome-free/scss/solid.scss";
+@import "@fortawesome/fontawesome-free/scss/regular.scss";
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import "~bootstrap/scss/bootstrap";
 
-@import '@vueform/multiselect/themes/default.css';
+@import "@vueform/multiselect/themes/default.css";
 
-@import 'animate.css/animate.css';
+@import "animate.css/animate.css";
+
+@import "startbootstrap-sb-admin-2/scss/sb-admin-2";
 
 // @import '@braid/vue-formulate/themes/snow/snow.scss';
+
+.bg-gradient-primary {
+    background-color: $blue;
+}
+
+.bg-login-image {
+    background: url("../images/login.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.sidebar-brand-icon{
+    background: url('../images/utem_logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 32px;
+}
+
+.VueTables__search, .VueTables__search-field{
+    width: 80%;
+}
+
+.VuePagination__pagination.pagination.VuePagination__pagination{
+    display: inline-flex;
+}
+
+.breadcrumb{
+    background-color: transparent;
+}

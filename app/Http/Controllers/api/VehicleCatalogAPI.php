@@ -13,7 +13,8 @@ class VehicleCatalogAPI extends Controller
 {
     public function index($vehicle_category, Request $request)
     {
-        $catalog = VehicleCategory::find($vehicle_category)->vehicleCatalogs()->get();
+
+        $catalog = VehicleCategory::find($vehicle_category)->vehicleCatalog()->get();
 
         $mappedSelect = $catalog->map(function ($item) {
             return [
@@ -61,7 +62,7 @@ class VehicleCatalogAPI extends Controller
 
     public function show($vehicle_category, $id)
     {
-        $data = VehicleCategory::find($vehicle_category)->vehicleCatalogs->find($id);
+        $data = VehicleCategory::find($vehicle_category)->vehicleCatalog()->find($id);
         return $data;
     }
 

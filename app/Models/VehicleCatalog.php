@@ -37,12 +37,12 @@ class VehicleCatalog extends Model
     }
 
 
-    public function vehicleCategories()
+    public function vehicleCategory()
     {
         return $this->belongsTo(VehicleCategory::class);
     }
 
-    public function vehicleInventories()
+    public function vehicleInventory()
     {
         return $this->hasMany(VehicleInventory::class);
     }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\VehicleCatalog;
 use App\Models\VehicleCategory;
+use App\Models\VehicleInventory;
 use Illuminate\Http\Request;
 
 class VehicleController extends Controller
@@ -19,26 +21,11 @@ class VehicleController extends Controller
         return view('vehicle.create', compact('vehicleCat'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $vehicle = VehicleInventory::find($id);
+
+        return view('vehicle.show', compact('vehicle'));
     }
 
     /**

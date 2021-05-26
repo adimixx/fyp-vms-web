@@ -2,6 +2,7 @@
 
 - Laravel 8
 - [Laravel Permissions](https://spatie.be/docs/laravel-permission/v4/)
+- [Simple QR Code](https://www.simplesoftware.io/#/docs/simple-qrcode)
 
 ## Front-end Stacks
 - Vue.js
@@ -10,3 +11,4 @@
 - [Vue Multiselect](https://github.com/vueform/multiselect)
 - [Animate.css](https://animate.style/)
 - [Vue Formulate](https://vueformulate.com/)
+- [Vue Tables 2](https://matanya.gitbook.io/vue-tables-2/)

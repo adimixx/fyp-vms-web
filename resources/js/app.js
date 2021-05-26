@@ -8,6 +8,10 @@ require("./bootstrap");
 
 window.Vue = require("vue").default;
 
+// require('chart.js');
+
+// require("startbootstrap-sb-admin-2/js/sb-admin-2.js");
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -34,7 +38,6 @@ files.keys().map(key =>
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-
 import VueFormulate from "@braid/vue-formulate";
 Vue.use(VueFormulate, {
     classes: {
@@ -46,21 +49,46 @@ Vue.use(VueFormulate, {
         errors: "text-danger list-unstyled mt-2",
         help: "form-text"
     },
-    locales: {
-        en: {
-            required({ name }) {
-                return `Sila isi ${name}`;
-            },
-            min({ name, args }) {
-                return `Nilai ${name} mestilah sekurang-kurangnya ${args} `;
-            },
-            after({ name, args }) {
-                return `${name} mestilah selepas ${args} `;
-            }
-        }
-    },
+    // locales: {
+    //     en: {
+    //         required({ name }) {
+    //             return `Sila isi ${name}`;
+    //         },
+    //         min({ name, args }) {
+    //             return `Nilai ${name} mestilah sekurang-kurangnya ${args} `;
+    //         },
+    //         after({ name, args }) {
+    //             return `${name} mestilah selepas ${args} `;
+    //         }
+    //     }
+    // },
     validationNameStrategy: ["validationName", "label", "name", "type"]
 });
+
+import { ServerTable, ClientTable, Event } from "vue-tables-2";
+// Vue.use(ClientTable, [options = {}], [useVuex = false], [theme = 'bootstrap4'], [swappables = {}]);
+// Vue.use(ServerTable, [options = {}], [useVuex = false], [theme = 'bootstrap4'], [swappables = {}]);
+import vtGenericFilter from './components/vueTables/vtGenericFilter.vue';
+import vtPerPageSelector from './components/vueTables/vtPerPageSelector.vue';
+
+Vue.use(ClientTable, {}, false, "bootstrap4");
+Vue.use(
+    ServerTable,
+    {
+        skin: "table table-striped table-hover table-light",
+        sortIcon: {
+            base: "fas fa-sort",
+            up: "fas fa-sort-up",
+            down: "fas fa-sort-down",
+            is: "glyphicon-sort"
+        }
+    },
+    false,
+    "bootstrap4", {
+        genericFilter : vtGenericFilter,
+        perPageSelector : vtPerPageSelector
+    }
+);
 
 const app = new Vue({
     el: "#app",

@@ -1,28 +1,24 @@
 @extends('layouts.app')
 
-@section('header')
-    <div class="d-flex justify-content-between">
+@section('content')
+<div class="container-fluid">
+    <div class="d-flex justify-content-between mb-4">
         <div>
-            <h4 class="mb-0">
-                {{ __('Pengurusan Kenderaan') }}
-            </h4>
-            <p class="text-muted">Senarai Kenderaan Berdaftar</p>
+            <h3 class="text-dark mb-0">Registered Vehicle List</h3>
         </div>
 
-        <div class="d-grid gap-2 d-flex justify-content-end mb-4">
+        <div class="d-grid gap-2 d-flex justify-content-end">
             <a href="{{ route('vehicle.create') }}" class="text-decoration-none">
-                <button class="btn btn-primary text-white">Tambah Kenderaan Baru</button>
+                <button class="btn btn-primary text-white"><i class="fas fa-plus"></i> New Vehicle</button>
             </a>
         </div>
     </div>
-@endsection
 
-@section('content')
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
 
-            </div>
+    <div class="card shadow">
+        <div class="card-body">
+            <vehicle-datatable route="{{ route('vehicle.index') }}"></vehicle-datatable>
         </div>
     </div>
+</div>
 @endsection

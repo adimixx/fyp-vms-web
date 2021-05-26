@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\DatatableAPIController;
 use App\Http\Controllers\api\VehicleCatalogAPI;
 use App\Http\Controllers\api\VehicleCategoryAPI;
 use App\Http\Controllers\api\VehicleInventoryAPI;
@@ -24,4 +25,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('vehicle_category', VehicleCategoryAPI::class);
 Route::resource('vehicle_category.catalog', VehicleCatalogAPI::class);
 Route::resource('vehicle_category.catalog.inventory', VehicleInventoryAPI::class);
+
+Route::resource('vehicle', VehicleInventoryAPI::class);
+
+Route::get('datatable/vehicle', [DatatableAPIController::class, 'vehicleInventory']);
+
+
 // Route::resource('vehicle_category.inventory', VehicleCatalogAPI::class);
