@@ -20,8 +20,6 @@ class VehicleInventoryAPI extends Controller
             }
         } else {
             $data = VehicleInventory::with(['vehicleCatalog', 'vehicleCatalog.vehicleCategory'])->get();
-
-
         }
 
         return $data;

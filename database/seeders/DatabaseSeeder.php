@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\ServiceCategory;
+use App\Models\ServiceVendor;
 use App\Models\User;
 use App\Models\VehicleCategory;
 use Illuminate\Database\Seeder;
@@ -69,6 +71,70 @@ class DatabaseSeeder extends Seeder
 
         VehicleCategory::create([
             'name' => 'STOK'
+        ]);
+
+        ServiceCategory::create([
+            'name' => 'PENGHAWA DINGIN'
+        ]);
+
+        ServiceCategory::create([
+            'name' => 'PEMBAIKAN MEKANIKAL DAN ELEKTRIKAL'
+        ]);
+
+        ServiceCategory::create([
+            'name' => '3M'
+        ]);
+
+        ServiceCategory::create([
+            'name' => 'TAYAR DAN BATERI'
+        ]);
+
+        ServiceCategory::create([
+            'name' => 'SERVIS BERKALA'
+        ]);
+
+        ServiceCategory::create([
+            'name' => 'JIT'
+        ]);
+
+        ServiceVendor::create([
+            'name' => 'Sam Hin Motors Enterprise Sdn. Bhd.'
+        ]);
+
+        ServiceVendor::create([
+            'name' => 'CMB Enterprise'
+        ]);
+
+        ServiceVendor::create([
+            'name' => 'Perkhidmatan Tayar Serantau Desa Sdn. Bhd.'
+        ]);
+
+        ServiceVendor::create([
+            'name' => 'COMMECTS (M) Sdn. Bhd'
+        ]);
+
+        ServiceVendor::create([
+            'name' => 'HAFA-X Auto Centers Sdn Bhd'
+        ]);
+
+        ServiceVendor::create([
+            'name' => 'ABD  Cahaya Enterprise'
+        ]);
+
+        ServiceVendor::create([
+            'name' => 'Noorfere Enterprise'
+        ]);
+
+        ServiceVendor::create([
+            'name' => 'Tan Chong Express Sdn. Bhd.'
+        ]);
+
+        ServiceVendor::create([
+            'name' => 'HIEWA AUTO GALLERY'
+        ]);
+
+        ServiceVendor::create([
+            'name' => 'Peringgit Auto Sdn. Bhd.'
         ]);
     }
 }

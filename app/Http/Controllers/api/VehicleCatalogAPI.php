@@ -11,9 +11,8 @@ use Illuminate\Validation\ValidationException;
 
 class VehicleCatalogAPI extends Controller
 {
-    public function index($vehicle_category, Request $request)
+    public function index(Request $request, $vehicle_category)
     {
-
         $catalog = VehicleCategory::find($vehicle_category)->vehicleCatalog()->get();
 
         $mappedSelect = $catalog->map(function ($item) {

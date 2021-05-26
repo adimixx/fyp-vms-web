@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServiceApplicationsTable extends Migration
+class CreateComplaintsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreateServiceApplicationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('service_applications', function (Blueprint $table) {
+        Schema::create('complaints', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
-            $table->integer('status');
-            $table->string('status_note')->nullable();
+            $table->unsignedBigInteger('vehicle_inventory_id');
+            $table->string('name');
+            $table->string('detail');
+            $table->json('media');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('vehicle_inventory_id')->references('id')->on('vehicle_inventories');
         });
     }
 
@@ -30,6 +33,6 @@ class CreateServiceApplicationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service_applications');
+        Schema::dropIfExists('complaints');
     }
 }

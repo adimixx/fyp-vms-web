@@ -19,13 +19,11 @@ class CreateServiceRequestsTable extends Migration
             $table->string('code');
             $table->unsignedBigInteger('vehicle_inventory_id');
             $table->unsignedBigInteger('service_category_id');
-            $table->unsignedBigInteger('service_application_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->integer('status');
             $table->string('status_note')->nullable();
             $table->foreign('vehicle_inventory_id')->references('id')->on('vehicle_inventories');
             $table->foreign('service_category_id')->references('id')->on('service_categories');
-            $table->foreign('service_application_id')->references('id')->on('service_applications');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

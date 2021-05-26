@@ -6,6 +6,12 @@
         <div>
             <h3 class="text-dark mb-0">Complaint Management</h3>
         </div>
+
+        <div class="d-grid gap-2 d-flex justify-content-end">
+            <a href="{{ route('complaint.create') }}" class="text-decoration-none">
+                <button class="btn btn-primary text-white"><i class="fas fa-plus"></i> New Complaint</button>
+            </a>
+        </div>
     </div>
 
 

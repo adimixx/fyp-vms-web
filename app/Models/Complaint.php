@@ -5,19 +5,23 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceVendor extends Model
+class Complaint extends Model
 {
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
+        'vehicle_inventory_id',
         'name',
-        'address',
-        'phone',
-        'email'
+        'detail',
+        'media'
     ];
 
     protected $hidden = [
         'created_at',
         'updated_at',
+        'user_id',
+        'vehicle_inventory_id',
     ];
+
 }

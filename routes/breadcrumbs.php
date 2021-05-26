@@ -33,3 +33,8 @@ Breadcrumbs::for('complaint.index', function (BreadcrumbTrail $trail) {
     $trail->push('Complaint Management', route('complaint.index'));
 });
 
+Breadcrumbs::for('complaint.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('complaint.index');
+    $trail->push('New Complaint', route('complaint.create'));
+});
+

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\api\DatatableAPIController;
+use App\Http\Controllers\api\MultiSelectAPIController;
 use App\Http\Controllers\api\VehicleCatalogAPI;
 use App\Http\Controllers\api\VehicleCategoryAPI;
 use App\Http\Controllers\api\VehicleInventoryAPI;
@@ -29,6 +30,9 @@ Route::resource('vehicle_category.catalog.inventory', VehicleInventoryAPI::class
 Route::resource('vehicle', VehicleInventoryAPI::class);
 
 Route::get('datatable/vehicle', [DatatableAPIController::class, 'vehicleInventory']);
+
+
+Route::get('multiselect/vehicle', [MultiSelectAPIController::class, 'vehicleInventory']);
 
 
 // Route::resource('vehicle_category.inventory', VehicleCatalogAPI::class);
