@@ -3,6 +3,8 @@
 - Laravel 8
 - [Laravel Permissions](https://spatie.be/docs/laravel-permission/v4/)
 - [Simple QR Code](https://www.simplesoftware.io/#/docs/simple-qrcode)
+- [Laravel Breadcrumbs](https://github.com/diglactic/laravel-breadcrumbs#switching-views-at-runtime)
+
 
 ## Front-end Stacks
 - Vue.js
