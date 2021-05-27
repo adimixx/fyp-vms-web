@@ -19,15 +19,13 @@ export default {
             table: {
                 columns: [
                     "reg_no",
-                    "vehicle_catalog.name",
-                    "vehicle_catalog.vehicle_category.name",
+                    "model",
+                    "type",
                     "actions"
                 ],
                 options: {
                     headings: {
-                        reg_no: "Plate Number",
-                        "vehicle_catalog.name": "Model",
-                        "vehicle_catalog.vehicle_category.name": "Type"
+                        reg_no: "Plate Number"
                     }
                 }
             }

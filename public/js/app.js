@@ -7654,12 +7654,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       table: {
-        columns: ["reg_no", "vehicle_catalog.name", "vehicle_catalog.vehicle_category.name", "actions"],
+        columns: ["reg_no", "model", "type", "actions"],
         options: {
           headings: {
-            reg_no: "Plate Number",
-            "vehicle_catalog.name": "Model",
-            "vehicle_catalog.vehicle_category.name": "Type"
+            reg_no: "Plate Number"
           }
         }
       }
@@ -7845,6 +7843,27 @@ Vue.use(vue_tables_2__WEBPACK_IMPORTED_MODULE_1__.ServerTable, {
     up: "fas fa-sort-up",
     down: "fas fa-sort-down",
     is: "glyphicon-sort"
+  },
+  requestFunction: function requestFunction(data) {
+    var param = {
+      ascending: data.ascending,
+      orderBy: data.orderBy,
+      query: data.query,
+      "page[number]": data.page,
+      "page[size]": data.limit
+    };
+    return axios.get(this.url, {
+      params: param
+    })["catch"](function (e) {
+      this.dispatch("error", e);
+    });
+  },
+  responseAdapter: function responseAdapter(resp) {
+    var data = this.getResponseData(resp);
+    return {
+      data: data.data,
+      count: data.total
+    };
   }
 }, false, "bootstrap4", {
   genericFilter: _components_vueTables_vtGenericFilter_vue__WEBPACK_IMPORTED_MODULE_2__.default,

@@ -15,6 +15,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "simplesoftwareio/simple-qrcode": "~4",
+        "spatie/laravel-json-api-paginate": "^1.10",
         "spatie/laravel-permission": "^4.0"
     },
     "require-dev": {
