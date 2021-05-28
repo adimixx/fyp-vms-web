@@ -20,14 +20,14 @@
             <h6 class="text-primary fw-bold m-0">Pending Complaint</h6>
         </div>
         <div class="card-body">
-            <vehicle-datatable></vehicle-datatable>
+            <complaint-pending-datatable route="{{ route('complaint.index') }}"></complaint-pending-datatable>
         </div>
     </div>
 
     <div class="shadow card"><a class="btn btn-link text-start card-header fw-bold text-decoration-none" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">Complaint History</a>
         <div class="collapse" id="collapse-1">
             <div class="card-body">
-                <vehicle-datatable></vehicle-datatable>
+                <vehicle-datatable route="{{ route('complaint.index') }}"></vehicle-datatable>
             </div>
         </div>
     </div>

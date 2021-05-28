@@ -39,16 +39,16 @@
                             type="text"
                             label="Title"
                             placeholder="Enter complaint name"
-                            name="name"
+                            name="title"
                             validation="required"
                         />
 
                         <FormulateInput
-                            type="text"
+                            type="textarea"
                             label="Description"
                             placeholder="Describe complain details"
-                            name="details"
-                            validation="required"
+                            name="description"
+                            validation="required|max:250,length"
                         />
 
                         <div class="d-grid gap-3 mt-4 mb-3">
@@ -79,11 +79,6 @@ export default {
         return {
             form: {
                 vehicle: null,
-                dateReceived: null,
-                regNo: null,
-                mileage: 0,
-                nextServiceMileage: null,
-                nextServiceDate: null
             },
             inputErrors: {}
         };
@@ -105,7 +100,7 @@ export default {
                 .post(link, data)
                 .then(res => {
                     if (res.status == 201) {
-                        window.location.href = "/vehicle?success=create";
+                        window.location.href = "/complaint?success=create";
                     }
                 })
                 .catch(err => {

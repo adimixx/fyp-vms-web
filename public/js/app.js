@@ -7123,12 +7123,7 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
   data: function data() {
     return {
       form: {
-        vehicle: null,
-        dateReceived: null,
-        regNo: null,
-        mileage: 0,
-        nextServiceMileage: null,
-        nextServiceDate: null
+        vehicle: null
       },
       inputErrors: {}
     };
@@ -7180,7 +7175,7 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
                 link = "/api/complaint";
                 axios.post(link, data).then(function (res) {
                   if (res.status == 201) {
-                    window.location.href = "/vehicle?success=create";
+                    window.location.href = "/complaint?success=create";
                   }
                 })["catch"](function (err) {
                   _this.inputErrors = err.response.data.errors;
@@ -7195,6 +7190,52 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
         }, _callee2);
       }))();
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/complaint/ComplaintPendingDatatable.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/complaint/ComplaintPendingDatatable.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      table: {
+        columns: ["name", "reg_no", "model", "status", "actions"],
+        options: {
+          headings: {
+            name: "Issue",
+            reg_no: "Plate Number"
+          }
+        }
+      }
+    };
+  },
+  props: {
+    route: String
   }
 });
 
@@ -33213,6 +33254,45 @@ component.options.__file = "resources/js/components/complaint/ComplaintCreate.vu
 
 /***/ }),
 
+/***/ "./resources/js/components/complaint/ComplaintPendingDatatable.vue":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/complaint/ComplaintPendingDatatable.vue ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ComplaintPendingDatatable_vue_vue_type_template_id_ecec5a4e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ComplaintPendingDatatable.vue?vue&type=template&id=ecec5a4e& */ "./resources/js/components/complaint/ComplaintPendingDatatable.vue?vue&type=template&id=ecec5a4e&");
+/* harmony import */ var _ComplaintPendingDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ComplaintPendingDatatable.vue?vue&type=script&lang=js& */ "./resources/js/components/complaint/ComplaintPendingDatatable.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _ComplaintPendingDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _ComplaintPendingDatatable_vue_vue_type_template_id_ecec5a4e___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ComplaintPendingDatatable_vue_vue_type_template_id_ecec5a4e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/complaint/ComplaintPendingDatatable.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/vehicle/VehicleCreate.vue":
 /*!***********************************************************!*\
   !*** ./resources/js/components/vehicle/VehicleCreate.vue ***!
@@ -33385,6 +33465,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/complaint/ComplaintPendingDatatable.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/js/components/complaint/ComplaintPendingDatatable.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ComplaintPendingDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ComplaintPendingDatatable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/complaint/ComplaintPendingDatatable.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ComplaintPendingDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/vehicle/VehicleCreate.vue?vue&type=script&lang=js&":
 /*!************************************************************************************!*\
   !*** ./resources/js/components/vehicle/VehicleCreate.vue?vue&type=script&lang=js& ***!
@@ -33462,6 +33558,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ComplaintCreate_vue_vue_type_template_id_01c4c270___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ComplaintCreate_vue_vue_type_template_id_01c4c270___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ComplaintCreate.vue?vue&type=template&id=01c4c270& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/complaint/ComplaintCreate.vue?vue&type=template&id=01c4c270&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/complaint/ComplaintPendingDatatable.vue?vue&type=template&id=ecec5a4e&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/components/complaint/ComplaintPendingDatatable.vue?vue&type=template&id=ecec5a4e& ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ComplaintPendingDatatable_vue_vue_type_template_id_ecec5a4e___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ComplaintPendingDatatable_vue_vue_type_template_id_ecec5a4e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ComplaintPendingDatatable_vue_vue_type_template_id_ecec5a4e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ComplaintPendingDatatable.vue?vue&type=template&id=ecec5a4e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/complaint/ComplaintPendingDatatable.vue?vue&type=template&id=ecec5a4e&");
 
 
 /***/ }),
@@ -33628,18 +33741,18 @@ var render = function() {
                             type: "text",
                             label: "Title",
                             placeholder: "Enter complaint name",
-                            name: "name",
+                            name: "title",
                             validation: "required"
                           }
                         }),
                         _vm._v(" "),
                         _c("FormulateInput", {
                           attrs: {
-                            type: "text",
+                            type: "textarea",
                             label: "Description",
                             placeholder: "Describe complain details",
-                            name: "details",
-                            validation: "required"
+                            name: "description",
+                            validation: "required|max:250,length"
                           }
                         }),
                         _vm._v(" "),
@@ -33666,6 +33779,54 @@ var render = function() {
       1
     )
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/complaint/ComplaintPendingDatatable.vue?vue&type=template&id=ecec5a4e&":
+/*!***********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/complaint/ComplaintPendingDatatable.vue?vue&type=template&id=ecec5a4e& ***!
+  \***********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("v-server-table", {
+    attrs: {
+      url: "/api/datatable/complaint-pending",
+      columns: _vm.table.columns,
+      options: _vm.table.options
+    },
+    scopedSlots: _vm._u([
+      {
+        key: "actions",
+        fn: function(props) {
+          return [
+            _c(
+              "a",
+              {
+                staticClass: "text-decoration-none",
+                attrs: { href: _vm.route + "/" + props.row.id }
+              },
+              [_c("i", { staticClass: "far fa-eye" })]
+            )
+          ]
+        }
+      }
+    ])
+  })
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -53940,6 +54101,7 @@ Vue.compile = compileToFunctions;
 
 var map = {
 	"./components/complaint/ComplaintCreate.vue": "./resources/js/components/complaint/ComplaintCreate.vue",
+	"./components/complaint/ComplaintPendingDatatable.vue": "./resources/js/components/complaint/ComplaintPendingDatatable.vue",
 	"./components/vehicle/VehicleCreate.vue": "./resources/js/components/vehicle/VehicleCreate.vue",
 	"./components/vehicle/VehicleDatatable.vue": "./resources/js/components/vehicle/VehicleDatatable.vue",
 	"./components/vueTables/vtGenericFilter.vue": "./resources/js/components/vueTables/vtGenericFilter.vue",

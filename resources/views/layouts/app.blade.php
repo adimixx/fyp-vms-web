@@ -101,7 +101,7 @@
                                 <li class="breadcrumb-item"><a href="#"><span>Library</span></a></li>
                                 <li class="breadcrumb-item"><a href="#"><span>Data</span></a></li>
                             </ol> --}}
-                            {{ Breadcrumbs::render(Request::route()->getName()) }}
+                            {{-- {{ Breadcrumbs::render(Request::route()->getName()) }} --}}
 
                         </li>
                     </ul>

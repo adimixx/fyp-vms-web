@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\ComplaintAPIController;
 use App\Http\Controllers\api\DatatableAPIController;
 use App\Http\Controllers\api\MultiSelectAPIController;
 use App\Http\Controllers\api\VehicleCatalogAPI;
@@ -28,8 +29,10 @@ Route::resource('vehicle_category.catalog', VehicleCatalogAPI::class);
 Route::resource('vehicle_category.catalog.inventory', VehicleInventoryAPI::class);
 
 Route::resource('vehicle', VehicleInventoryAPI::class);
+Route::resource('complaint', ComplaintAPIController::class);
 
 Route::get('datatable/vehicle', [DatatableAPIController::class, 'vehicleInventory']);
+Route::get('datatable/complaint-pending', [DatatableAPIController::class, 'complaintPending']);
 
 
 Route::get('multiselect/vehicle', [MultiSelectAPIController::class, 'vehicleInventory']);
