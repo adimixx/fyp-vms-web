@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateServiceRequestsTable extends Migration
+class CreateMaintenanceRequestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,24 @@ class CreateServiceRequestsTable extends Migration
      */
     public function up()
     {
-        Schema::create('service_requests', function (Blueprint $table) {
+        Schema::create('maintenance_requests', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->string('code');
             $table->unsignedBigInteger('vehicle_inventory_id');
-            $table->unsignedBigInteger('service_category_id');
+            $table->unsignedBigInteger('maintenance_category_id');
+            $table->unsignedBigInteger('maintenance_unit_id');
+            $table->unsignedBigInteger('complaint_id');
             $table->unsignedBigInteger('user_id');
-            $table->integer('status');
+            $table->string('name');
+            $table->string('detail');
+            $table->integer('status')->default(1);
             $table->string('status_note')->nullable();
             $table->foreign('vehicle_inventory_id')->references('id')->on('vehicle_inventories');
-            $table->foreign('service_category_id')->references('id')->on('service_categories');
+            $table->foreign('maintenance_category_id')->references('id')->on('maintenance_categories');
+            $table->foreign('maintenance_unit_id')->references('id')->on('maintenance_units');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('complaint_id')->references('id')->on('complaints');
         });
     }
 
@@ -35,6 +41,6 @@ class CreateServiceRequestsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('service_requests');
+        Schema::dropIfExists('maintenance_requests');
     }
 }

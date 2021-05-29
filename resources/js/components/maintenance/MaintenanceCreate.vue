@@ -1,0 +1,221 @@
+<template>
+    <div>
+        <div>
+            <FormulateForm
+                v-model="form"
+                @submit="submitForm"
+                :errors="inputErrors"
+            >
+                <FormulateInput
+                    :v-if="complaint != null"
+                    type="hidden"
+                    name="complaint"
+                    :value="complaint"
+                />
+
+                <!-- Dropdown select vehicle -->
+                <div class="mb-3">
+                    <label class="form-label">Vehicle</label>
+                    <Multiselect
+                        v-model="form.vehicle"
+                        placeholder="Choose Vehicle"
+                        noOptionsText="Vehicle does not exists"
+                        :filterResults="false"
+                        :minChars="0"
+                        :delay="0"
+                        :resolveOnLoad="true"
+                        :searchable="true"
+                        :options="
+                            this.complaintVehicleInventory == null
+                                ? loadVehicle
+                                : null
+                        "
+                        ref="vehicleSelect"
+                        :disabled="
+                            form.complaintVehicleInventory != null
+                                ? 'disabled'
+                                : ''
+                        "
+                    />
+                </div>
+                <FormulateInput
+                    type="hidden"
+                    name="vehicle"
+                    validationName="Vehicle"
+                    validation="required"
+                    help="Please choose vehicle"
+                    value="complaintVehicleInventory"
+                    v-show="form.vehicle == null"
+                />
+
+                <!-- Dropdown select maintenance type -->
+                <div class="mb-3">
+                    <label class="form-label">Maintenance Type</label>
+                    <Multiselect
+                        v-model="form.maintenanceType"
+                        placeholder="Choose Maintenance Type"
+                        noOptionsText="Maintenance Type does not exists"
+                        :filterResults="false"
+                        :minChars="0"
+                        :delay="0"
+                        :resolveOnLoad="true"
+                        :searchable="true"
+                        :options="loadMaintenanceType"
+                        ref="maintenanceTypeSelect"
+                    />
+                    <FormulateInput
+                        type="hidden"
+                        name="maintenanceType"
+                        validationName="Maintenance Type"
+                        validation="required"
+                        help="Please choose Maintenance Type"
+                        v-show="form.maintenanceType == null"
+                    />
+                </div>
+
+                <!-- Dropdown select maintenance unit -->
+                <div class="mb-3">
+                    <label class="form-label">Maintenance Unit</label>
+                    <Multiselect
+                        v-model="form.maintenanceUnit"
+                        placeholder="Choose Maintenance Unit"
+                        noOptionsText="Maintenance UNit does not exists"
+                        :filterResults="false"
+                        :minChars="0"
+                        :delay="0"
+                        :resolveOnLoad="true"
+                        :searchable="true"
+                        :options="loadMaintenanceUnit"
+                    />
+                    <FormulateInput
+                        type="hidden"
+                        name="maintenanceUnit"
+                        validationName="Maintenance Unit"
+                        validation="required"
+                        help="Please choose Maintenance Unit"
+                        v-show="form.maintenanceUnit == null"
+                    />
+                </div>
+
+                <transition
+                    enter-active-class="animate__animated animate__fadeIn animate__faster"
+                    leave-active-class="animate__animated animate__fadeOut animate__faster"
+                >
+                    <div v-if="form.vehicle != null">
+                        <FormulateInput
+                            type="text"
+                            label="Maintenance Title"
+                            placeholder="Enter Maintenance name"
+                            name="title"
+                            :value="complaintTitle"
+                            validation="required|max:50,length"
+                        />
+
+                        <FormulateInput
+                            type="textarea"
+                            label="Maintenance Description"
+                            placeholder="Describe Maintenance details"
+                            name="description"
+                            :value="complaintDescription"
+                            validation="required|max:250,length"
+                        />
+
+                        <div class="d-grid gap-3 mt-4 mb-3">
+                            <input
+                                type="submit"
+                                value="Save"
+                                class="btn btn-primary text-white"
+                                id="btn-submit"
+                            />
+                        </div>
+                    </div>
+                </transition>
+            </FormulateForm>
+        </div>
+    </div>
+</template>
+
+<script>
+import VueCompositionAPI from "@vue/composition-api";
+Vue.use(VueCompositionAPI);
+import Multiselect from "@vueform/multiselect/dist/multiselect.vue2.js";
+
+export default {
+    components: {
+        Multiselect
+    },
+    data() {
+        return {
+            form: {
+                vehicle: null
+            },
+            inputErrors: {}
+        };
+    },
+    props: {
+        complaintVehicleInventoryName: String,
+        complaintVehicleInventory: Number,
+        complaint: Number,
+        complaintTitle: String,
+        complaintDescription: String,
+
+    },
+    mounted() {
+        if (
+            this.complaintVehicleInventory != null &&
+            this.complaintVehicleInventoryName != null
+        ) {
+            this.$refs.vehicleSelect.select({
+                label: this.complaintVehicleInventoryName,
+                value: this.complaintVehicleInventory
+            });
+        }
+    },
+    methods: {
+        loadVehicle: async function(query) {
+            var link = `/api/multiselect/vehicle`;
+            if (query) {
+                link += `?search=${query}`;
+            }
+
+            var res = await axios.get(link);
+            return res.data;
+        },
+        async loadMaintenanceType(query) {
+            var link = `/api/multiselect/maintenance-type`;
+            if (query) {
+                link += `?search=${query}`;
+            }
+
+            var res = await axios.get(link);
+            return res.data;
+        },
+        async loadMaintenanceUnit(query) {
+            var link = `/api/multiselect/maintenance-unit`;
+            if (query) {
+                link += `?search=${query}`;
+            }
+
+            var res = await axios.get(link);
+            return res.data;
+        },
+        async submitForm(data) {
+            var link = `/api/maintenance-request`;
+
+            axios
+                .post(link, data)
+                .then(res => {
+                    if (res.status == 201) {
+                        window.location.href = "/maintenance?success=create";
+                    }
+                })
+                .catch(err => {
+                    this.inputErrors = err.response.data.errors;
+                    console.log(err.response.data);
+                });
+        }
+    }
+};
+</script>
+
+<style></style>

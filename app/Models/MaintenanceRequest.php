@@ -5,28 +5,30 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Complaint extends Model
+class MaintenanceRequest extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
+        'code',
         'vehicle_inventory_id',
+        'maintenance_category_id',
+        'maintenance_unit_id',
+        'complaint_id',
+        'user_id',
         'name',
         'detail',
-        'media'
+        'status',
+        'status_note'
     ];
 
     protected $hidden = [
         'created_at',
         'updated_at',
-        'user_id',
         'vehicle_inventory_id',
+        'maintenance_category_id',
+        'maintenance_unit_id',
+        'complaint_id',
+        'user_id',
     ];
-
-    public function vehicleInventory()
-    {
-        return $this->belongsTo(vehicleInventory::class);
-    }
-
 }

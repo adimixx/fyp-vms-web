@@ -26,8 +26,18 @@ class VehicleInventory extends Model
         'vehicle_catalog_id',
     ];
 
+    protected $appends = [
+        'reg_with_name'
+    ];
+
     public function vehicleCatalog()
     {
         return $this->belongsTo(VehicleCatalog::class);
     }
+
+    public function getRegWithNameAttribute()
+    {
+        return sprintf('%s - %s', $this->reg_no, $this->vehicleCatalog->name);
+    }
+
 }

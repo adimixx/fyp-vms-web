@@ -24,7 +24,10 @@
         </div>
     </div>
 
-    <div class="shadow card"><a class="btn btn-link text-start card-header fw-bold text-decoration-none" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">Complaint History</a>
+    <div class="shadow card">
+        <a class="btn btn-link text-start card-header fw-bold text-decoration-none" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">
+            Complaint History
+        </a>
         <div class="collapse" id="collapse-1">
             <div class="card-body">
                 <vehicle-datatable route="{{ route('complaint.index') }}"></vehicle-datatable>

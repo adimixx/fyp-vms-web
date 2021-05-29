@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use App\Models\ServiceCategory;
-use App\Models\ServiceVendor;
+use App\Models\MaintenanceCategory;
+use App\Models\MaintenanceUnit;
+use App\Models\MaintenanceVendor;
 use App\Models\User;
 use App\Models\VehicleCategory;
 use Illuminate\Database\Seeder;
@@ -73,68 +74,83 @@ class DatabaseSeeder extends Seeder
             'name' => 'STOK'
         ]);
 
-        ServiceCategory::create([
+        MaintenanceCategory::create([
             'name' => 'PENGHAWA DINGIN'
         ]);
 
-        ServiceCategory::create([
+        MaintenanceCategory::create([
             'name' => 'PEMBAIKAN MEKANIKAL DAN ELEKTRIKAL'
         ]);
 
-        ServiceCategory::create([
+        MaintenanceCategory::create([
             'name' => '3M'
         ]);
 
-        ServiceCategory::create([
+        MaintenanceCategory::create([
             'name' => 'TAYAR DAN BATERI'
         ]);
 
-        ServiceCategory::create([
+        MaintenanceCategory::create([
             'name' => 'SERVIS BERKALA'
         ]);
 
-        ServiceCategory::create([
+        MaintenanceCategory::create([
             'name' => 'JIT'
         ]);
 
-        ServiceVendor::create([
+        MaintenanceVendor::create([
             'name' => 'Sam Hin Motors Enterprise Sdn. Bhd.'
         ]);
 
-        ServiceVendor::create([
+        MaintenanceVendor::create([
             'name' => 'CMB Enterprise'
         ]);
 
-        ServiceVendor::create([
+        MaintenanceVendor::create([
             'name' => 'Perkhidmatan Tayar Serantau Desa Sdn. Bhd.'
         ]);
 
-        ServiceVendor::create([
+        MaintenanceVendor::create([
             'name' => 'COMMECTS (M) Sdn. Bhd'
         ]);
 
-        ServiceVendor::create([
+        MaintenanceVendor::create([
             'name' => 'HAFA-X Auto Centers Sdn Bhd'
         ]);
 
-        ServiceVendor::create([
+        MaintenanceVendor::create([
             'name' => 'ABD  Cahaya Enterprise'
         ]);
 
-        ServiceVendor::create([
+        MaintenanceVendor::create([
             'name' => 'Noorfere Enterprise'
         ]);
 
-        ServiceVendor::create([
+        MaintenanceVendor::create([
             'name' => 'Tan Chong Express Sdn. Bhd.'
         ]);
 
-        ServiceVendor::create([
+        MaintenanceVendor::create([
             'name' => 'HIEWA AUTO GALLERY'
         ]);
 
-        ServiceVendor::create([
+        MaintenanceVendor::create([
             'name' => 'Peringgit Auto Sdn. Bhd.'
+        ]);
+
+        MaintenanceUnit::create([
+            'name' => 'UNIT BAS DAN LORI',
+            'code' => 'UBL'
+        ]);
+
+        MaintenanceUnit::create([
+            'name' => 'UNIT KERETA DAN VAN',
+            'code' => 'UKV'
+        ]);
+
+        MaintenanceUnit::create([
+            'name' => 'UNIT MOTOR DAN PEMBAIKAN UMUM',
+            'code' => 'UMM'
         ]);
     }
 }

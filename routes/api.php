@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\ComplaintAPIController;
 use App\Http\Controllers\api\DatatableAPIController;
+use App\Http\Controllers\api\MaintenanceRequestAPIController;
 use App\Http\Controllers\api\MultiSelectAPIController;
 use App\Http\Controllers\api\VehicleCatalogAPI;
 use App\Http\Controllers\api\VehicleCategoryAPI;
@@ -30,12 +31,15 @@ Route::resource('vehicle_category.catalog.inventory', VehicleInventoryAPI::class
 
 Route::resource('vehicle', VehicleInventoryAPI::class);
 Route::resource('complaint', ComplaintAPIController::class);
+Route::resource('maintenance-request', MaintenanceRequestAPIController::class);
 
 Route::get('datatable/vehicle', [DatatableAPIController::class, 'vehicleInventory']);
 Route::get('datatable/complaint-pending', [DatatableAPIController::class, 'complaintPending']);
 
 
 Route::get('multiselect/vehicle', [MultiSelectAPIController::class, 'vehicleInventory']);
+Route::get('multiselect/maintenance-type', [MultiSelectAPIController::class, 'maintenanceType']);
+Route::get('multiselect/maintenance-unit', [MultiSelectAPIController::class, 'maintenanceUnit']);
 
 
 // Route::resource('vehicle_category.inventory', VehicleCatalogAPI::class);

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\MaintenanceCategory;
+use App\Models\MaintenanceUnit;
 use App\Models\VehicleInventory;
 use Illuminate\Http\Request;
 
@@ -19,7 +21,39 @@ class MultiSelectAPIController extends Controller
         return $data->map(function ($item) {
             return [
                 'value' => $item->id,
-                'label' =>  sprintf('%s - %s', $item->reg_no, $item->vehicleCatalog->name)
+                'label' => $item->reg_with_name
+            ];
+        });
+    }
+
+    public function maintenanceType(Request $request)
+    {
+        $data = MaintenanceCategory::all();
+
+        if ($request->input('search')){
+            $data = $data->where('name', 'LIKE', sprintf('%% %s %%', $request->input("search")));
+        }
+
+        return $data->map(function ($item) {
+            return [
+                'value' => $item->id,
+                'label' => $item->name
+            ];
+        });
+    }
+
+    public function maintenanceUnit(Request $request)
+    {
+        $data = MaintenanceUnit::all();
+
+        if ($request->input('search')){
+            $data = $data->where('name', 'LIKE', sprintf('%% %s %%', $request->input("search")));
+        }
+
+        return $data->map(function ($item) {
+            return [
+                'value' => $item->id,
+                'label' => $item->code_name
             ];
         });
     }
