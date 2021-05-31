@@ -8,6 +8,7 @@ use App\Models\MaintenanceVendor;
 use App\Models\User;
 use App\Models\VehicleCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
@@ -23,17 +24,17 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
 
         Role::create([
-            'name'=>'admin'
+            'name' => 'admin'
         ]);
 
         Role::create([
-            'name'=>'staff'
+            'name' => 'staff'
         ]);
 
         $admin = User::create([
-            'name'=>'Admin',
-            'email'=>'admin@vms.psm',
-            'password'=> Hash::make('admin')
+            'name' => 'Admin',
+            'email' => 'admin@vms.psm',
+            'password' => Hash::make('admin')
         ]);
 
         $admin->assignRole('admin');
@@ -152,5 +153,10 @@ class DatabaseSeeder extends Seeder
             'name' => 'UNIT MOTOR DAN PEMBAIKAN UMUM',
             'code' => 'UMM'
         ]);
+
+        // Execute SQL Script Import
+        $sqlPath = 'database/scripts/script_1.sql';
+        DB::unprepared(file_get_contents($sqlPath));
+        $this->command->info('SQL Script (1) Executed');
     }
 }

@@ -83,6 +83,9 @@ export default {
             inputErrors: {}
         };
     },
+    props:{
+        submitLink: String
+    },
     methods: {
         loadVehicle: async function(query) {
             var link = `/api/multiselect/vehicle`;
@@ -94,10 +97,8 @@ export default {
             return res.data;
         },
         async submitForm(data) {
-            var link = `/api/complaint`;
-
             axios
-                .post(link, data)
+                .post(this.submitLink, data)
                 .then(res => {
                     if (res.status == 201) {
                         window.location.href = "/complaint?success=create";

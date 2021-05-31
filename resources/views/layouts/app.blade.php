@@ -70,6 +70,11 @@
                       ><i class="fas fa-comments"></i><span>Complaints</span></a
                     >
                   </li>
+                  <li class="nav-item {{ request()->routeIs('maintenance.*') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('maintenance.index') }}"
+                      ><i class="fas fa-wrench"></i><span>Maintenance</span></a
+                    >
+                  </li>
                 </ul>
                 <div class="text-center d-none d-md-inline">
                   <button

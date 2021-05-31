@@ -23,6 +23,8 @@
                     complaint-description="{{ $complaint->detail }}"
                     :complaint-vehicle-inventory="{{ $complaint->vehicleInventory->id }}"
                     complaint-vehicle-inventory-name="{{ $complaint->vehicleInventory->reg_with_name }}"
+                    submit-link="{{ route('api.data.maintenance-request.store') }}"
+                    prefix-redirect-link="{{ route('maintenance.index') }}"
                     @endisset></maintenance-create>
                 </div>
             </div>

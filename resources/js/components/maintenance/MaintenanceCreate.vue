@@ -10,7 +10,6 @@
                     :v-if="complaint != null"
                     type="hidden"
                     name="complaint"
-                    :value="complaint"
                 />
 
                 <!-- Dropdown select vehicle -->
@@ -86,6 +85,7 @@
                         :resolveOnLoad="true"
                         :searchable="true"
                         :options="loadMaintenanceUnit"
+                        ref="maintenanceUnitSelect"
                     />
                     <FormulateInput
                         type="hidden"
@@ -158,9 +158,20 @@ export default {
         complaint: Number,
         complaintTitle: String,
         complaintDescription: String,
-
+        submitLink: String,
+        prefixRedirectLink: String,
+        maintenanceType: Number,
+        maintenanceTypeName: String,
+        maintenanceUnit: Number,
+        maintenanceUnitName: String,
+        isUpdate: false,
+        maintenanceId: 0
     },
     mounted() {
+        if (this.complaint != null) {
+            this.form.complaint = this.complaint;
+        }
+
         if (
             this.complaintVehicleInventory != null &&
             this.complaintVehicleInventoryName != null
@@ -169,6 +180,24 @@ export default {
                 label: this.complaintVehicleInventoryName,
                 value: this.complaintVehicleInventory
             });
+        }
+
+        if (this.maintenanceType != null && this.maintenanceTypeName != null) {
+            this.$refs.maintenanceTypeSelect.select({
+                label: this.maintenanceTypeName,
+                value: this.maintenanceType
+            });
+        }
+
+        if (this.maintenanceUnit != null && this.maintenanceUnitName != null) {
+            this.$refs.maintenanceUnitSelect.select({
+                label: this.maintenanceUnitName,
+                value: this.maintenanceUnit
+            });
+        }
+
+        if (this.maintenanceId != 0) {
+            this.form.id = this.maintenanceId;
         }
     },
     methods: {
@@ -200,16 +229,21 @@ export default {
             return res.data;
         },
         async submitForm(data) {
-            var link = `/api/maintenance-request`;
-
             axios
-                .post(link, data)
+                .post(this.submitLink, data)
                 .then(res => {
                     if (res.status == 201) {
-                        window.location.href = "/maintenance?success=create";
+                        //created
+                        window.location.href = `${this.prefixRedirectLink}/${res.data.id}/edit`;
+                    } else if (res.status == 200) {
+                        //updated
+                        console.log("updated");
+
+                        this.$emit('activate-alert','Success!','Maintenance Information have been successfully saved.','success');
                     }
                 })
                 .catch(err => {
+                    console.log(err);
                     this.inputErrors = err.response.data.errors;
                     console.log(err.response.data);
                 });

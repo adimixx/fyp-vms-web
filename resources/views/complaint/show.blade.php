@@ -13,28 +13,31 @@
                 </div>
 
                 <div class="mb-2">
-                    <p class="text-dark">On Vehicle : <span class="fw-bold">{{ sprintf("%s - %s",$complaint->vehicleInventory->reg_no, $complaint->vehicleInventory->vehicleCatalog->name) }}</span> </p>
+                    <p class="text-dark">On Vehicle : <span
+                            class="fw-bold">{{ sprintf('%s - %s', $complaint->vehicleInventory->reg_no, $complaint->vehicleInventory->vehicleCatalog->name) }}</span>
+                    </p>
                 </div>
 
                 <div class="mb-4">
-                   @if ($complaint->status == 1)
-                   <span class="badge bg-warning text-dark">PENDING</span>
-                   @endif
-                   @if ($complaint->status == 0)
-                   <span class="badge bg-danger">DISMISSED</span>
-                   @endif
-                   @if ($complaint->status == 2)
-                   <span class="badge bg-info">PENDING MAINTENANCE</span>
-                   @endif
-                   @if ($complaint->status == 3)
-                   <span class="badge bg-success">RESOLVED</span>
-                   @endif
+                    @if ($complaint->status == 1)
+                    <span class="badge bg-warning text-dark">PENDING</span>
+                    @endif
+                    @if ($complaint->status == 0)
+                    <span class="badge bg-danger">DISMISSED</span>
+                    @endif
+                    @if ($complaint->status == 2)
+                    <span class="badge bg-info">PENDING MAINTENANCE</span>
+                    @endif
+                    @if ($complaint->status == 3)
+                    <span class="badge bg-success">RESOLVED</span>
+                    @endif
                 </div>
 
                 <div class="row mt-3 mb-4">
                     <div class="col-12">
                         <div class="mb-2">
-                            <p class="text-secondary mb-0">Complaint Description : </p><span class="text-uppercase text-dark fw-bold">{{ $complaint->detail }} KM</span>
+                            <p class="text-secondary mb-0">Complaint Description : </p><span
+                                class="text-uppercase text-dark fw-bold">{{ $complaint->detail }} KM</span>
                         </div>
                     </div>
                     <div class="col-12">
@@ -42,11 +45,13 @@
                     </div>
                 </div>
 
+                @if ($complaint->status == 1)
                 <div>
                     <a href="{{ route('complaint.maintenance.create', $complaint->id) }}" class="text-decoration-none">
                         <button class="btn btn-primary">Resolve Issue</button>
                     </a>
                 </div>
+                @endif
             </div>
         </div>
     </div>

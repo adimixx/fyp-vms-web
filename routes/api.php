@@ -25,16 +25,29 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('vehicle_category', VehicleCategoryAPI::class);
-Route::resource('vehicle_category.catalog', VehicleCatalogAPI::class);
-Route::resource('vehicle_category.catalog.inventory', VehicleInventoryAPI::class);
+Route::name('api.data.')->group(function () {
+    Route::resource('vehicle_category', VehicleCategoryAPI::class);
+    Route::resource('vehicle_category.catalog', VehicleCatalogAPI::class);
+    Route::resource('vehicle_category.catalog.inventory', VehicleInventoryAPI::class);
 
-Route::resource('vehicle', VehicleInventoryAPI::class);
-Route::resource('complaint', ComplaintAPIController::class);
-Route::resource('maintenance-request', MaintenanceRequestAPIController::class);
+    Route::resource('vehicle', VehicleInventoryAPI::class);
+    Route::resource('complaint', ComplaintAPIController::class);
+    Route::resource('maintenance-request', MaintenanceRequestAPIController::class);
+});
 
-Route::get('datatable/vehicle', [DatatableAPIController::class, 'vehicleInventory']);
-Route::get('datatable/complaint-pending', [DatatableAPIController::class, 'complaintPending']);
+Route::prefix('datatable')->name('api.datatable.')->group(function () {
+    Route::get('vehicle', [DatatableAPIController::class, 'vehicleInventory']);
+    Route::get('complaint-pending', [DatatableAPIController::class, 'complaintPending'])->name('complaint.pending');
+    Route::get('complaint-history', [DatatableAPIController::class, 'complaintHistory'])->name('complaint.history');
+    Route::get('maintenance-pending', [DatatableAPIController::class, 'maintenancePending'])->name('maintenance.pending');
+    Route::get('maintenance-history', [DatatableAPIController::class, 'maintenanceHistory'])->name('maintenance.history');
+    Route::get('maintenance/{maintenance_request}/quotation', [DatatableAPIController::class, 'maintenanceQuotation'])->name('maintenance.quotation');
+});
+
+
+
+
+
 
 
 Route::get('multiselect/vehicle', [MultiSelectAPIController::class, 'vehicleInventory']);

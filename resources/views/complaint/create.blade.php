@@ -13,7 +13,7 @@
 
     <div class="card shadow">
         <div class="card-body">
-            <complaint-create></complaint-create>
+            <complaint-create submit-link="{{ route('api.data.complaint.store') }}"></complaint-create>
         </div>
     </div>
 </div>

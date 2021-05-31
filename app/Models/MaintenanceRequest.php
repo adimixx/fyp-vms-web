@@ -31,4 +31,24 @@ class MaintenanceRequest extends Model
         'complaint_id',
         'user_id',
     ];
+
+    public function vehicleInventory()
+    {
+        return $this->belongsTo(VehicleInventory::class);
+    }
+
+    public function maintenanceCategory()
+    {
+        return $this->belongsTo(MaintenanceCategory::class);
+    }
+
+    public function maintenanceUnit()
+    {
+        return $this->belongsTo(MaintenanceUnit::class);
+    }
+
+    public function complaint()
+    {
+        return $this->belongsTo(Complaint::class);
+    }
 }

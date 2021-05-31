@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Complaint;
 use App\Models\MaintenanceRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -12,6 +13,7 @@ class MaintenanceRequestAPIController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'id' => 'numeric|exists:maintenance_requests,id',
             'complaint' => 'numeric|exists:complaints,id',
             'vehicle' => 'required|numeric|exists:vehicle_inventories,id',
             'maintenanceType' => 'required|numeric|exists:maintenance_categories,id',
@@ -32,11 +34,26 @@ class MaintenanceRequestAPIController extends Controller
             'status' => 1
         ];
 
-        if ($request->has('complaint')) {
-            $data['complaint_id'] = $request->complaint;
+        // Update Maintenance
+        if ($request->has('id')){
+            $maintenanceRequest = MaintenanceRequest::find($request->input('id'));
+            $maintenanceRequest->update($data);
+        }
+        // New Maintenance
+        else {
+            if ($request->has('complaint')) {
+                $data['complaint_id'] = $request->complaint;
+                $complaint = Complaint::find($request->complaint);
+            }
+
+            $maintenanceRequest = MaintenanceRequest::create($data);
+
+            if (isset($complaint)){
+                $complaint->status = 2;
+                $complaint->save();
+            }
         }
 
-        $maintenanceRequest = MaintenanceRequest::create($data);
 
         return $maintenanceRequest;
     }

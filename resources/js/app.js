@@ -114,7 +114,22 @@ Vue.use(
 
 const app = new Vue({
     el: "#app",
-    mounted() {
-        // console.log(Vue.options.components);
+    data() {
+        return {
+            alert: {
+                msg: null,
+                boldMsg: null,
+                classColor: null,
+                date: null
+            }
+        }
+    },
+    methods: {
+        activateAlert(boldMsg, msg, classColor) {
+            this.alert.msg = msg;
+            this.alert.boldMsg = boldMsg;
+            this.alert.classColor = classColor;
+            this.alert.date = Date.now();
+        }
     }
 });
