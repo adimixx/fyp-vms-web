@@ -44,15 +44,20 @@ Route::prefix('datatable')->name('api.datatable.')->group(function () {
     Route::get('maintenance/{maintenance_request}/quotation', [DatatableAPIController::class, 'maintenanceQuotation'])->name('maintenance.quotation');
 });
 
+Route::prefix('multiselect')->name('api.select.')->group(function () {
+    Route::get('vehicle', [MultiSelectAPIController::class, 'vehicleInventory']);
+    Route::get('maintenance-type', [MultiSelectAPIController::class, 'maintenanceType']);
+    Route::get('maintenance-unit', [MultiSelectAPIController::class, 'maintenanceUnit']);
+    Route::get('vendor', [MultiSelectAPIController::class, 'vendor'])->name('vendor');
+    Route::get('status/{model}', [MultiSelectAPIController::class, 'status'])->name('status');
+});
 
 
 
 
 
 
-Route::get('multiselect/vehicle', [MultiSelectAPIController::class, 'vehicleInventory']);
-Route::get('multiselect/maintenance-type', [MultiSelectAPIController::class, 'maintenanceType']);
-Route::get('multiselect/maintenance-unit', [MultiSelectAPIController::class, 'maintenanceUnit']);
+
 
 
 // Route::resource('vehicle_category.inventory', VehicleCatalogAPI::class);

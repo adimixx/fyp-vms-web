@@ -3,6 +3,7 @@
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\VehicleController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,7 +25,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('vehicle', VehicleController::class);
-Route::resource('complaint', ComplaintController::class);
-Route::resource('complaint.maintenance', MaintenanceController::class)->only(['create']);
-Route::resource('maintenance', MaintenanceController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::resource('vehicle', VehicleController::class);
+    Route::resource('complaint', ComplaintController::class);
+    Route::resource('complaint.maintenance', MaintenanceController::class)->only(['create']);
+    Route::resource('maintenance', MaintenanceController::class);
+});

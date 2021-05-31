@@ -47,7 +47,8 @@ Vue.use(VueFormulate, {
         input: "form-control",
         inputHasErrors: "is-invalid",
         errors: "text-danger list-unstyled mt-2",
-        help: "form-text"
+        help: "form-text",
+        groupRepeatable: "row",
     },
     // locales: {
     //     en: {

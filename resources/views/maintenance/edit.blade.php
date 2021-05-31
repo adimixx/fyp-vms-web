@@ -75,7 +75,8 @@
         @endisset
 
         <div class="col-12">
-            <maintenance-quotation-datatable route="{{ route('maintenance.index') }}" api-url="{{ route('api.datatable.maintenance.history') }}"></maintenance-quotation-datatable>
+            <maintenance-quotation-edit datatable-api-url="{{ route('api.datatable.maintenance.history') }}" vendor-select-url="{{ route('api.select.vendor') }}" status-quotation-select-url="{{ route('api.select.status', 1) }}"></maintenance-quotation-edit>
+
         </div>
     </div>
 </div>
