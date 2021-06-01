@@ -7783,6 +7783,64 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: {
+    datatableApiUrl: String,
+    vendorSelectUrl: String,
+    statusQuotationSelectUrl: String
+  },
+  data: function data() {
+    return {
+      showFormModal: false
+    };
+  },
+  methods: {
+    onNewQuotation: function onNewQuotation() {
+      this.showFormModal = true;
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _vue_composition_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue/composition-api */ "./node_modules/@vue/composition-api/dist/vue-composition-api.esm.js");
@@ -7991,20 +8049,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
 
@@ -8013,34 +8057,60 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
   components: {
     Multiselect: _vueform_multiselect_dist_multiselect_vue2_js__WEBPACK_IMPORTED_MODULE_2__.default
   },
-  props: {
-    datatableApiUrl: String,
-    vendorSelectUrl: String,
-    statusQuotationSelectUrl: String
-  },
   data: function data() {
     return {
-      modalQuotationModal: null,
-      quotationModalContent: {
-        title: null
-      },
-      quotationForm: {}
+      modal: null,
+      title: "",
+      form: {
+        vendor: "",
+        status: "",
+        particulars: []
+      }
     };
+  },
+  props: {
+    showModal: Boolean,
+    data: Object,
+    statusQuotationSelectUrl: String,
+    vendorSelectUrl: String
   },
   mounted: function mounted() {
     this.modalQuotationModal = new bootstrap__WEBPACK_IMPORTED_MODULE_3__.Modal(document.getElementById("modalQuotationModal"), {
       keyboard: false,
       backdrop: "static"
     });
+    this.modalQuotationModal.show();
+  },
+  watch: {
+    showModal: function showModal(val) {
+      if (val) {
+        this.modalQuotationModal.show();
+      } else this.modalQuotationModal.hide();
+    }
+  },
+  computed: {
+    subtotalQuotation: function subtotalQuotation() {
+      var sum = this.form.particulars.map(function (x) {
+        if (isNaN(x.price)) {
+          return 0;
+        }
+
+        return (Number(x.price) * (isNaN(x.quantity) ? 1 : x.quantity)).toFixed(2);
+      }).reduce(function (y, z) {
+        return Number(y) + Number(z);
+      }, 0);
+
+      if (isNaN(sum)) {
+        return "-";
+      }
+
+      return "RM" + Number(sum).toFixed(2);
+    }
   },
   methods: {
-    onNewQuotation: function onNewQuotation() {
-      this.modalQuotationModal.show();
-      this.quotationModalContent.title = "New Quotation";
-    },
-    onSubmitQuotation: function onSubmitQuotation() {},
     onDismissModal: function onDismissModal() {
       this.modalQuotationModal.hide();
+      this.$emit("dismiss-modal");
     },
     loadVendorList: function loadVendorList(query) {
       var _this = this;
@@ -8096,6 +8166,26 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
           }
         }, _callee2);
       }))();
+    },
+    calculateSubtotal: function calculateSubtotal(obj) {
+      var price = null;
+
+      if (obj) {
+        if (obj.price && Number(obj.price) > 0) {
+          price = Number(obj.price);
+
+          if (obj.quantity && Number(obj.quantity) > 0) {
+            price *= Number(obj.quantity);
+          }
+
+          return "RM" + price.toFixed(2);
+        }
+      }
+
+      return null;
+    },
+    onSubmit: function onSubmit(data) {
+      console.log(data);
     }
   }
 });
@@ -8676,6 +8766,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_tables_2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_tables_2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_vueTables_vtGenericFilter_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/vueTables/vtGenericFilter.vue */ "./resources/js/components/vueTables/vtGenericFilter.vue");
 /* harmony import */ var _components_vueTables_vtPerPageSelector_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/vueTables/vtPerPageSelector.vue */ "./resources/js/components/vueTables/vtPerPageSelector.vue");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -8731,7 +8823,21 @@ Vue.use(_braid_vue_formulate__WEBPACK_IMPORTED_MODULE_0__.default, {
   //         }
   //     }
   // },
-  validationNameStrategy: ["validationName", "label", "name", "type"]
+  validationNameStrategy: ["validationName", "label", "name", "type"],
+  rules: {
+    requiredIf: function requiredIf(context, formKey, formValue) {
+      console.log(context.value);
+
+      if (context.getFormValues()[formKey] == formValue) {
+        if (_typeof(context.value) == Array && context.value.length == 0) {
+          console.log('false');
+          return false;
+        }
+      }
+
+      return true;
+    }
+  }
 });
  // Vue.use(ClientTable, [options = {}], [useVuex = false], [theme = 'bootstrap4'], [swappables = {}]);
 // Vue.use(ServerTable, [options = {}], [useVuex = false], [theme = 'bootstrap4'], [swappables = {}]);
@@ -34366,6 +34472,45 @@ component.options.__file = "resources/js/components/maintenance/MaintenanceQuota
 
 /***/ }),
 
+/***/ "./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _MaintenanceQuotationFormModal_vue_vue_type_template_id_306c699c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MaintenanceQuotationFormModal.vue?vue&type=template&id=306c699c& */ "./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue?vue&type=template&id=306c699c&");
+/* harmony import */ var _MaintenanceQuotationFormModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MaintenanceQuotationFormModal.vue?vue&type=script&lang=js& */ "./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _MaintenanceQuotationFormModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _MaintenanceQuotationFormModal_vue_vue_type_template_id_306c699c___WEBPACK_IMPORTED_MODULE_0__.render,
+  _MaintenanceQuotationFormModal_vue_vue_type_template_id_306c699c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/vehicle/VehicleCreate.vue":
 /*!***********************************************************!*\
   !*** ./resources/js/components/vehicle/VehicleCreate.vue ***!
@@ -34634,6 +34779,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationFormModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceQuotationFormModal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationFormModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/vehicle/VehicleCreate.vue?vue&type=script&lang=js&":
 /*!************************************************************************************!*\
   !*** ./resources/js/components/vehicle/VehicleCreate.vue?vue&type=script&lang=js& ***!
@@ -34813,6 +34974,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationEdit_vue_vue_type_template_id_4132b44a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationEdit_vue_vue_type_template_id_4132b44a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceQuotationEdit.vue?vue&type=template&id=4132b44a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceQuotationEdit.vue?vue&type=template&id=4132b44a&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue?vue&type=template&id=306c699c&":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue?vue&type=template&id=306c699c& ***!
+  \*******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationFormModal_vue_vue_type_template_id_306c699c___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationFormModal_vue_vue_type_template_id_306c699c___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationFormModal_vue_vue_type_template_id_306c699c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceQuotationFormModal.vue?vue&type=template&id=306c699c& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue?vue&type=template&id=306c699c&");
 
 
 /***/ }),
@@ -35571,256 +35749,325 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "card shadow mb-4" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "card-header fw-bold text-primary d-flex justify-content-between"
-        },
-        [
-          _c("span", [_vm._v("Quotation")]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-secondary",
-              on: { click: _vm.onNewQuotation }
-            },
-            [
-              _c("i", { staticClass: "fas fa-money-check-alt" }),
-              _vm._v(" New Quotation\n            ")
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "card-body" },
-        [
-          _c("maintenance-quotation-datatable", {
-            attrs: { "api-url": _vm.datatableApiUrl }
-          })
-        ],
-        1
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "modal fade",
-        attrs: {
-          id: "modalQuotationModal",
-          tabindex: "-1",
-          "aria-hidden": "true"
-        }
-      },
-      [
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "card shadow mb-4" }, [
         _c(
           "div",
-          { staticClass: "modal-dialog modal-xl modal-fullscreen-md-down" },
+          {
+            staticClass:
+              "card-header fw-bold text-primary d-flex justify-content-between"
+          },
           [
-            _c("div", { staticClass: "modal-content" }, [
-              _c("div", { staticClass: "modal-header" }, [
-                _c("h5", { staticClass: "modal-title" }, [
-                  _vm._v(
-                    "\n                        " +
-                      _vm._s(_vm.quotationModalContent.title) +
-                      "\n                    "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "modal-body" },
-                [
-                  _c(
-                    "FormulateForm",
-                    {
-                      on: { submit: _vm.onSubmitQuotation },
-                      model: {
-                        value: _vm.quotationForm,
-                        callback: function($$v) {
-                          _vm.quotationForm = $$v
-                        },
-                        expression: "quotationForm"
-                      }
-                    },
-                    [
-                      _c(
-                        "div",
-                        { staticClass: "mb-3" },
-                        [
-                          _c("label", { staticClass: "form-label" }, [
-                            _vm._v("Vendor")
-                          ]),
-                          _vm._v(" "),
-                          _c("Multiselect", {
-                            ref: "quotationSelect",
-                            attrs: {
-                              options: _vm.loadVendorList,
-                              noOptionsText:
-                                "Vendor is not registered. Please register vendor",
-                              filterResults: false,
-                              minChars: 0,
-                              delay: 0,
-                              resolveOnLoad: true,
-                              searchable: true
+            _c("span", [_vm._v("Quotation")]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                on: { click: _vm.onNewQuotation }
+              },
+              [
+                _c("i", { staticClass: "fas fa-money-check-alt" }),
+                _vm._v(" New Quotation\n            ")
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "card-body" },
+          [
+            _c("maintenance-quotation-datatable", {
+              attrs: { "api-url": _vm.datatableApiUrl }
+            })
+          ],
+          1
+        )
+      ]),
+      _vm._v(" "),
+      _vm.showFormModal == true
+        ? _c("maintenance-quotation-form-modal", {
+            attrs: {
+              "vendor-select-url": _vm.vendorSelectUrl,
+              "status-quotation-select-url": _vm.statusQuotationSelectUrl,
+              "show-modal": _vm.showFormModal
+            },
+            on: {
+              "dismiss-modal": function($event) {
+                _vm.showFormModal = false
+              }
+            }
+          })
+        : _vm._e()
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue?vue&type=template&id=306c699c&":
+/*!**********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue?vue&type=template&id=306c699c& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "modal fade",
+      attrs: {
+        id: "modalQuotationModal",
+        tabindex: "-1",
+        "aria-hidden": "true"
+      }
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "modal-dialog modal-xl modal-fullscreen-md-down" },
+        [
+          _c("div", { staticClass: "modal-content" }, [
+            _c("div", { staticClass: "modal-header" }, [
+              _c("h5", { staticClass: "modal-title" }, [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(_vm.title) +
+                    "\n                "
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "modal-body" },
+              [
+                _c(
+                  "FormulateForm",
+                  {
+                    on: { submit: _vm.onSubmit },
+                    model: {
+                      value: _vm.form,
+                      callback: function($$v) {
+                        _vm.form = $$v
+                      },
+                      expression: "form"
+                    }
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "mb-3" },
+                      [
+                        _c("label", { staticClass: "form-label" }, [
+                          _vm._v("Vendor")
+                        ]),
+                        _vm._v(" "),
+                        _c("Multiselect", {
+                          ref: "quotationSelect",
+                          attrs: {
+                            options: _vm.loadVendorList,
+                            noOptionsText:
+                              "Vendor is not registered. Please register vendor",
+                            filterResults: false,
+                            minChars: 0,
+                            delay: 0,
+                            resolveOnLoad: true,
+                            searchable: true
+                          },
+                          model: {
+                            value: _vm.form.vendor,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "vendor", $$v)
                             },
-                            model: {
-                              value: _vm.quotationForm.vendor,
-                              callback: function($$v) {
-                                _vm.$set(_vm.quotationForm, "vendor", $$v)
-                              },
-                              expression: "quotationForm.vendor"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("FormulateInput", {
-                            attrs: {
-                              type: "hidden",
-                              name: "vendor",
-                              validationName: "Vendor",
-                              validation: "required",
-                              help: "Please choose vendor"
-                            }
-                          })
+                            expression: "form.vendor"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("FormulateInput", {
+                          attrs: {
+                            type: "hidden",
+                            name: "vendor",
+                            validationName: "Vendor",
+                            validation: "required",
+                            help: "Please choose vendor"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "mb-3" },
+                      [
+                        _c("label", { staticClass: "form-label" }, [
+                          _vm._v("Status")
+                        ]),
+                        _vm._v(" "),
+                        _c("Multiselect", {
+                          ref: "quotationStatusSelect",
+                          attrs: { options: _vm.loadStatusQuotationList },
+                          model: {
+                            value: _vm.form.status,
+                            callback: function($$v) {
+                              _vm.$set(_vm.form, "status", $$v)
+                            },
+                            expression: "form.status"
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("FormulateInput", {
+                          attrs: {
+                            type: "hidden",
+                            name: "status",
+                            validationName: "Status",
+                            validation: "required",
+                            help: "Please choose status"
+                          }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.form.status == 2,
+                            expression: "form.status == 2"
+                          }
                         ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c("FormulateInput", {
-                        attrs: {
-                          type: "number",
-                          name: "cost_total",
-                          validationName: "Cost Total",
-                          validation: "required|min:0.01",
-                          help: "Please Enter Cost Total (in RM)",
-                          placeholder: "eg: RM1234.56",
-                          label: "Cost Total"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        { staticClass: "mb-3" },
-                        [
-                          _c("label", { staticClass: "form-label" }, [
-                            _vm._v("Status")
-                          ]),
-                          _vm._v(" "),
-                          _c("Multiselect", {
-                            ref: "quotationStatusSelect",
-                            attrs: { options: _vm.loadStatusQuotationList },
-                            model: {
-                              value: _vm.quotationForm.status,
-                              callback: function($$v) {
-                                _vm.$set(_vm.quotationForm, "status", $$v)
-                              },
-                              expression: "quotationForm.status"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("FormulateInput", {
-                            attrs: {
-                              type: "hidden",
-                              name: "status",
-                              validationName: "Status",
-                              validation: "required",
-                              help: "Please choose status"
-                            }
-                          })
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        [
-                          _c(
-                            "FormulateInput",
+                        staticClass: "mb-3"
+                      },
+                      [
+                        _c("FormulateInput", {
+                          attrs: {
+                            type: "group",
+                            name: "particulars",
+                            repeatable: true,
+                            label: "Quotation List",
+                            validation: "requiredIf:status,2"
+                          },
+                          scopedSlots: _vm._u([
                             {
-                              attrs: {
-                                type: "group",
-                                name: "particulars",
-                                repeatable: true,
-                                label: "Quotation List",
-                                "add-label": "+ Add particular",
-                                validation: "required"
-                              },
-                              scopedSlots: _vm._u([
-                                {
-                                  key: "addmore",
-                                  fn: function(ref) {
-                                    var addMore = ref.addMore
-                                    return [
-                                      _c(
-                                        "div",
-                                        {
-                                          staticClass:
-                                            "d-flex justify-content-end"
-                                        },
-                                        [
+                              key: "addmore",
+                              fn: function(ref) {
+                                var addMore = ref.addMore
+                                return [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "d-flex justify-content-end"
+                                    },
+                                    [
+                                      _c("div", { staticClass: "d-block" }, [
+                                        _c("p", [
+                                          _vm._v(
+                                            "\n                                            Total :\n                                            "
+                                          ),
                                           _c(
-                                            "a",
+                                            "span",
                                             {
                                               staticClass:
-                                                "btn btn-outline-primary",
-                                              on: { click: addMore }
+                                                "fw-bold text-primary"
                                             },
                                             [
-                                              _c("i", {
-                                                staticClass: "fas fa-plus"
-                                              }),
                                               _vm._v(
-                                                " Add\n                                            Items\n                                        "
+                                                "\n                                                " +
+                                                  _vm._s(
+                                                    _vm.subtotalQuotation
+                                                  ) +
+                                                  "\n                                            "
                                               )
                                             ]
                                           )
-                                        ]
-                                      )
+                                        ]),
+                                        _vm._v(" "),
+                                        _c(
+                                          "a",
+                                          {
+                                            staticClass:
+                                              "btn btn-outline-primary",
+                                            on: { click: addMore }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fas fa-plus"
+                                            }),
+                                            _vm._v(
+                                              "\n                                            Add Items\n                                        "
+                                            )
+                                          ]
+                                        )
+                                      ])
                                     ]
-                                  }
-                                },
-                                {
-                                  key: "remove",
-                                  fn: function(ref) {
-                                    var removeItem = ref.removeItem
-                                    return [
+                                  )
+                                ]
+                              }
+                            },
+                            {
+                              key: "remove",
+                              fn: function(ref) {
+                                var removeItem = ref.removeItem
+                                return [
+                                  _c(
+                                    "div",
+                                    { staticClass: "col-1 order-last" },
+                                    [
                                       _c(
-                                        "div",
-                                        { staticClass: "col-1 order-last" },
+                                        "a",
+                                        {
+                                          staticClass: "btn btn-outline-danger",
+                                          on: { click: removeItem }
+                                        },
                                         [
-                                          _c(
-                                            "a",
-                                            {
-                                              staticClass:
-                                                "btn btn-outline-danger",
-                                              on: { click: removeItem }
-                                            },
-                                            [
-                                              _c("i", {
-                                                staticClass:
-                                                  "fas fa-minus-circle"
-                                              })
-                                            ]
-                                          )
+                                          _c("i", {
+                                            staticClass: "fas fa-minus-circle"
+                                          })
                                         ]
                                       )
                                     ]
-                                  }
-                                },
-                                {
-                                  key: "help",
-                                  fn: function() {
-                                    return [
-                                      _c("div", { staticClass: "row" }, [
-                                        _c("div", { staticClass: "col" }, [
-                                          _c("div", { staticClass: "row" }, [
+                                  )
+                                ]
+                              }
+                            },
+                            {
+                              key: "help",
+                              fn: function() {
+                                return [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "row bg-primary text-light mb-3"
+                                    },
+                                    [
+                                      _c("div", { staticClass: "col" }, [
+                                        _c(
+                                          "div",
+                                          { staticClass: "row color-dark" },
+                                          [
                                             _c(
                                               "div",
                                               { staticClass: "col-6" },
@@ -35828,7 +36075,7 @@ var render = function() {
                                                 _c(
                                                   "label",
                                                   { staticClass: "fw-bold" },
-                                                  [_vm._v("Detail")]
+                                                  [_vm._v("Item")]
                                                 )
                                               ]
                                             ),
@@ -35842,23 +36089,7 @@ var render = function() {
                                                   { staticClass: "fw-bold" },
                                                   [
                                                     _vm._v(
-                                                      "\n                                                        Price Per Quantity\n                                                        (RM)\n                                                    "
-                                                    )
-                                                  ]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              { staticClass: "col-1" },
-                                              [
-                                                _c(
-                                                  "label",
-                                                  { staticClass: "fw-bold" },
-                                                  [
-                                                    _vm._v(
-                                                      "\n                                                        Quantity\n                                                    "
+                                                      "\n                                                    Qty Price\n                                                "
                                                     )
                                                   ]
                                                 )
@@ -35874,138 +36105,155 @@ var render = function() {
                                                   { staticClass: "fw-bold" },
                                                   [
                                                     _vm._v(
-                                                      "\n                                                        Total (RM)\n                                                    "
+                                                      "\n                                                    Quantity\n                                                "
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              { staticClass: "col-1" },
+                                              [
+                                                _c(
+                                                  "label",
+                                                  { staticClass: "fw-bold" },
+                                                  [
+                                                    _vm._v(
+                                                      "\n                                                    Subtotal\n                                                "
                                                     )
                                                   ]
                                                 )
                                               ]
                                             )
-                                          ])
-                                        ]),
-                                        _vm._v(" "),
-                                        _c("div", { staticClass: "col-1" })
-                                      ])
+                                          ]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _c("div", { staticClass: "col-1" })
                                     ]
-                                  },
-                                  proxy: true
-                                }
-                              ])
-                            },
-                            [
-                              _vm._v(" "),
-                              _vm._v(" "),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "col" }, [
-                                _c("div", { staticClass: "row" }, [
-                                  _c(
-                                    "div",
-                                    { staticClass: "col-6" },
-                                    [
-                                      _c("FormulateInput", {
-                                        attrs: {
-                                          type: "text",
-                                          validationName: "Detail",
-                                          validation: "required",
-                                          name: "particulars"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "col-3" },
-                                    [
-                                      _c("FormulateInput", {
-                                        attrs: {
-                                          type: "number",
-                                          name: "price",
-                                          validationName: "Price",
-                                          step: "0.01",
-                                          validation: "required|min:0.01"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "col-1" },
-                                    [
-                                      _c("FormulateInput", {
-                                        attrs: {
-                                          type: "number",
-                                          validationName: "Quantity",
-                                          validation: "required|min:1",
-                                          name: "quantity"
-                                        }
-                                      })
-                                    ],
-                                    1
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    { staticClass: "col-2" },
-                                    [
-                                      _c("FormulateInput", {
-                                        attrs: {
-                                          type: "disabled",
-                                          name: "total"
-                                        }
-                                      })
-                                    ],
-                                    1
                                   )
-                                ])
-                              ])
-                            ]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "d-grid gap-2 col-12 col-md-8 offset-md-2"
-                        },
-                        [
-                          _c("input", {
-                            staticClass: "btn btn-primary text-white",
-                            attrs: { type: "submit", value: "Save" }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass: "btn btn-secondary",
-                              attrs: { type: "button" },
-                              on: { click: _vm.onDismissModal }
+                                ]
+                              },
+                              proxy: true
                             },
-                            [
-                              _vm._v(
-                                "\n                                Cancel\n                            "
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ])
-          ]
-        )
-      ]
-    )
-  ])
+                            {
+                              key: "default",
+                              fn: function(ref) {
+                                var index = ref.index
+                                return [
+                                  _c("div", { staticClass: "col" }, [
+                                    _c("div", { staticClass: "row" }, [
+                                      _c(
+                                        "div",
+                                        { staticClass: "col-6" },
+                                        [
+                                          _c("FormulateInput", {
+                                            attrs: {
+                                              type: "text",
+                                              validationName: "Detail",
+                                              validation: "required",
+                                              name: "particulars"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "col-3" },
+                                        [
+                                          _c("FormulateInput", {
+                                            attrs: {
+                                              type: "number",
+                                              name: "price",
+                                              validationName: "Price",
+                                              step: "0.01",
+                                              validation: "required|min:0.01",
+                                              min: "0.01"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "col-2" },
+                                        [
+                                          _c("FormulateInput", {
+                                            attrs: {
+                                              type: "number",
+                                              validationName: "Quantity",
+                                              validation: "required|min:1",
+                                              name: "quantity",
+                                              min: "1"
+                                            }
+                                          })
+                                        ],
+                                        1
+                                      ),
+                                      _vm._v(" "),
+                                      _c("div", { staticClass: "col-1" }, [
+                                        _c("span", [
+                                          _vm._v(
+                                            "\n                                                " +
+                                              _vm._s(
+                                                _vm.calculateSubtotal(
+                                                  _vm.form.particulars[index]
+                                                )
+                                              ) +
+                                              "\n                                            "
+                                          )
+                                        ])
+                                      ])
+                                    ])
+                                  ])
+                                ]
+                              }
+                            }
+                          ])
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "row" }, [
+                      _c("div", { staticClass: "col d-grid" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "btn btn-secondary",
+                            attrs: { type: "button" },
+                            on: { click: _vm.onDismissModal }
+                          },
+                          [
+                            _vm._v(
+                              "\n                                Cancel\n                            "
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "col d-grid" }, [
+                        _c("input", {
+                          staticClass: "btn btn-primary text-white",
+                          attrs: { type: "submit", value: "Save" }
+                        })
+                      ])
+                    ])
+                  ]
+                )
+              ],
+              1
+            )
+          ])
+        ]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -56286,6 +56534,7 @@ var map = {
 	"./components/maintenance/MaintenanceDatatable.vue": "./resources/js/components/maintenance/MaintenanceDatatable.vue",
 	"./components/maintenance/MaintenanceQuotationDatatable.vue": "./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue",
 	"./components/maintenance/MaintenanceQuotationEdit.vue": "./resources/js/components/maintenance/MaintenanceQuotationEdit.vue",
+	"./components/maintenance/edit/MaintenanceQuotationFormModal.vue": "./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue",
 	"./components/vehicle/VehicleCreate.vue": "./resources/js/components/vehicle/VehicleCreate.vue",
 	"./components/vehicle/VehicleDatatable.vue": "./resources/js/components/vehicle/VehicleDatatable.vue",
 	"./components/vueTables/vtGenericFilter.vue": "./resources/js/components/vueTables/vtGenericFilter.vue",

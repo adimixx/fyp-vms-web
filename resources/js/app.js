@@ -63,7 +63,19 @@ Vue.use(VueFormulate, {
     //         }
     //     }
     // },
-    validationNameStrategy: ["validationName", "label", "name", "type"]
+    validationNameStrategy: ["validationName", "label", "name", "type"],
+    rules: {
+        requiredIf: function(context, formKey, formValue){
+            console.log(context.value);
+            if (context.getFormValues()[formKey] == formValue){
+                if (typeof context.value == Array && context.value.length == 0){
+                    console.log('false');
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
 });
 
 import { ServerTable, ClientTable, Event } from "vue-tables-2";
