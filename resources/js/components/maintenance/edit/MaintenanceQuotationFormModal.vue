@@ -14,7 +14,13 @@
                     </h5>
                 </div>
                 <div class="modal-body">
-                    <FormulateForm v-model="form" @submit="onSubmit">
+                    <FormulateForm
+                        v-model="form"
+                        @submit="onSubmit"
+                        name="quotation"
+                    >
+                        <FormulateInput type="hidden" name="maintenance" />
+
                         <div class="mb-3">
                             <label class="form-label">Vendor</label>
                             <Multiselect
@@ -37,6 +43,14 @@
                             />
                         </div>
 
+                        <FormulateInput
+                            type="date"
+                            name="date_request"
+                            label="Request Date"
+                            validation="required"
+                            help="Please pick request date"
+                        />
+
                         <div class="mb-3">
                             <label class="form-label">Status</label>
                             <Multiselect
@@ -54,6 +68,14 @@
                         </div>
 
                         <div class="mb-3" v-show="form.status == 2">
+                            <FormulateInput
+                                type="date"
+                                name="date_invoice"
+                                label="Invoice Date"
+                                validation="requiredIf:status,2"
+                                help="Please pick invoice date"
+                            />
+
                             <FormulateInput
                                 type="group"
                                 name="particulars"
@@ -124,45 +146,53 @@
                                 </template>
 
                                 <template #default="{index}">
-                                    <div class="col">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <FormulateInput
-                                                    type="text"
-                                                    validationName="Detail"
-                                                    validation="required"
-                                                    name="particulars"
-                                                />
-                                            </div>
-                                            <div class="col-3">
-                                                <FormulateInput
-                                                    type="number"
-                                                    name="price"
-                                                    validationName="Price"
-                                                    step="0.01"
-                                                    validation="required|min:0.01"
-                                                    min="0.01"
-                                                />
-                                            </div>
-                                            <div class="col-2">
-                                                <FormulateInput
-                                                    type="number"
-                                                    validationName="Quantity"
-                                                    validation="required|min:1"
-                                                    name="quantity"
-                                                    min="1"
-                                                />
-                                            </div>
-                                            <div class="col-1">
-                                                <span>
-                                                    {{
-                                                        calculateSubtotal(
-                                                            form.particulars[
-                                                                index
-                                                            ]
-                                                        )
-                                                    }}
-                                                </span>
+                                    <div>
+                                        <FormulateInput
+                                            type="hidden"
+                                            name="id"
+                                        />
+
+                                        <div class="col">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <FormulateInput
+                                                        type="text"
+                                                        validationName="Detail"
+                                                        validation="required"
+                                                        name="item"
+                                                    />
+                                                </div>
+                                                <div class="col-3">
+                                                    <FormulateInput
+                                                        type="number"
+                                                        name="price"
+                                                        validationName="Price"
+                                                        step="0.01"
+                                                        validation="required|min:0.01"
+                                                        min="0.01"
+                                                    />
+                                                </div>
+                                                <div class="col-2">
+                                                    <FormulateInput
+                                                        type="number"
+                                                        validationName="Quantity"
+                                                        validation="required|min:1"
+                                                        name="quantity"
+                                                        min="1"
+                                                    />
+                                                </div>
+                                                <div class="col-1">
+                                                    <span>
+                                                        {{
+                                                            calculateSubtotal(
+                                                                form
+                                                                    .particulars[
+                                                                    index
+                                                                ]
+                                                            )
+                                                        }}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -220,7 +250,8 @@ export default {
         showModal: Boolean,
         data: Object,
         statusQuotationSelectUrl: String,
-        vendorSelectUrl: String
+        vendorSelectUrl: String,
+        quotationUrl: String
     },
     mounted() {
         this.modalQuotationModal = new Modal(
@@ -231,6 +262,11 @@ export default {
             }
         );
         this.modalQuotationModal.show();
+        if (this.data) {
+            this.title = "Edit Quotation";
+        } else {
+            this.title = "New Quotation";
+        }
     },
     watch: {
         showModal(val) {
@@ -259,9 +295,9 @@ export default {
         }
     },
     methods: {
-        onDismissModal() {
+        onDismissModal(dataChange = false) {
             this.modalQuotationModal.hide();
-            this.$emit("dismiss-modal");
+            this.$emit("dismiss-modal", dataChange);
         },
         async loadVendorList(query) {
             var link = this.vendorSelectUrl;
@@ -290,8 +326,27 @@ export default {
             }
             return null;
         },
-        onSubmit(data) {
-            console.log(data);
+        async onSubmit(data) {
+            try {
+                const res = await axios.post(this.quotationUrl, data);
+                this.$emit(
+                    "activate-alert",
+                    "Success!",
+                    "Quotation information have been saved",
+                    "success"
+                );
+                this.onDismissModal(true);
+            } catch (error) {
+                if (error.response) {
+                    this.$formulate.handle(
+                        {
+                            inputErrors: error.response.data.errors,
+                            formErrors: error.response.data.message
+                        },
+                        "quotation"
+                    );
+                }
+            }
         }
     }
 };

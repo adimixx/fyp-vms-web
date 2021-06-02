@@ -111,9 +111,10 @@ class DatatableAPIController extends Controller
         ]);
         $validator->validate();
 
-        $data = MaintenanceQuotation::select('maintenance_quotations.*','mtv.name AS vendor')
+        $data = MaintenanceQuotation::select('maintenance_quotations.*','mtv.name AS vendor', 'sts.name AS status_name', 'sts.color_class AS status_class')
             ->join('maintenance_requests AS mtr', 'mtr.id','=','maintenance_quotations.maintenance_request_id')
             ->join('maintenance_vendors AS mtv', 'mtv.id','=','maintenance_quotations.maintenance_vendor_id' )
+            ->join('statuses AS sts', 'sts.id','=','maintenance_quotations.status')
             ->where('maintenance_request_id', '=', $maintenance_request);
 
         return $this->returnData($data, $request);

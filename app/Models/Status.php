@@ -15,10 +15,12 @@ class Status extends Model
         'name',
         'color_class',
         'model_type',
-        'front_visible'
+        'front_visible',
+        'sequence'
     ];
 
     protected $hidden = [
-        'model_type'
+        'model_type',
+        'id'
     ];
 }

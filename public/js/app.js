@@ -7717,10 +7717,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7766,16 +7766,27 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     route: String,
-    apiUrl: String
+    apiUrl: String,
+    date: Number
+  },
+  watch: {
+    date: function date(val) {
+      this.refreshTable();
+    }
+  },
+  methods: {
+    refreshTable: function refreshTable() {
+      this.$refs.maintenanceQuotationDt.refresh();
+    }
   }
 });
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceQuotationEdit.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceQuotationEdit.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -7810,20 +7821,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     datatableApiUrl: String,
     vendorSelectUrl: String,
-    statusQuotationSelectUrl: String
+    statusQuotationSelectUrl: String,
+    quotationUrl: String
   },
   data: function data() {
     return {
-      showFormModal: false
+      showFormModal: false,
+      date: 0
     };
   },
   methods: {
     onNewQuotation: function onNewQuotation() {
       this.showFormModal = true;
+    },
+    activateAlert: function activateAlert(bold, normal, color) {
+      this.$emit("activate-alert", bold, normal, color);
+    },
+    onDismissModal: function onDismissModal(dataChange) {
+      this.showFormModal = false;
+
+      if (dataChange) {
+        this.date = Date.now();
+      }
     }
   }
 });
@@ -8049,6 +8075,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
 
@@ -8072,7 +8128,8 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
     showModal: Boolean,
     data: Object,
     statusQuotationSelectUrl: String,
-    vendorSelectUrl: String
+    vendorSelectUrl: String,
+    quotationUrl: String
   },
   mounted: function mounted() {
     this.modalQuotationModal = new bootstrap__WEBPACK_IMPORTED_MODULE_3__.Modal(document.getElementById("modalQuotationModal"), {
@@ -8080,6 +8137,12 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
       backdrop: "static"
     });
     this.modalQuotationModal.show();
+
+    if (this.data) {
+      this.title = "Edit Quotation";
+    } else {
+      this.title = "New Quotation";
+    }
   },
   watch: {
     showModal: function showModal(val) {
@@ -8109,8 +8172,9 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
   },
   methods: {
     onDismissModal: function onDismissModal() {
+      var dataChange = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       this.modalQuotationModal.hide();
-      this.$emit("dismiss-modal");
+      this.$emit("dismiss-modal", dataChange);
     },
     loadVendorList: function loadVendorList(query) {
       var _this = this;
@@ -8185,7 +8249,46 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
       return null;
     },
     onSubmit: function onSubmit(data) {
-      console.log(data);
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
+                return axios.post(_this3.quotationUrl, data);
+
+              case 3:
+                res = _context3.sent;
+
+                _this3.$emit("activate-alert", "Success!", "Quotation information have been saved", "success");
+
+                _this3.onDismissModal(true);
+
+                _context3.next = 11;
+                break;
+
+              case 8:
+                _context3.prev = 8;
+                _context3.t0 = _context3["catch"](0);
+
+                if (_context3.t0.response) {
+                  _this3.$formulate.handle({
+                    inputErrors: _context3.t0.response.data.errors,
+                    formErrors: _context3.t0.response.data.message
+                  }, "quotation");
+                }
+
+              case 11:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[0, 8]]);
+      }))();
     }
   }
 });
@@ -8766,8 +8869,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_tables_2__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_tables_2__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _components_vueTables_vtGenericFilter_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/vueTables/vtGenericFilter.vue */ "./resources/js/components/vueTables/vtGenericFilter.vue");
 /* harmony import */ var _components_vueTables_vtPerPageSelector_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/vueTables/vtPerPageSelector.vue */ "./resources/js/components/vueTables/vtPerPageSelector.vue");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -8810,27 +8911,28 @@ Vue.use(_braid_vue_formulate__WEBPACK_IMPORTED_MODULE_0__.default, {
     help: "form-text",
     groupRepeatable: "row"
   },
-  // locales: {
-  //     en: {
-  //         required({ name }) {
-  //             return `Sila isi ${name}`;
-  //         },
-  //         min({ name, args }) {
-  //             return `Nilai ${name} mestilah sekurang-kurangnya ${args} `;
-  //         },
-  //         after({ name, args }) {
-  //             return `${name} mestilah selepas ${args} `;
-  //         }
-  //     }
-  // },
+  locales: {
+    en: {
+      // required({ name }) {
+      //     return `Sila isi ${name}`;
+      // },
+      // min({ name, args }) {
+      //     return `Nilai ${name} mestilah sekurang-kurangnya ${args} `;
+      // },
+      // after({ name, args }) {
+      //     return `${name} mestilah selepas ${args} `;
+      // },
+      requiredIf: function requiredIf(_ref) {
+        var name = _ref.name;
+        return "".concat(name, " is required");
+      }
+    }
+  },
   validationNameStrategy: ["validationName", "label", "name", "type"],
   rules: {
     requiredIf: function requiredIf(context, formKey, formValue) {
-      console.log(context.value);
-
       if (context.getFormValues()[formKey] == formValue) {
-        if (_typeof(context.value) == Array && context.value.length == 0) {
-          console.log('false');
+        if (context.value.length == 0) {
           return false;
         }
       }
@@ -34394,10 +34496,10 @@ component.options.__file = "resources/js/components/maintenance/MaintenanceDatat
 
 /***/ }),
 
-/***/ "./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue ***!
-  \*******************************************************************************/
+/***/ "./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue ***!
+  \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -34405,9 +34507,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _MaintenanceQuotationDatatable_vue_vue_type_template_id_85a83158___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MaintenanceQuotationDatatable.vue?vue&type=template&id=85a83158& */ "./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue?vue&type=template&id=85a83158&");
-/* harmony import */ var _MaintenanceQuotationDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MaintenanceQuotationDatatable.vue?vue&type=script&lang=js& */ "./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _MaintenanceQuotationDatatable_vue_vue_type_template_id_33d11866___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MaintenanceQuotationDatatable.vue?vue&type=template&id=33d11866& */ "./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue?vue&type=template&id=33d11866&");
+/* harmony import */ var _MaintenanceQuotationDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MaintenanceQuotationDatatable.vue?vue&type=script&lang=js& */ "./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -34417,8 +34519,8 @@ __webpack_require__.r(__webpack_exports__);
 ;
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
   _MaintenanceQuotationDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _MaintenanceQuotationDatatable_vue_vue_type_template_id_85a83158___WEBPACK_IMPORTED_MODULE_0__.render,
-  _MaintenanceQuotationDatatable_vue_vue_type_template_id_85a83158___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _MaintenanceQuotationDatatable_vue_vue_type_template_id_33d11866___WEBPACK_IMPORTED_MODULE_0__.render,
+  _MaintenanceQuotationDatatable_vue_vue_type_template_id_33d11866___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   null,
@@ -34428,15 +34530,15 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/maintenance/MaintenanceQuotationDatatable.vue"
+component.options.__file = "resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/maintenance/MaintenanceQuotationEdit.vue":
-/*!**************************************************************************!*\
-  !*** ./resources/js/components/maintenance/MaintenanceQuotationEdit.vue ***!
-  \**************************************************************************/
+/***/ "./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue ***!
+  \*******************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -34444,9 +34546,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _MaintenanceQuotationEdit_vue_vue_type_template_id_4132b44a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MaintenanceQuotationEdit.vue?vue&type=template&id=4132b44a& */ "./resources/js/components/maintenance/MaintenanceQuotationEdit.vue?vue&type=template&id=4132b44a&");
-/* harmony import */ var _MaintenanceQuotationEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MaintenanceQuotationEdit.vue?vue&type=script&lang=js& */ "./resources/js/components/maintenance/MaintenanceQuotationEdit.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _MaintenanceQuotationEdit_vue_vue_type_template_id_087d8031___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MaintenanceQuotationEdit.vue?vue&type=template&id=087d8031& */ "./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue?vue&type=template&id=087d8031&");
+/* harmony import */ var _MaintenanceQuotationEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MaintenanceQuotationEdit.vue?vue&type=script&lang=js& */ "./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -34456,8 +34558,8 @@ __webpack_require__.r(__webpack_exports__);
 ;
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
   _MaintenanceQuotationEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _MaintenanceQuotationEdit_vue_vue_type_template_id_4132b44a___WEBPACK_IMPORTED_MODULE_0__.render,
-  _MaintenanceQuotationEdit_vue_vue_type_template_id_4132b44a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _MaintenanceQuotationEdit_vue_vue_type_template_id_087d8031___WEBPACK_IMPORTED_MODULE_0__.render,
+  _MaintenanceQuotationEdit_vue_vue_type_template_id_087d8031___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
   null,
@@ -34467,7 +34569,7 @@ var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/maintenance/MaintenanceQuotationEdit.vue"
+component.options.__file = "resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -34747,9 +34849,25 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue?vue&type=script&lang=js&":
+/***/ "./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceQuotationDatatable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue?vue&type=script&lang=js&":
 /*!********************************************************************************************************!*\
-  !*** ./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue?vue&type=script&lang=js& ***!
+  !*** ./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue?vue&type=script&lang=js& ***!
   \********************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
@@ -34758,23 +34876,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceQuotationDatatable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
-
-/***/ }),
-
-/***/ "./resources/js/components/maintenance/MaintenanceQuotationEdit.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************!*\
-  !*** ./resources/js/components/maintenance/MaintenanceQuotationEdit.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceQuotationEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceQuotationEdit.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceQuotationEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
@@ -34944,36 +35046,36 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue?vue&type=template&id=85a83158&":
+/***/ "./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue?vue&type=template&id=33d11866&":
+/*!*******************************************************************************************************************!*\
+  !*** ./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue?vue&type=template&id=33d11866& ***!
+  \*******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationDatatable_vue_vue_type_template_id_33d11866___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationDatatable_vue_vue_type_template_id_33d11866___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationDatatable_vue_vue_type_template_id_33d11866___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceQuotationDatatable.vue?vue&type=template&id=33d11866& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue?vue&type=template&id=33d11866&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue?vue&type=template&id=087d8031&":
 /*!**************************************************************************************************************!*\
-  !*** ./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue?vue&type=template&id=85a83158& ***!
+  !*** ./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue?vue&type=template&id=087d8031& ***!
   \**************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationDatatable_vue_vue_type_template_id_85a83158___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationDatatable_vue_vue_type_template_id_85a83158___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationEdit_vue_vue_type_template_id_087d8031___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationEdit_vue_vue_type_template_id_087d8031___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationDatatable_vue_vue_type_template_id_85a83158___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceQuotationDatatable.vue?vue&type=template&id=85a83158& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue?vue&type=template&id=85a83158&");
-
-
-/***/ }),
-
-/***/ "./resources/js/components/maintenance/MaintenanceQuotationEdit.vue?vue&type=template&id=4132b44a&":
-/*!*********************************************************************************************************!*\
-  !*** ./resources/js/components/maintenance/MaintenanceQuotationEdit.vue?vue&type=template&id=4132b44a& ***!
-  \*********************************************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationEdit_vue_vue_type_template_id_4132b44a___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationEdit_vue_vue_type_template_id_4132b44a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
-/* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationEdit_vue_vue_type_template_id_4132b44a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceQuotationEdit.vue?vue&type=template&id=4132b44a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceQuotationEdit.vue?vue&type=template&id=4132b44a&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceQuotationEdit_vue_vue_type_template_id_087d8031___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceQuotationEdit.vue?vue&type=template&id=087d8031& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue?vue&type=template&id=087d8031&");
 
 
 /***/ }),
@@ -35673,10 +35775,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue?vue&type=template&id=85a83158&":
-/*!*****************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue?vue&type=template&id=85a83158& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue?vue&type=template&id=33d11866&":
+/*!**********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue?vue&type=template&id=33d11866& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -35690,6 +35792,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("v-server-table", {
+    ref: "maintenanceQuotationDt",
     attrs: {
       url: _vm.apiUrl,
       columns: _vm.table.columns,
@@ -35715,11 +35818,13 @@ var render = function() {
         key: "is_approved",
         fn: function(props) {
           return [
-            props.row.is_approved
-              ? _c("span", { staticClass: "badge bg-success text-dark" }, [
-                  _vm._v("APPROVED VENDOR")
-                ])
-              : _vm._e()
+            _c(
+              "span",
+              {
+                class: "badge bg-" + props.row.status_class + " text-uppercase"
+              },
+              [_vm._v(_vm._s(props.row.status_name))]
+            )
           ]
         }
       }
@@ -35733,10 +35838,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceQuotationEdit.vue?vue&type=template&id=4132b44a&":
-/*!************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceQuotationEdit.vue?vue&type=template&id=4132b44a& ***!
-  \************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue?vue&type=template&id=087d8031&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue?vue&type=template&id=087d8031& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -35781,7 +35886,7 @@ var render = function() {
           { staticClass: "card-body" },
           [
             _c("maintenance-quotation-datatable", {
-              attrs: { "api-url": _vm.datatableApiUrl }
+              attrs: { "api-url": _vm.datatableApiUrl, date: _vm.date }
             })
           ],
           1
@@ -35793,12 +35898,12 @@ var render = function() {
             attrs: {
               "vendor-select-url": _vm.vendorSelectUrl,
               "status-quotation-select-url": _vm.statusQuotationSelectUrl,
-              "show-modal": _vm.showFormModal
+              "show-modal": _vm.showFormModal,
+              "quotation-url": _vm.quotationUrl
             },
             on: {
-              "dismiss-modal": function($event) {
-                _vm.showFormModal = false
-              }
+              "dismiss-modal": _vm.onDismissModal,
+              "activate-alert": _vm.activateAlert
             }
           })
         : _vm._e()
@@ -35862,6 +35967,7 @@ var render = function() {
                 _c(
                   "FormulateForm",
                   {
+                    attrs: { name: "quotation" },
                     on: { submit: _vm.onSubmit },
                     model: {
                       value: _vm.form,
@@ -35872,6 +35978,10 @@ var render = function() {
                     }
                   },
                   [
+                    _c("FormulateInput", {
+                      attrs: { type: "hidden", name: "maintenance" }
+                    }),
+                    _vm._v(" "),
                     _c(
                       "div",
                       { staticClass: "mb-3" },
@@ -35913,6 +36023,16 @@ var render = function() {
                       ],
                       1
                     ),
+                    _vm._v(" "),
+                    _c("FormulateInput", {
+                      attrs: {
+                        type: "date",
+                        name: "date_request",
+                        label: "Request Date",
+                        validation: "required",
+                        help: "Please pick request date"
+                      }
+                    }),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -35961,6 +36081,16 @@ var render = function() {
                         staticClass: "mb-3"
                       },
                       [
+                        _c("FormulateInput", {
+                          attrs: {
+                            type: "date",
+                            name: "date_invoice",
+                            label: "Invoice Date",
+                            validation: "requiredIf:status,2",
+                            help: "Please pick invoice date"
+                          }
+                        }),
+                        _vm._v(" "),
                         _c("FormulateInput", {
                           attrs: {
                             type: "group",
@@ -36143,74 +36273,87 @@ var render = function() {
                               fn: function(ref) {
                                 var index = ref.index
                                 return [
-                                  _c("div", { staticClass: "col" }, [
-                                    _c("div", { staticClass: "row" }, [
-                                      _c(
-                                        "div",
-                                        { staticClass: "col-6" },
-                                        [
-                                          _c("FormulateInput", {
-                                            attrs: {
-                                              type: "text",
-                                              validationName: "Detail",
-                                              validation: "required",
-                                              name: "particulars"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      ),
+                                  _c(
+                                    "div",
+                                    [
+                                      _c("FormulateInput", {
+                                        attrs: { type: "hidden", name: "id" }
+                                      }),
                                       _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "col-3" },
-                                        [
-                                          _c("FormulateInput", {
-                                            attrs: {
-                                              type: "number",
-                                              name: "price",
-                                              validationName: "Price",
-                                              step: "0.01",
-                                              validation: "required|min:0.01",
-                                              min: "0.01"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c(
-                                        "div",
-                                        { staticClass: "col-2" },
-                                        [
-                                          _c("FormulateInput", {
-                                            attrs: {
-                                              type: "number",
-                                              validationName: "Quantity",
-                                              validation: "required|min:1",
-                                              name: "quantity",
-                                              min: "1"
-                                            }
-                                          })
-                                        ],
-                                        1
-                                      ),
-                                      _vm._v(" "),
-                                      _c("div", { staticClass: "col-1" }, [
-                                        _c("span", [
-                                          _vm._v(
-                                            "\n                                                " +
-                                              _vm._s(
-                                                _vm.calculateSubtotal(
-                                                  _vm.form.particulars[index]
-                                                )
-                                              ) +
-                                              "\n                                            "
-                                          )
+                                      _c("div", { staticClass: "col" }, [
+                                        _c("div", { staticClass: "row" }, [
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-6" },
+                                            [
+                                              _c("FormulateInput", {
+                                                attrs: {
+                                                  type: "text",
+                                                  validationName: "Detail",
+                                                  validation: "required",
+                                                  name: "item"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-3" },
+                                            [
+                                              _c("FormulateInput", {
+                                                attrs: {
+                                                  type: "number",
+                                                  name: "price",
+                                                  validationName: "Price",
+                                                  step: "0.01",
+                                                  validation:
+                                                    "required|min:0.01",
+                                                  min: "0.01"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            { staticClass: "col-2" },
+                                            [
+                                              _c("FormulateInput", {
+                                                attrs: {
+                                                  type: "number",
+                                                  validationName: "Quantity",
+                                                  validation: "required|min:1",
+                                                  name: "quantity",
+                                                  min: "1"
+                                                }
+                                              })
+                                            ],
+                                            1
+                                          ),
+                                          _vm._v(" "),
+                                          _c("div", { staticClass: "col-1" }, [
+                                            _c("span", [
+                                              _vm._v(
+                                                "\n                                                    " +
+                                                  _vm._s(
+                                                    _vm.calculateSubtotal(
+                                                      _vm.form.particulars[
+                                                        index
+                                                      ]
+                                                    )
+                                                  ) +
+                                                  "\n                                                "
+                                              )
+                                            ])
+                                          ])
                                         ])
                                       ])
-                                    ])
-                                  ])
+                                    ],
+                                    1
+                                  )
                                 ]
                               }
                             }
@@ -36244,7 +36387,8 @@ var render = function() {
                         })
                       ])
                     ])
-                  ]
+                  ],
+                  1
                 )
               ],
               1
@@ -56532,8 +56676,8 @@ var map = {
 	"./components/complaint/ComplaintDatatable.vue": "./resources/js/components/complaint/ComplaintDatatable.vue",
 	"./components/maintenance/MaintenanceCreate.vue": "./resources/js/components/maintenance/MaintenanceCreate.vue",
 	"./components/maintenance/MaintenanceDatatable.vue": "./resources/js/components/maintenance/MaintenanceDatatable.vue",
-	"./components/maintenance/MaintenanceQuotationDatatable.vue": "./resources/js/components/maintenance/MaintenanceQuotationDatatable.vue",
-	"./components/maintenance/MaintenanceQuotationEdit.vue": "./resources/js/components/maintenance/MaintenanceQuotationEdit.vue",
+	"./components/maintenance/edit/MaintenanceQuotationDatatable.vue": "./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue",
+	"./components/maintenance/edit/MaintenanceQuotationEdit.vue": "./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue",
 	"./components/maintenance/edit/MaintenanceQuotationFormModal.vue": "./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue",
 	"./components/vehicle/VehicleCreate.vue": "./resources/js/components/vehicle/VehicleCreate.vue",
 	"./components/vehicle/VehicleDatatable.vue": "./resources/js/components/vehicle/VehicleDatatable.vue",

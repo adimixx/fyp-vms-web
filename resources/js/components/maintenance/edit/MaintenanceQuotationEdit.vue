@@ -12,6 +12,7 @@
             <div class="card-body">
                 <maintenance-quotation-datatable
                     :api-url="datatableApiUrl"
+                    :date="date"
                 ></maintenance-quotation-datatable>
             </div>
         </div>
@@ -20,7 +21,9 @@
             :status-quotation-select-url="statusQuotationSelectUrl"
             v-if="showFormModal == true"
             :show-modal="showFormModal"
-            @dismiss-modal="showFormModal = false"
+            @dismiss-modal="onDismissModal"
+            @activate-alert="activateAlert"
+            :quotation-url="quotationUrl"
         ></maintenance-quotation-form-modal>
     </div>
 </template>
@@ -30,16 +33,27 @@ export default {
     props: {
         datatableApiUrl: String,
         vendorSelectUrl: String,
-        statusQuotationSelectUrl: String
+        statusQuotationSelectUrl: String,
+        quotationUrl: String,
     },
     data() {
         return {
-            showFormModal: false
+            showFormModal: false,
+            date: 0
         };
     },
     methods: {
         onNewQuotation() {
             this.showFormModal = true;
+        },
+        activateAlert(bold, normal, color) {
+            this.$emit("activate-alert", bold, normal, color);
+        },
+        onDismissModal(dataChange) {
+            this.showFormModal = false;
+            if (dataChange){
+                this.date = Date.now();
+            }
         }
     }
 };

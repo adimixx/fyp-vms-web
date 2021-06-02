@@ -48,28 +48,27 @@ Vue.use(VueFormulate, {
         inputHasErrors: "is-invalid",
         errors: "text-danger list-unstyled mt-2",
         help: "form-text",
-        groupRepeatable: "row",
+        groupRepeatable: "row"
     },
-    // locales: {
-    //     en: {
-    //         required({ name }) {
-    //             return `Sila isi ${name}`;
-    //         },
-    //         min({ name, args }) {
-    //             return `Nilai ${name} mestilah sekurang-kurangnya ${args} `;
-    //         },
-    //         after({ name, args }) {
-    //             return `${name} mestilah selepas ${args} `;
-    //         }
-    //     }
-    // },
+    locales: {
+        en: {
+            // required({ name }) {
+            //     return `Sila isi ${name}`;
+            // },
+            // min({ name, args }) {
+            //     return `Nilai ${name} mestilah sekurang-kurangnya ${args} `;
+            // },
+            // after({ name, args }) {
+            //     return `${name} mestilah selepas ${args} `;
+            // },
+            requiredIf: ({name}) => `${name} is required`
+         }
+    },
     validationNameStrategy: ["validationName", "label", "name", "type"],
     rules: {
-        requiredIf: function(context, formKey, formValue){
-            console.log(context.value);
-            if (context.getFormValues()[formKey] == formValue){
-                if (typeof context.value == Array && context.value.length == 0){
-                    console.log('false');
+        requiredIf: function(context, formKey, formValue) {
+            if (context.getFormValues()[formKey] == formValue) {
+                if (context.value.length == 0) {
                     return false;
                 }
             }
@@ -135,7 +134,7 @@ const app = new Vue({
                 classColor: null,
                 date: null
             }
-        }
+        };
     },
     methods: {
         activateAlert(boldMsg, msg, classColor) {

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\api\ComplaintAPIController;
 use App\Http\Controllers\api\DatatableAPIController;
+use App\Http\Controllers\api\MaintenanceQuotationAPIController;
 use App\Http\Controllers\api\MaintenanceRequestAPIController;
 use App\Http\Controllers\api\MultiSelectAPIController;
 use App\Http\Controllers\api\VehicleCatalogAPI;
@@ -33,6 +34,7 @@ Route::name('api.data.')->group(function () {
     Route::resource('vehicle', VehicleInventoryAPI::class);
     Route::resource('complaint', ComplaintAPIController::class);
     Route::resource('maintenance-request', MaintenanceRequestAPIController::class);
+    Route::resource('maintenance.quotation', MaintenanceQuotationAPIController::class);
 });
 
 Route::prefix('datatable')->name('api.datatable.')->group(function () {
