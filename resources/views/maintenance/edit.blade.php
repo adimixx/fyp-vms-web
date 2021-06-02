@@ -3,8 +3,6 @@
 
 @section('content')
     <div class="container-fluid">
-        <bs-alert :bold-msg="alert.boldMsg" :msg="alert.msg" :class-color="alert.classColor" :date="alert.date"></bs-alert>
-
         <div class="d-flex justify-content-between mb-4">
             <div>
                 <h3 class="text-dark mb-0">Edit Maintenance Record</h3>
@@ -74,11 +72,13 @@
             @endisset
 
             <div class="col-12">
-                <maintenance-quotation-edit datatable-api-url="{{ route('api.datatable.maintenance.quotation', $maintenance->id) }}"
+                <maintenance-quotation-edit
+                    datatable-api-url="{{ route('api.datatable.maintenance.quotation', $maintenance->id) }}"
                     vendor-select-url="{{ route('api.select.vendor') }}"
                     status-quotation-select-url="{{ route('api.select.status', 1) }}"
                     quotation-url="{{ route('api.data.maintenance.quotation.index', $maintenance->id) }}"
-                    @activate-alert="activateAlert"></maintenance-quotation-edit>
+                    @activate-alert="activateAlert"
+                    @activate-toast="activateToast"></maintenance-quotation-edit>
             </div>
         </div>
     </div>

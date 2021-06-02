@@ -2,7 +2,7 @@
     <!-- Modal -->
     <div
         class="modal fade"
-        id="modalQuotationModal"
+        ref="modalQuotationModal"
         tabindex="-1"
         aria-hidden="true"
     >
@@ -251,13 +251,10 @@ export default {
         quotationUrl: String
     },
     mounted() {
-        this.modalQuotationModal = new Modal(
-            document.getElementById("modalQuotationModal"),
-            {
-                keyboard: false,
-                backdrop: "static"
-            }
-        );
+        this.modalQuotationModal = new Modal(this.$refs.modalQuotationModal, {
+            keyboard: false,
+            backdrop: "static"
+        });
         this.modalQuotationModal.show();
         if (this.data) {
             this.form = this.data;
@@ -328,7 +325,7 @@ export default {
             try {
                 const res = await axios.post(this.quotationUrl, data);
                 this.$emit(
-                    "activate-alert",
+                    "activate-toast",
                     "Success!",
                     "Quotation information have been saved",
                     "success"

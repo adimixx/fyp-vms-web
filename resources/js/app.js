@@ -48,7 +48,8 @@ Vue.use(VueFormulate, {
         inputHasErrors: "is-invalid",
         errors: "text-danger list-unstyled mt-2",
         help: "form-text",
-        groupRepeatable: "row"
+        groupRepeatable: "row",
+        formErrors: "alert alert-danger list-unstyled"
     },
     locales: {
         en: {
@@ -61,8 +62,8 @@ Vue.use(VueFormulate, {
             // after({ name, args }) {
             //     return `${name} mestilah selepas ${args} `;
             // },
-            requiredIf: ({name}) => `${name} is required`
-         }
+            requiredIf: ({ name }) => `${name} is required`
+        }
     },
     validationNameStrategy: ["validationName", "label", "name", "type"],
     rules: {
@@ -133,6 +134,12 @@ const app = new Vue({
                 boldMsg: null,
                 classColor: null,
                 date: null
+            },
+            toast: {
+                msg: null,
+                boldMsg: null,
+                classColor: null,
+                show: false
             }
         };
     },
@@ -142,6 +149,15 @@ const app = new Vue({
             this.alert.boldMsg = boldMsg;
             this.alert.classColor = classColor;
             this.alert.date = Date.now();
+        },
+        activateToast(boldMsg, msg, classColor) {
+            this.toast.msg = msg;
+            this.toast.boldMsg = boldMsg;
+            this.toast.classColor = classColor;
+            this.toast.show = true;
+        },
+        dismissToast() {
+            this.toast.show = false;
         }
     }
 });

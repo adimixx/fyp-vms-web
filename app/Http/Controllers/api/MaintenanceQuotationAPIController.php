@@ -36,12 +36,12 @@ class MaintenanceQuotationAPIController extends Controller
             'vendor' => ['required', 'numeric', 'exists:maintenance_vendors,id', Rule::unique('maintenance_quotations', 'maintenance_vendor_id')->ignore($request->quotation, 'id')->where(function ($query) use ($request) {
                 return $query->where('maintenance_request_id', $request->maintenance);
             })],
-            'date_request' => 'required|date',
+            'date_request' => 'required|date|before_or_equal:today',
             'status' => ['required', Rule::exists('statuses', 'sequence')->where(function ($query) use ($request) {
                 return $query->where('model_type', get_class(new MaintenanceRequest))->where('front_visible', true);
             })],
-            'date_invoice' => 'required_if:status,2|date',
-            'particulars' => 'required_if:status,2|array',
+            'date_invoice' => 'exclude_unless:status,2|required_if:status,2|date|after_or_equal:date_request|before_or_equal:today',
+            'particulars' => 'exclude_unless:status,2|required_if:status,2|array',
             'particulars.*.id' => ['numeric', Rule::exists('maintenance_quotation_items', 'id')->where(function ($query) use ($request) {
                 return $query->where('maintenance_quotation_id', $request->quotation);
             })],
@@ -79,7 +79,7 @@ class MaintenanceQuotationAPIController extends Controller
 
         $maintenanceQuotation = MaintenanceQuotation::where('maintenance_request_id', $maintenance)->firstWhere('maintenance_vendor_id', $request->vendor);
 
-        if ($maintenanceQuotation->exists()) {
+        if ($maintenanceQuotation != null) {
             $maintenanceQuotation->update($data);
         } else {
             $maintenanceQuotation = MaintenanceQuotation::create($data);
@@ -101,5 +101,25 @@ class MaintenanceQuotationAPIController extends Controller
         }
 
         return $maintenanceQuotation;
+    }
+
+    public function destroy($maintenance, $id)
+    {
+        $validated = (object) Validator::make(['maintenance' => $maintenance, 'quotation' => $id], [
+            'maintenance' => 'required|numeric',
+            'quotation' => ['required', 'numeric', Rule::exists('maintenance_quotations', 'id')->where(function ($query) use ($maintenance) {
+                return $query->where('maintenance_request_id', $maintenance);
+            })]
+        ])->validate();
+
+        $maintenanceQuotation = MaintenanceQuotation::find($validated->quotation);
+
+        if ($maintenanceQuotation->maintenanceQuotationItem()->exists()){
+            $maintenanceQuotation->maintenanceQuotationItem()->delete();
+        }
+
+        $maintenanceQuotation->delete();
+
+        return response(['messages' => 'Item Deleted']);
     }
 }

@@ -14,6 +14,7 @@
                     :api-url="datatableApiUrl"
                     :date="date"
                     @edit-quotation="onEditQuotation"
+                    @delete-quotation="onDeleteQuotation"
                 ></maintenance-quotation-datatable>
             </div>
         </div>
@@ -23,10 +24,32 @@
             v-if="showFormModal == true"
             :show-modal="showFormModal"
             @dismiss-modal="onDismissModal"
-            @activate-alert="activateAlert"
+            @activate-toast="onActivateToast"
             :quotation-url="quotationUrl"
             :data="quotationFormData"
         ></maintenance-quotation-form-modal>
+
+        <bs-delete-modal
+            :url="deleteQuotationUrl"
+            v-if="showDeleteQuotation"
+            @dismiss-modal="onDismissDeleteQuotation"
+            @activate-toast="onActivateToast"
+        >
+            <template v-slot:content>
+                <div class="text-center">
+                    <p class="mb-0 text-secondary">Quotation of</p>
+                    <p class="mb-0 text-primary fw-bold">
+                        {{ deleteQuotationData.vendor }}
+                    </p>
+                    <span
+                        :class="
+                            `badge bg-${deleteQuotationData.status_class} text-uppercase`
+                        "
+                        >{{ deleteQuotationData.status_name }}</span
+                    >
+                </div>
+            </template>
+        </bs-delete-modal>
     </div>
 </template>
 
@@ -41,8 +64,11 @@ export default {
     data() {
         return {
             showFormModal: false,
+            showDeleteQuotation: false,
             quotationFormData: {},
-            date: 0
+            date: 0,
+            deleteQuotationUrl: null,
+            deleteQuotationData: null
         };
     },
     methods: {
@@ -82,6 +108,20 @@ export default {
             if (dataChange) {
                 this.date = Date.now();
             }
+        },
+        onDeleteQuotation(data) {
+            this.deleteQuotationUrl = `${this.quotationUrl}/${data.id}`;
+            this.showDeleteQuotation = true;
+            this.deleteQuotationData = data;
+        },
+        onDismissDeleteQuotation(dataChange) {
+            this.showDeleteQuotation = false;
+            if (dataChange) {
+                this.date = Date.now();
+            }
+        },
+        onActivateToast(boldMsg, msg, classColor) {
+            this.$emit("activate-toast", boldMsg, msg, classColor);
         }
     }
 };
