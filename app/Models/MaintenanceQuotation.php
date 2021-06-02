@@ -22,10 +22,32 @@ class MaintenanceQuotation extends Model
     protected $hidden = [
         'created_at',
         'updated_at',
+        'maintenance_vendor_id',
+        'user_id'
     ];
 
     public function maintenanceQuotationItem()
     {
         return $this->hasMany(MaintenanceQuotationItem::class);
+    }
+
+    public function maintenanceRequest()
+    {
+        return $this->belongsTo(MaintenanceRequest::class);
+    }
+
+    public function maintenanceVendor()
+    {
+        return $this->belongsTo(MaintenanceVendor::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class, 'status');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

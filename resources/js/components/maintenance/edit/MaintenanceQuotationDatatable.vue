@@ -6,7 +6,7 @@
         ref="maintenanceQuotationDt"
     >
         <template v-slot:actions="props">
-            <a class="text-decoration-none" :href="route + '/' + props.row.id">
+            <a class="text-decoration-none" @click="onEditQuotation(props.row)">
                 <i class="fas fa-pencil-alt"></i>
             </a>
         </template>
@@ -15,6 +15,10 @@
                 :class="`badge bg-${props.row.status_class} text-uppercase`"
                 >{{ props.row.status_name }}</span
             >
+        </template>
+        <template v-slot:cost_total="props">
+            <span v-if="props.row.cost_total" class="text-center">RM {{ (props.row.cost_total / 100).toFixed(2) }}</span>
+            <span v-else> - </span>
         </template>
     </v-server-table>
 </template>
@@ -41,13 +45,16 @@ export default {
         date: Number
     },
     watch: {
-        date(val){
+        date(val) {
             this.refreshTable();
         }
     },
     methods: {
         refreshTable() {
             this.$refs.maintenanceQuotationDt.refresh();
+        },
+        onEditQuotation(data) {
+            this.$emit("edit-quotation", data);
         }
     }
 };

@@ -51,4 +51,9 @@ class MaintenanceRequest extends Model
     {
         return $this->belongsTo(Complaint::class);
     }
+
+    public function maintenanceQuotation()
+    {
+        return $this->hasMany(MaintenanceRequest::class);
+    }
 }

@@ -14,12 +14,25 @@ use Illuminate\Support\Facades\DB;
 
 class MaintenanceQuotationAPIController extends Controller
 {
+    public function show($maintenance, $id)
+    {
+        $validated = (object) Validator::make(['maintenance' => $maintenance, 'quotation' => $id], [
+            'maintenance' => 'required|numeric',
+            'quotation' => ['required', 'numeric', Rule::exists('maintenance_quotations', 'id')->where(function ($query) use ($maintenance) {
+                return $query->where('maintenance_request_id', $maintenance);
+            })]
+        ])->validate();
+
+        $quotation = MaintenanceQuotation::with(['maintenanceVendor', 'maintenanceQuotationItem', 'status'])->find($validated->quotation);
+
+        return $quotation;
+    }
 
     public function store(Request $request, $maintenance)
     {
         $validator = Validator::make(array_merge($request->all(), ['maintenance' => $maintenance]), [
-            'maintenance' => 'required|numeric|exists:maintenance_requests,id',
             'quotation' => 'numeric|exists:maintenance_quotations,id',
+            'maintenance' => 'required|numeric|exists:maintenance_requests,id',
             'vendor' => ['required', 'numeric', 'exists:maintenance_vendors,id', Rule::unique('maintenance_quotations', 'maintenance_vendor_id')->ignore($request->quotation, 'id')->where(function ($query) use ($request) {
                 return $query->where('maintenance_request_id', $request->maintenance);
             })],
@@ -44,7 +57,7 @@ class MaintenanceQuotationAPIController extends Controller
         };
 
         $arrayReduce = function ($x, $y) {
-            return $x += $y;
+            return $x += ($y * 100);
         };
 
         $statusDb = Status::where('sequence', $request->status)->where('model_type', get_class(new MaintenanceRequest))->where('front_visible', true)->first();
@@ -64,10 +77,12 @@ class MaintenanceQuotationAPIController extends Controller
             ]);
         }
 
-        if (!$request->input('quotation')) {
-            $maintenanceQuotation = MaintenanceQuotation::create($data);
+        $maintenanceQuotation = MaintenanceQuotation::where('maintenance_request_id', $maintenance)->firstWhere('maintenance_vendor_id', $request->vendor);
+
+        if ($maintenanceQuotation->exists()) {
+            $maintenanceQuotation->update($data);
         } else {
-            $maintenanceQuotation = MaintenanceQuotation::firstWhere('id', $request->quotation)->update($data);
+            $maintenanceQuotation = MaintenanceQuotation::create($data);
         }
 
         foreach ($request->particulars as $mqi) {

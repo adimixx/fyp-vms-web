@@ -77,7 +77,7 @@
                 <maintenance-quotation-edit datatable-api-url="{{ route('api.datatable.maintenance.quotation', $maintenance->id) }}"
                     vendor-select-url="{{ route('api.select.vendor') }}"
                     status-quotation-select-url="{{ route('api.select.status', 1) }}"
-                    quotation-url="{{ route('api.data.maintenance.quotation.store', $maintenance->id) }}"
+                    quotation-url="{{ route('api.data.maintenance.quotation.index', $maintenance->id) }}"
                     @activate-alert="activateAlert"></maintenance-quotation-edit>
             </div>
         </div>

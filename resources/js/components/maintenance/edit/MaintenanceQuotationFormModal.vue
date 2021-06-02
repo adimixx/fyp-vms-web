@@ -19,7 +19,7 @@
                         @submit="onSubmit"
                         name="quotation"
                     >
-                        <FormulateInput type="hidden" name="maintenance" />
+                        <FormulateInput type="hidden" name="quotation" />
 
                         <div class="mb-3">
                             <label class="form-label">Vendor</label>
@@ -33,6 +33,7 @@
                                 :delay="0"
                                 :resolveOnLoad="true"
                                 :searchable="true"
+                                :disabled="data != null"
                             />
                             <FormulateInput
                                 type="hidden"
@@ -146,53 +147,49 @@
                                 </template>
 
                                 <template #default="{index}">
-                                    <div>
-                                        <FormulateInput
-                                            type="hidden"
-                                            name="id"
-                                        />
-
-                                        <div class="col">
-                                            <div class="row">
-                                                <div class="col-6">
-                                                    <FormulateInput
-                                                        type="text"
-                                                        validationName="Detail"
-                                                        validation="required"
-                                                        name="item"
-                                                    />
-                                                </div>
-                                                <div class="col-3">
-                                                    <FormulateInput
-                                                        type="number"
-                                                        name="price"
-                                                        validationName="Price"
-                                                        step="0.01"
-                                                        validation="required|min:0.01"
-                                                        min="0.01"
-                                                    />
-                                                </div>
-                                                <div class="col-2">
-                                                    <FormulateInput
-                                                        type="number"
-                                                        validationName="Quantity"
-                                                        validation="required|min:1"
-                                                        name="quantity"
-                                                        min="1"
-                                                    />
-                                                </div>
-                                                <div class="col-1">
-                                                    <span>
-                                                        {{
-                                                            calculateSubtotal(
-                                                                form
-                                                                    .particulars[
-                                                                    index
-                                                                ]
-                                                            )
-                                                        }}
-                                                    </span>
-                                                </div>
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <FormulateInput
+                                                    type="text"
+                                                    validationName="Detail"
+                                                    validation="required"
+                                                    name="item"
+                                                />
+                                            </div>
+                                            <div class="col-3">
+                                                <FormulateInput
+                                                    type="number"
+                                                    name="price"
+                                                    validationName="Price"
+                                                    step="0.01"
+                                                    validation="required|min:0.01"
+                                                    min="0.01"
+                                                />
+                                            </div>
+                                            <div class="col-2">
+                                                <FormulateInput
+                                                    type="number"
+                                                    validationName="Quantity"
+                                                    validation="required|min:1"
+                                                    name="quantity"
+                                                    min="1"
+                                                />
+                                            </div>
+                                            <div class="col-1">
+                                                <span>
+                                                    {{
+                                                        calculateSubtotal(
+                                                            form.particulars[
+                                                                index
+                                                            ]
+                                                        )
+                                                    }}
+                                                </span>
+                                                <FormulateInput
+                                                    type="hidden"
+                                                    name="id"
+                                                />
                                             </div>
                                         </div>
                                     </div>
@@ -263,6 +260,7 @@ export default {
         );
         this.modalQuotationModal.show();
         if (this.data) {
+            this.form = this.data;
             this.title = "Edit Quotation";
         } else {
             this.title = "New Quotation";
