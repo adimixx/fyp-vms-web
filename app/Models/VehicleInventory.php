@@ -12,7 +12,7 @@ class VehicleInventory extends Model
     protected $fillable = [
         'name',
         'vehicle_catalog_id',
-        'status',
+        'status_id',
         'reg_no',
         'mileage',
         'last_service_date',
@@ -24,10 +24,12 @@ class VehicleInventory extends Model
         'created_at',
         'updated_at',
         'vehicle_catalog_id',
+        'status_id',
     ];
 
     protected $appends = [
-        'reg_with_name'
+        'reg_with_name',
+        'status'
     ];
 
     public function vehicleCatalog()
@@ -35,9 +37,18 @@ class VehicleInventory extends Model
         return $this->belongsTo(VehicleCatalog::class);
     }
 
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
+
     public function getRegWithNameAttribute()
     {
         return sprintf('%s - %s', $this->reg_no, $this->vehicleCatalog->name);
     }
 
+    public function getStatusAttribute()
+    {
+        return $this->status();
+    }
 }

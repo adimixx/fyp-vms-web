@@ -18,7 +18,7 @@ class MaintenanceRequest extends Model
         'user_id',
         'name',
         'detail',
-        'status',
+        'status_id',
         'status_note'
     ];
 
@@ -30,6 +30,7 @@ class MaintenanceRequest extends Model
         'maintenance_unit_id',
         'complaint_id',
         'user_id',
+        'status_id',
     ];
 
     public function vehicleInventory()
@@ -55,5 +56,10 @@ class MaintenanceRequest extends Model
     public function maintenanceQuotation()
     {
         return $this->hasMany(MaintenanceRequest::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
     }
 }

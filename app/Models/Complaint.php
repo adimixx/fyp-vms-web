@@ -14,7 +14,8 @@ class Complaint extends Model
         'vehicle_inventory_id',
         'name',
         'detail',
-        'media'
+        'media',
+        'status_id'
     ];
 
     protected $hidden = [
@@ -22,6 +23,7 @@ class Complaint extends Model
         'updated_at',
         'user_id',
         'vehicle_inventory_id',
+        'status_id'
     ];
 
     public function vehicleInventory()
@@ -29,4 +31,8 @@ class Complaint extends Model
         return $this->belongsTo(vehicleInventory::class);
     }
 
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+    }
 }

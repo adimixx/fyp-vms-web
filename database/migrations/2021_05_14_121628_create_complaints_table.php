@@ -21,9 +21,10 @@ class CreateComplaintsTable extends Migration
             $table->string('name');
             $table->string('detail');
             $table->json('media')->nullable();
-            $table->integer('status')->default(1);
+            $table->unsignedBigInteger('status_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('vehicle_inventory_id')->references('id')->on('vehicle_inventories');
+            $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
 

@@ -60,7 +60,7 @@ class MaintenanceQuotationAPIController extends Controller
             return $x += ($y * 100);
         };
 
-        $statusDb = Status::where('sequence', $request->status)->where('model_type', get_class(new MaintenanceRequest))->where('front_visible', true)->first();
+        $statusDb = Status::where('sequence', $request->status)->where('model_type', get_class(new MaintenanceQuotation))->where('front_visible', true)->first();
 
         $data = [
             'maintenance_request_id' => $maintenance,

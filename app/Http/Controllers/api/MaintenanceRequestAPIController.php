@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use App\Models\Complaint;
 use App\Models\MaintenanceRequest;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -21,39 +22,32 @@ class MaintenanceRequestAPIController extends Controller
             'title' => 'required|max:50',
             'description' => 'required|max:250',
         ]);
-        $validator->validate();
+        $validated = (object) $validator->validate();
 
         $data = [
-            'vehicle_inventory_id' => $request->vehicle,
-            'maintenance_category_id' => $request->maintenanceType,
-            'maintenance_unit_id' => $request->maintenanceUnit,
-            'name' => $request->title,
-            'detail' => $request->description,
+            'vehicle_inventory_id' => $validated->vehicle,
+            'maintenance_category_id' => $validated->maintenanceType,
+            'maintenance_unit_id' => $validated->maintenanceUnit,
+            'name' => $validated->title,
+            'detail' => $validated->description,
             'user_id' => 1,
-            'code' => sprintf('%s%s', $request->maintenanceUnit, 1),
-            'status' => 1
+            'code' => sprintf('%s%s', $validated->maintenanceUnit, 1),
+            'status' => Status::maintenanceRequest('pending')->id
         ];
 
         // Update Maintenance
-        if ($request->has('id')){
-            $maintenanceRequest = MaintenanceRequest::find($request->input('id'));
-            $maintenanceRequest->update($data);
+        if ($validated->id) {
+            $maintenanceRequest = MaintenanceRequest::find($validated->id)->update($data);
         }
         // New Maintenance
         else {
-            if ($request->has('complaint')) {
-                $data['complaint_id'] = $request->complaint;
-                $complaint = Complaint::find($request->complaint);
+            if ($request->complaint) {
+                $data['complaint_id'] = $validated->complaint;
             }
 
             $maintenanceRequest = MaintenanceRequest::create($data);
-
-            if (isset($complaint)){
-                $complaint->status = 2;
-                $complaint->save();
-            }
+            $maintenanceRequest->status()?->save(Status::complaint('pending maintenance'));
         }
-
 
         return $maintenanceRequest;
     }

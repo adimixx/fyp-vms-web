@@ -23,4 +23,29 @@ class Status extends Model
         'model_type',
         'id'
     ];
+
+    private static function getStatus($class, $status)
+    {
+        return Status::where('model_type', get_class($class))->whereFirst('name', $status);
+    }
+
+    public static function vehicleInventory($status)
+    {
+        return Status::getStatus(new VehicleInventory,$status);
+    }
+
+    public static function complaint($status)
+    {
+        return Status::getStatus(new Complaint,$status);
+    }
+
+    public static function maintenanceRequest($status)
+    {
+        return Status::getStatus(new MaintenanceRequest,$status);
+    }
+
+    public function maintenanceQuotation($status)
+    {
+        return Status::getStatus(new MaintenanceQuotation,$status);
+    }
 }

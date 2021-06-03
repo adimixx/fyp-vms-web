@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Status;
+use App\Models\VehicleInventory;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $vehiclesRegistered = VehicleInventory::all();
+
         return view('home');
     }
 }

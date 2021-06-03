@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Complaint;
+use App\Models\Status;
 use App\Models\VehicleInventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,20 +22,22 @@ class ComplaintAPIController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'description' => 'required|max:250',
-            'vehicle' => 'required|numeric'
-        ]);
-        $validator->validate();
-
-        $vehicle = VehicleInventory::find($request->vehicle);
-
-        $Complaint = Complaint::create([
-            'name' => $request->title,
-            'detail'=>$request->description,
-            'vehicle_inventory_id' => $vehicle->id,
-            'user_id' => 1
+            'vehicle' => 'required|numeric|exists:vehicle_inventories,id'
         ]);
 
-        return $Complaint;
+        $validated = (object) $validator->validate();
+
+        $complaint = Complaint::create([
+            'name' => $validated->title,
+            'detail' => $validated->description,
+            'vehicle_inventory_id' => $validated->id,
+            'user_id' => 1,
+            'status_id' => Status::complaint('pending')->id
+        ]);
+
+        $complaint->vehicleInventory()->status()->save(Status::complaint('pending complaints'));
+
+        return $complaint;
     }
 
     public function show($id)

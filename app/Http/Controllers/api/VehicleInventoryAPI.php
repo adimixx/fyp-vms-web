@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Status;
 use App\Models\VehicleCategory;
 use App\Models\VehicleInventory;
 use Illuminate\Http\Request;
@@ -57,7 +58,7 @@ class VehicleInventoryAPI extends Controller
             'reg_no' => $request->regNo,
             'next_service_date' => $request->nextServiceDate,
             'next_service_mileage' => $request->nextServiceMileage,
-            'status' => 1
+            'status' => Status::vehicleInventory('available')->id
         ]);
 
         return $data;

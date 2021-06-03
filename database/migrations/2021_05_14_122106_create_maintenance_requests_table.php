@@ -24,13 +24,14 @@ class CreateMaintenanceRequestsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('detail');
-            $table->integer('status')->default(1);
+            $table->unsignedBigInteger('status_id');
             $table->string('status_note')->nullable();
             $table->foreign('vehicle_inventory_id')->references('id')->on('vehicle_inventories');
             $table->foreign('maintenance_category_id')->references('id')->on('maintenance_categories');
             $table->foreign('maintenance_unit_id')->references('id')->on('maintenance_units');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('complaint_id')->references('id')->on('complaints');
+            $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
 
