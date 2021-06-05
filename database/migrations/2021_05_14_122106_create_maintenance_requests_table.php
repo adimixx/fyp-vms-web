@@ -20,7 +20,7 @@ class CreateMaintenanceRequestsTable extends Migration
             $table->unsignedBigInteger('vehicle_inventory_id');
             $table->unsignedBigInteger('maintenance_category_id');
             $table->unsignedBigInteger('maintenance_unit_id');
-            $table->unsignedBigInteger('complaint_id');
+            $table->unsignedBigInteger('complaint_id')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
             $table->string('detail');

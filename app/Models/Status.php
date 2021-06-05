@@ -26,7 +26,7 @@ class Status extends Model
 
     private static function getStatus($class, $status)
     {
-        return Status::where('model_type', get_class($class))->whereFirst('name', $status);
+        return Status::where('model_type', get_class($class))->where('name', $status)->first();
     }
 
     public static function vehicleInventory($status)

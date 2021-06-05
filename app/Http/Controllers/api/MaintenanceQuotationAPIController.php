@@ -67,7 +67,7 @@ class MaintenanceQuotationAPIController extends Controller
             'maintenance_vendor_id' => $request->vendor,
             'user_id' => 1,
             'date_request' => $request->date_request,
-            'status' => $statusDb->id
+            'status_id' => $statusDb->id
         ];
 
         if ($request->status == 2) {

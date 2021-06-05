@@ -30,12 +30,12 @@ class ComplaintAPIController extends Controller
         $complaint = Complaint::create([
             'name' => $validated->title,
             'detail' => $validated->description,
-            'vehicle_inventory_id' => $validated->id,
+            'vehicle_inventory_id' => $validated->vehicle,
             'user_id' => 1,
             'status_id' => Status::complaint('pending')->id
         ]);
 
-        $complaint->vehicleInventory()->status()->save(Status::complaint('pending complaints'));
+        $complaint->vehicleInventory()->update(['status_id' =>  Status::vehicleInventory('pending complaints')->id]);
 
         return $complaint;
     }

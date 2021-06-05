@@ -22,12 +22,12 @@ class CreateMaintenanceQuotationsTable extends Migration
             $table->date('date_request');
             $table->date('date_invoice')->nullable();
             $table->bigInteger('cost_total')->nullable();
-            $table->unsignedBigInteger('status')->nullable();
+            $table->unsignedBigInteger('status_id')->nullable();
             $table->string('file_directory')->nullable();
             $table->foreign('maintenance_request_id')->references('id')->on('maintenance_requests');
             $table->foreign('maintenance_vendor_id')->references('id')->on('maintenance_vendors');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('status')->references('id')->on('statuses');
+            $table->foreign('status_id')->references('id')->on('statuses');
         });
     }
 

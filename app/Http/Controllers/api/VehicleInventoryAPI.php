@@ -29,11 +29,11 @@ class VehicleInventoryAPI extends Controller
     public function store($vehicle_category, $catalog, Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'dateReceived' => 'required|date',
+            'dateReceived' => 'required|date|before_or_equal:today',
             'regNo' => 'required',
             'mileage' => 'required|numeric',
             'nextServiceMileage' => 'required|numeric',
-            'nextServiceDate' => 'required|date'
+            'nextServiceDate' => 'required|date|after:dateReceived'
         ]);
         $validator->validate();
 
@@ -58,7 +58,7 @@ class VehicleInventoryAPI extends Controller
             'reg_no' => $request->regNo,
             'next_service_date' => $request->nextServiceDate,
             'next_service_mileage' => $request->nextServiceMileage,
-            'status' => Status::vehicleInventory('available')->id
+            'status_id' => Status::vehicleInventory('available')->id
         ]);
 
         return $data;

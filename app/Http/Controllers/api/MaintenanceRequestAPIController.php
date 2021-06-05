@@ -32,11 +32,11 @@ class MaintenanceRequestAPIController extends Controller
             'detail' => $validated->description,
             'user_id' => 1,
             'code' => sprintf('%s%s', $validated->maintenanceUnit, 1),
-            'status' => Status::maintenanceRequest('pending')->id
+            'status_id' => Status::maintenanceRequest('pending')->id
         ];
 
         // Update Maintenance
-        if ($validated->id) {
+        if (isset($validated->id)) {
             $maintenanceRequest = MaintenanceRequest::find($validated->id)->update($data);
         }
         // New Maintenance
@@ -46,7 +46,7 @@ class MaintenanceRequestAPIController extends Controller
             }
 
             $maintenanceRequest = MaintenanceRequest::create($data);
-            $maintenanceRequest->status()?->save(Status::complaint('pending maintenance'));
+            $maintenanceRequest->complaint()?->update(['status_id' => Status::complaint('pending maintenance')->id]);
         }
 
         return $maintenanceRequest;

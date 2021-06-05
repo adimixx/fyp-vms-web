@@ -21,7 +21,7 @@ class MaintenanceController extends Controller
                 return 'Invalid Page';
             }
 
-            else if ($complaint->status != 1) {
+            else if ($complaint->status->name != 'pending') {
                 return 'complaint has been resolved';
             }
         }

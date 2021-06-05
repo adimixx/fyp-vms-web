@@ -16,7 +16,7 @@ class MaintenanceQuotation extends Model
         'date_request',
         'date_invoice',
         'cost_total',
-        'status'
+        'status_id'
     ];
 
     protected $hidden = [
@@ -43,7 +43,7 @@ class MaintenanceQuotation extends Model
 
     public function status()
     {
-        return $this->belongsTo(Status::class, 'status');
+        return $this->belongsTo(Status::class);
     }
 
     public function user()

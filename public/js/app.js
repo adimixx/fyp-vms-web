@@ -7467,16 +7467,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -7520,10 +7510,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-//
-//
-//
-//
 //
 //
 //
@@ -7824,7 +7810,7 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
                     //updated
                     console.log("updated");
 
-                    _this.$emit('activate-alert', 'Success!', 'Maintenance Information have been successfully saved.', 'success');
+                    _this.$emit("activate-alert", "Success!", "Maintenance Information have been successfully saved.", "success");
                   }
                 })["catch"](function (err) {
                   console.log(err);
@@ -7856,16 +7842,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -35999,29 +35975,16 @@ var render = function() {
         key: "status",
         fn: function(props) {
           return [
-            props.row.status == 1
-              ? _c("span", { staticClass: "badge bg-warning text-dark" }, [
-                  _vm._v("PENDING")
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            props.row.status == 2
-              ? _c("span", { staticClass: "badge bg-info" }, [
-                  _vm._v("PENDING MAINTENANCE")
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            props.row.status == 3
-              ? _c("span", { staticClass: "badge bg-success" }, [
-                  _vm._v("RESOLVED")
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            props.row.status == 0
-              ? _c("span", { staticClass: "badge bg-danger" }, [
-                  _vm._v("DISMISSED")
-                ])
-              : _vm._e()
+            _c(
+              "span",
+              {
+                class:
+                  "badge bg-" +
+                  props.row.status_class +
+                  " text-dark text-uppercase"
+              },
+              [_vm._v(_vm._s(props.row.status_name))]
+            )
           ]
         }
       }
@@ -36097,10 +36060,7 @@ var render = function() {
                       this.complaintVehicleInventory == null
                         ? _vm.loadVehicle
                         : null,
-                    disabled:
-                      _vm.form.complaintVehicleInventory != null
-                        ? "disabled"
-                        : ""
+                    disabled: _vm.form.complaintVehicleInventory != null
                   },
                   model: {
                     value: _vm.form.vehicle,
@@ -36343,29 +36303,16 @@ var render = function() {
         key: "status",
         fn: function(props) {
           return [
-            props.row.status == 1
-              ? _c("span", { staticClass: "badge bg-warning text-dark" }, [
-                  _vm._v("PENDING")
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            props.row.status == 2
-              ? _c("span", { staticClass: "badge bg-info" }, [
-                  _vm._v("PENDING MAINTENANCE")
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            props.row.status == 3
-              ? _c("span", { staticClass: "badge bg-success" }, [
-                  _vm._v("RESOLVED")
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            props.row.status == 0
-              ? _c("span", { staticClass: "badge bg-danger" }, [
-                  _vm._v("DISMISSED")
-                ])
-              : _vm._e()
+            _c(
+              "span",
+              {
+                class:
+                  "badge bg-" +
+                  props.row.status_class +
+                  " text-dark text-uppercase"
+              },
+              [_vm._v(_vm._s(props.row.status_name))]
+            )
           ]
         }
       }

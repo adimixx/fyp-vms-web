@@ -29,7 +29,6 @@ class VehicleInventory extends Model
 
     protected $appends = [
         'reg_with_name',
-        'status'
     ];
 
     public function vehicleCatalog()
@@ -45,10 +44,5 @@ class VehicleInventory extends Model
     public function getRegWithNameAttribute()
     {
         return sprintf('%s - %s', $this->reg_no, $this->vehicleCatalog->name);
-    }
-
-    public function getStatusAttribute()
-    {
-        return $this->status();
     }
 }

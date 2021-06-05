@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\MaintenanceCategory;
+use App\Models\MaintenanceQuotation;
 use App\Models\MaintenanceRequest;
 use App\Models\MaintenanceUnit;
 use App\Models\MaintenanceVendor;
@@ -83,13 +84,13 @@ class MultiSelectAPIController extends Controller
 
         // Maintenance Quotation
         if ($model == 1) {
-            $data = $data->where('model_type', '=', get_class(new MaintenanceRequest));
+            $data = $data->where('model_type', get_class(new MaintenanceQuotation));
         }
 
         return $data->map(function ($item, $index) {
             return [
                 'value' => $index + 1,
-                'label' => $item->name
+                'label' => ucwords($item->name)
             ];
         });
     }

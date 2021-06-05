@@ -30,11 +30,7 @@
                                 : null
                         "
                         ref="vehicleSelect"
-                        :disabled="
-                            form.complaintVehicleInventory != null
-                                ? 'disabled'
-                                : ''
-                        "
+                        :disabled="form.complaintVehicleInventory != null"
                     />
                 </div>
                 <FormulateInput
@@ -239,7 +235,12 @@ export default {
                         //updated
                         console.log("updated");
 
-                        this.$emit('activate-alert','Success!','Maintenance Information have been successfully saved.','success');
+                        this.$emit(
+                            "activate-alert",
+                            "Success!",
+                            "Maintenance Information have been successfully saved.",
+                            "success"
+                        );
                     }
                 })
                 .catch(err => {
