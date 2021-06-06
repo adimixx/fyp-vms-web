@@ -19,6 +19,17 @@
 
 @import "startbootstrap-sb-admin-2/scss/sb-admin-2";
 
+// Filepond
+@import "filepond/dist/filepond.min.css";
+@import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
+
+
+@import 'vue-it-bigger/dist/vue-it-bigger.min.css'; // when using webpack
+
+.filepond--item {
+    width: calc(25% - .5em);
+}
+
 // @import '@braid/vue-formulate/themes/snow/snow.scss';
 
 .bg-gradient-primary {

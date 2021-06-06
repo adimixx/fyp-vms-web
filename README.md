@@ -5,6 +5,7 @@
 - [Simple QR Code](https://www.simplesoftware.io/#/docs/simple-qrcode)
 - [Laravel Breadcrumbs](https://github.com/diglactic/laravel-breadcrumbs#switching-views-at-runtime)
 - [laravel-json-api-paginate](https://github.com/spatie/laravel-json-api-paginate)
+- [laravel-azure-storage](https://github.com/matthewbdaly/laravel-azure-storage)
 
 
 ## Front-end Stacks

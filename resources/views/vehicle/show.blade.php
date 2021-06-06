@@ -52,13 +52,17 @@
             <div class="card-header py-3">
                 <h6 class="text-primary m-0 fw-bold">Maintenance History</h6>
             </div>
-            <div class="card-body"></div>
+            <div class="card-body">
+                <maintenance-datatable route="{{ route('maintenance.index') }}" api-url="{{ route('api.datatable.maintenance.vehicle', $vehicle->id) }}"></maintenance-datatable>
+            </div>
         </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h6 class="text-primary m-0 fw-bold">Complaints</h6>
             </div>
-            <div class="card-body"></div>
+            <div class="card-body">
+                <complaint-datatable route="{{ route('complaint.index') }}" api-url="{{ route('api.datatable.complaint.vehicle', $vehicle->id) }}"></complaint-datatable>
+            </div>
         </div>
     </div>
 

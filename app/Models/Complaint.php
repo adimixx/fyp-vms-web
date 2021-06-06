@@ -15,7 +15,7 @@ class Complaint extends Model
         'name',
         'detail',
         'media',
-        'status_id'
+        'status_id',
     ];
 
     protected $hidden = [
@@ -25,6 +25,11 @@ class Complaint extends Model
         'vehicle_inventory_id',
         'status_id'
     ];
+
+    public function getMediaAttribute($value)
+    {
+        return unserialize($value);
+    }
 
     public function vehicleInventory()
     {

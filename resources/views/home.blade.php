@@ -15,7 +15,7 @@
                   <span>Vehicles Registered</span>
                 </div>
                 <div class="text-dark fw-bold h5 mb-0">
-                  <span>123</span>
+                  <span>{{ $vehiclesRegistered->count() }}</span>
                 </div>
               </div>
               <div class="col-auto">
@@ -34,7 +34,7 @@
                   <span>unsettled Complaints</span>
                 </div>
                 <div class="text-dark fw-bold h5 mb-0">
-                  <span>20</span>
+                  <span>{{ $complaintsPending->count() }}</span>
                 </div>
               </div>
               <div class="col-auto">
@@ -50,12 +50,12 @@
             <div class="row align-items-center no-gutters">
               <div class="col me-2">
                 <div class="text-uppercase text-info fw-bold text-xs mb-1">
-                  <span>settled tasks</span>
+                  <span>settled maintenance</span>
                 </div>
                 <div class="row g-0 align-items-center">
                   <div class="col-auto">
                     <div class="text-dark fw-bold h5 mb-0 me-3">
-                      <span>123</span>
+                      <span>{{ $settledMaintenance->count() }}</span>
                     </div>
                   </div>
                 </div>
@@ -72,11 +72,11 @@
           <div class="card-body">
             <div class="row align-items-center no-gutters">
               <div class="col me-2">
-                <div class="text-uppercase text-warning fw-bold text-xs mb-1">
+                <div class="text-uppercase text-danger fw-bold text-xs mb-1">
                   <span>Pending maintenance</span>
                 </div>
                 <div class="text-dark fw-bold h5 mb-0">
-                  <span>18</span>
+                  <span>{{ $pendingMaintenance->count() }}</span>
                 </div>
               </div>
               <div class="col-auto">

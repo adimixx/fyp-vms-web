@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Complaint;
+use App\Models\MaintenanceRequest;
 use App\Models\Status;
 use App\Models\VehicleInventory;
 use Illuminate\Http\Request;
@@ -26,7 +28,18 @@ class HomeController extends Controller
     public function index()
     {
         $vehiclesRegistered = VehicleInventory::all();
+        $complaintsPending = Complaint::with(['status' => function ($query) {
+            return $query->where('name', 'pending');
+        }])->get();
 
-        return view('home');
+        $pendingMaintenance = MaintenanceRequest::with(['status' => function ($query) {
+            return $query->where('name', 'pending');
+        }])->get();
+
+        $settledMaintenance = MaintenanceRequest::with(['status' => function ($query) {
+            return $query->where('name', 'approved');
+        }])->get();
+
+        return view('home', compact('vehiclesRegistered', 'complaintsPending', 'pendingMaintenance', 'settledMaintenance'));
     }
 }

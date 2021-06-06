@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "bayfrontmedia/php-mime-types": "^1.0",
         "diglactic/laravel-breadcrumbs": "^7.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -14,6 +15,7 @@
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
+        "matthewbdaly/laravel-azure-storage": "^1.6",
         "simplesoftwareio/simple-qrcode": "~4",
         "spatie/laravel-json-api-paginate": "^1.10",
         "spatie/laravel-permission": "^4.0"

@@ -27,7 +27,7 @@ class DatatableAPIController extends Controller
         return $data->jsonPaginate();
     }
 
-    private function complaint(Request $request, bool $isPending = false)
+    private function complaint(Request $request, int $vehicle = 0, bool $isPending = false)
     {
         $data = Complaint::select('complaints.*', 'inv.reg_no AS reg_no',  DB::raw('CONCAT_WS(\' \',ctlg.brand, ctlg.model, ctlg.variant, CASE WHEN ctlg.year IS NOT NULL THEN CONCAT(\'(\', ctlg.year, \')\') ELSE NULL END) AS model'), 'sts.name AS status_name', 'sts.color_class AS status_class')
             ->join('vehicle_inventories AS inv', 'inv.id', '=', 'complaints.vehicle_inventory_id')
@@ -35,7 +35,9 @@ class DatatableAPIController extends Controller
             ->join('vehicle_categories AS ctg', 'ctlg.vehicle_category_id', '=', 'ctg.id')
             ->join('statuses AS sts', 'sts.id', '=', 'complaints.status_id');
 
-        if ($isPending) {
+        if ($vehicle != 0) {
+            $data = $data->where('vehicle_inventory_id', $vehicle);
+        } else if ($isPending) {
             $data = $data->where('complaints.status_id', Status::complaint('pending')->id);
         } else {
             $data = $data->where('complaints.status_id', '!=', Status::complaint('pending')->id);
@@ -48,7 +50,7 @@ class DatatableAPIController extends Controller
         return $this->returnData($data, $request);
     }
 
-    private function maintenance(Request $request, bool $isPending = false)
+    private function maintenance(Request $request, int $vehicle = 0, bool $isPending = false)
     {
         $data = MaintenanceRequest::select('maintenance_requests.*', 'inv.reg_no AS reg_no',  DB::raw('CONCAT_WS(\' \',ctlg.brand, ctlg.model, ctlg.variant, CASE WHEN ctlg.year IS NOT NULL THEN CONCAT(\'(\', ctlg.year, \')\') ELSE NULL END) AS model'), 'sts.name AS status_name', 'sts.color_class AS status_class')
             ->join('vehicle_inventories AS inv', 'inv.id', '=', 'maintenance_requests.vehicle_inventory_id')
@@ -58,7 +60,9 @@ class DatatableAPIController extends Controller
             ->join('maintenance_categories AS mtc', 'maintenance_requests.maintenance_category_id', '=', 'mtc.id')
             ->join('statuses AS sts', 'sts.id', '=', 'maintenance_requests.status_id');
 
-        if ($isPending) {
+        if ($vehicle != 0) {
+            $data = $data->where('vehicle_inventory_id', $vehicle);
+        } else if ($isPending) {
             $data = $data->where('maintenance_requests.status_id', Status::maintenanceRequest('pending')->id);
         } else {
             $data = $data->where('maintenance_requests.status_id', '!=', Status::maintenanceRequest('pending')->id);
@@ -87,7 +91,7 @@ class DatatableAPIController extends Controller
 
     public function complaintPending(Request $request)
     {
-        return $this->complaint($request, true);
+        return $this->complaint($request, isPending: true);
     }
 
     public function complaintHistory(Request $request)
@@ -95,14 +99,24 @@ class DatatableAPIController extends Controller
         return $this->complaint($request);
     }
 
+    public function complaintVehicle($vehicle, Request $request)
+    {
+        return $this->complaint($request, vehicle: $vehicle);
+    }
+
     public function maintenancePending(Request $request)
     {
-        return $this->maintenance($request, true);
+        return $this->maintenance($request, isPending: true);
     }
 
     public function maintenanceHistory(Request $request)
     {
         return $this->maintenance($request);
+    }
+
+    public function maintenanceVehicle($vehicle, Request $request)
+    {
+        return $this->maintenance($request, vehicle: $vehicle);
     }
 
     public function maintenanceQuotation($maintenance_request, Request $request)

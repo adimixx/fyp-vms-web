@@ -51,6 +51,16 @@
                             validation="required|max:250,length"
                         />
 
+                        <div class="mb-3">
+                            <label class="form-label">Attachments</label>
+                            <filepond @file-update="onFileUpdate"></filepond>
+                            <FormulateInput
+                                type="hidden"
+                                name="file"
+                                :value="form.file"
+                            />
+                        </div>
+
                         <div class="d-grid gap-3 mt-4 mb-3">
                             <input
                                 type="submit"
@@ -70,6 +80,7 @@
 import VueCompositionAPI from "@vue/composition-api";
 Vue.use(VueCompositionAPI);
 import Multiselect from "@vueform/multiselect/dist/multiselect.vue2.js";
+import Filepond from "../Filepond.vue";
 
 export default {
     components: {
@@ -78,12 +89,12 @@ export default {
     data() {
         return {
             form: {
-                vehicle: null,
+                vehicle: null
             },
             inputErrors: {}
         };
     },
-    props:{
+    props: {
         submitLink: String
     },
     methods: {
@@ -95,6 +106,9 @@ export default {
 
             var res = await axios.get(link);
             return res.data;
+        },
+        onFileUpdate(data) {
+            this.form.file = data;
         },
         async submitForm(data) {
             axios

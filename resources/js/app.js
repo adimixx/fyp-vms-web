@@ -83,6 +83,7 @@ import { ServerTable, ClientTable, Event } from "vue-tables-2";
 // Vue.use(ServerTable, [options = {}], [useVuex = false], [theme = 'bootstrap4'], [swappables = {}]);
 import vtGenericFilter from "./components/vueTables/vtGenericFilter.vue";
 import vtPerPageSelector from "./components/vueTables/vtPerPageSelector.vue";
+import Vue from "vue";
 
 Vue.use(ClientTable, {}, false, "bootstrap4");
 Vue.use(

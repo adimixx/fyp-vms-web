@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FileControllerAPI;
 use App\Models\Complaint;
 use App\Models\Status;
 use App\Models\VehicleInventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ComplaintAPIController extends Controller
@@ -22,7 +24,8 @@ class ComplaintAPIController extends Controller
         $validator = Validator::make($request->all(), [
             'title' => 'required',
             'description' => 'required|max:250',
-            'vehicle' => 'required|numeric|exists:vehicle_inventories,id'
+            'vehicle' => 'required|numeric|exists:vehicle_inventories,id',
+            'file' => 'array'
         ]);
 
         $validated = (object) $validator->validate();
@@ -32,8 +35,14 @@ class ComplaintAPIController extends Controller
             'detail' => $validated->description,
             'vehicle_inventory_id' => $validated->vehicle,
             'user_id' => 1,
-            'status_id' => Status::complaint('pending')->id
+            'status_id' => Status::complaint('pending')->id,
+            'media' => serialize($validated->file) ?? null
         ]);
+
+        foreach ($validated->file as $file) {
+            Storage::disk('azure_complaints')->put($file, Storage::disk('local')->get(sprintf('temp/%s', $file)));
+            FileControllerAPI::destroyTempFile($file);
+        }
 
         $complaint->vehicleInventory()->update(['status_id' =>  Status::vehicleInventory('pending complaints')->id]);
 

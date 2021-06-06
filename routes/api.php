@@ -8,6 +8,7 @@ use App\Http\Controllers\api\MultiSelectAPIController;
 use App\Http\Controllers\api\VehicleCatalogAPI;
 use App\Http\Controllers\api\VehicleCategoryAPI;
 use App\Http\Controllers\api\VehicleInventoryAPI;
+use App\Http\Controllers\FileControllerAPI;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -35,14 +36,21 @@ Route::name('api.data.')->group(function () {
     Route::resource('complaint', ComplaintAPIController::class);
     Route::resource('maintenance-request', MaintenanceRequestAPIController::class);
     Route::resource('maintenance.quotation', MaintenanceQuotationAPIController::class);
+
+    Route::resource('file', FileControllerAPI::class);
+
 });
 
 Route::prefix('datatable')->name('api.datatable.')->group(function () {
     Route::get('vehicle', [DatatableAPIController::class, 'vehicleInventory']);
     Route::get('complaint-pending', [DatatableAPIController::class, 'complaintPending'])->name('complaint.pending');
     Route::get('complaint-history', [DatatableAPIController::class, 'complaintHistory'])->name('complaint.history');
+    Route::get('complaint/{vehicle}', [DatatableAPIController::class, 'complaintVehicle'])->name('complaint.vehicle');
+
     Route::get('maintenance-pending', [DatatableAPIController::class, 'maintenancePending'])->name('maintenance.pending');
     Route::get('maintenance-history', [DatatableAPIController::class, 'maintenanceHistory'])->name('maintenance.history');
+    Route::get('maintenance/{vehicle}', [DatatableAPIController::class, 'maintenanceVehicle'])->name('maintenance.vehicle');
+
     Route::get('maintenance/{maintenance_request}/quotation', [DatatableAPIController::class, 'maintenanceQuotation'])->name('maintenance.quotation');
 });
 
