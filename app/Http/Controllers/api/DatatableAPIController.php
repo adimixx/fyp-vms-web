@@ -7,6 +7,7 @@ use App\Models\Complaint;
 use App\Models\MaintenanceQuotation;
 use App\Models\MaintenanceRequest;
 use App\Models\Status;
+use App\Models\User;
 use App\Models\VehicleInventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -133,6 +134,13 @@ class DatatableAPIController extends Controller
             ->join('maintenance_vendors AS mtv', 'mtv.id', '=', 'maintenance_quotations.maintenance_vendor_id')
             ->join('statuses AS sts', 'sts.id', '=', 'maintenance_quotations.status_id')
             ->where('maintenance_request_id', '=', $maintenance_request);
+
+        return $this->returnData($data, $request);
+    }
+
+    public function user(Request $request)
+    {
+        $data = User::with(['roles:name']);
 
         return $this->returnData($data, $request);
     }

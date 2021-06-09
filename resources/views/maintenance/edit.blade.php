@@ -62,6 +62,7 @@
                                         </div>
                                         <div class="col-12">
                                             <p class="text-secondary mb-0">Media Attachments : </p>
+                                            <Lightbox :media="{{ $maintenance->complaint->media_vue }}"></Lightbox>
                                         </div>
                                     </div>
                                 </div>
@@ -77,8 +78,7 @@
                     vendor-select-url="{{ route('api.select.vendor') }}"
                     status-quotation-select-url="{{ route('api.select.status', 1) }}"
                     quotation-url="{{ route('api.data.maintenance.quotation.index', $maintenance->id) }}"
-                    @activate-alert="activateAlert"
-                    @activate-toast="activateToast"></maintenance-quotation-edit>
+                    @activate-alert="activateAlert" @activate-toast="activateToast"></maintenance-quotation-edit>
             </div>
         </div>
     </div>

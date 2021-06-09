@@ -23,11 +23,10 @@
 @import "filepond/dist/filepond.min.css";
 @import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 
-
-@import 'vue-it-bigger/dist/vue-it-bigger.min.css'; // when using webpack
+@import "vue-it-bigger/dist/vue-it-bigger.min.css"; // when using webpack
 
 .filepond--item {
-    width: calc(25% - .5em);
+    width: calc(25% - 0.5em);
 }
 
 // @import '@braid/vue-formulate/themes/snow/snow.scss';
@@ -42,22 +41,36 @@
     background-size: cover;
 }
 
-.sidebar-brand-icon{
-    background: url('../images/utem_logo.png');
+.sidebar-brand-icon {
+    background: url("../images/utem_logo.png");
     background-size: contain;
     background-repeat: no-repeat;
     width: 30px;
     height: 32px;
 }
 
-.VueTables__search, .VueTables__search-field{
+.VueTables__search,
+.VueTables__search-field {
     width: 80%;
 }
 
-.VuePagination__pagination.pagination.VuePagination__pagination{
+.VuePagination__pagination.pagination.VuePagination__pagination {
     display: inline-flex;
 }
 
-.breadcrumb{
+.breadcrumb {
     background-color: transparent;
+}
+
+// Classes for Vue Formulate
+
+div[data-classification="box"] > .formulate-input-wrapper{
+    @extend .d-flex;
+}
+
+input[type="checkbox"] {
+    @extend .form-check-input;
+    @extend .ml-0;
+    @extend .mr-3;
+    position: inherit;
 }

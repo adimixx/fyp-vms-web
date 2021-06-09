@@ -4,9 +4,15 @@
     "description": "The Laravel Framework.",
     "keywords": ["framework", "laravel"],
     "license": "MIT",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/adimixx/php-mime-types"
+        }
+    ],
     "require": {
         "php": "^7.3|^8.0",
-        "bayfrontmedia/php-mime-types": "^1.0",
+        "bayfrontmedia/php-mime-types": "dev-master",
         "diglactic/laravel-breadcrumbs": "^7.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",

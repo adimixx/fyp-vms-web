@@ -65,6 +65,10 @@
                             <a class="nav-link" href="{{ route('maintenance.index') }}"><i
                                     class="fas fa-wrench"></i><span>Maintenance</span></a>
                         </li>
+                        <li class="nav-item {{ request()->routeIs('user.*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('user.index') }}"><i
+                                    class="fas fa-user"></i><span>User</span></a>
+                        </li>
                     </ul>
                     <div class="text-center d-none d-md-inline">
                         <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>

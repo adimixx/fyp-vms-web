@@ -12762,12 +12762,12 @@ textarea.form-control-lg {
   padding-left: 1.5em;
   margin-bottom: 0.125rem;
 }
-.form-check .form-check-input {
+.form-check .form-check-input, .form-check input[type=checkbox] {
   float: left;
   margin-left: -1.5em;
 }
 
-.form-check-input {
+.form-check-input, input[type=checkbox] {
   width: 1em;
   height: 1em;
   margin-top: 0.25em;
@@ -12783,48 +12783,48 @@ textarea.form-control-lg {
   -webkit-print-color-adjust: exact;
           color-adjust: exact;
 }
-.form-check-input[type=checkbox] {
+.form-check-input[type=checkbox], input[type=checkbox] {
   border-radius: 0.25em;
 }
-.form-check-input[type=radio] {
+.form-check-input[type=radio], input[type=radio][type=checkbox] {
   border-radius: 50%;
 }
-.form-check-input:active {
+.form-check-input:active, input[type=checkbox]:active {
   filter: brightness(90%);
 }
-.form-check-input:focus {
+.form-check-input:focus, input[type=checkbox]:focus {
   border-color: #8994b9;
   outline: 0;
   box-shadow: 0 0 0 0.25rem rgba(18, 40, 115, 0.25);
 }
-.form-check-input:checked {
+.form-check-input:checked, input[type=checkbox]:checked {
   background-color: #122873;
   border-color: #122873;
 }
-.form-check-input:checked[type=checkbox] {
+.form-check-input:checked[type=checkbox], input:checked[type=checkbox] {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10l3 3l6-6'/%3e%3c/svg%3e");
 }
-.form-check-input:checked[type=radio] {
+.form-check-input:checked[type=radio], input[type=checkbox]:checked[type=radio] {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23fff'/%3e%3c/svg%3e");
 }
-.form-check-input[type=checkbox]:indeterminate {
+.form-check-input[type=checkbox]:indeterminate, input[type=checkbox]:indeterminate {
   background-color: #122873;
   border-color: #122873;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='M6 10h8'/%3e%3c/svg%3e");
 }
-.form-check-input:disabled {
+.form-check-input:disabled, input[type=checkbox]:disabled {
   pointer-events: none;
   filter: none;
   opacity: 0.5;
 }
-.form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label {
+.form-check-input[disabled] ~ .form-check-label, input[disabled][type=checkbox] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label, input[type=checkbox]:disabled ~ .form-check-label {
   opacity: 0.5;
 }
 
 .form-switch {
   padding-left: 2.5em;
 }
-.form-switch .form-check-input {
+.form-switch .form-check-input, .form-switch input[type=checkbox] {
   width: 2em;
   margin-left: -2.5em;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='rgba%280, 0, 0, 0.25%29'/%3e%3c/svg%3e");
@@ -12833,14 +12833,14 @@ textarea.form-control-lg {
   transition: background-position 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
-  .form-switch .form-check-input {
+  .form-switch .form-check-input, .form-switch input[type=checkbox] {
     transition: none;
   }
 }
-.form-switch .form-check-input:focus {
+.form-switch .form-check-input:focus, .form-switch input[type=checkbox]:focus {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%238994b9'/%3e%3c/svg%3e");
 }
-.form-switch .form-check-input:checked {
+.form-switch .form-check-input:checked, .form-switch input[type=checkbox]:checked {
   background-position: right center;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e");
 }
@@ -13164,20 +13164,20 @@ textarea.form-control-lg {
   box-shadow: 0 0 0 0.25rem rgba(56, 193, 114, 0.25);
 }
 
-.was-validated .form-check-input:valid, .form-check-input.is-valid {
+.was-validated .form-check-input:valid, .was-validated input[type=checkbox]:valid, .form-check-input.is-valid, input.is-valid[type=checkbox] {
   border-color: #38c172;
 }
-.was-validated .form-check-input:valid:checked, .form-check-input.is-valid:checked {
+.was-validated .form-check-input:valid:checked, .was-validated input[type=checkbox]:valid:checked, .form-check-input.is-valid:checked, input.is-valid[type=checkbox]:checked {
   background-color: #38c172;
 }
-.was-validated .form-check-input:valid:focus, .form-check-input.is-valid:focus {
+.was-validated .form-check-input:valid:focus, .was-validated input[type=checkbox]:valid:focus, .form-check-input.is-valid:focus, input.is-valid[type=checkbox]:focus {
   box-shadow: 0 0 0 0.25rem rgba(56, 193, 114, 0.25);
 }
-.was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
+.was-validated .form-check-input:valid ~ .form-check-label, .was-validated input[type=checkbox]:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label, input.is-valid[type=checkbox] ~ .form-check-label {
   color: #38c172;
 }
 
-.form-check-inline .form-check-input ~ .valid-feedback {
+.form-check-inline .form-check-input ~ .valid-feedback, .form-check-inline input[type=checkbox] ~ .valid-feedback {
   margin-left: 0.5em;
 }
 
@@ -13253,20 +13253,20 @@ textarea.form-control-lg {
   box-shadow: 0 0 0 0.25rem rgba(227, 52, 47, 0.25);
 }
 
-.was-validated .form-check-input:invalid, .form-check-input.is-invalid {
+.was-validated .form-check-input:invalid, .was-validated input[type=checkbox]:invalid, .form-check-input.is-invalid, input.is-invalid[type=checkbox] {
   border-color: #e3342f;
 }
-.was-validated .form-check-input:invalid:checked, .form-check-input.is-invalid:checked {
+.was-validated .form-check-input:invalid:checked, .was-validated input[type=checkbox]:invalid:checked, .form-check-input.is-invalid:checked, input.is-invalid[type=checkbox]:checked {
   background-color: #e3342f;
 }
-.was-validated .form-check-input:invalid:focus, .form-check-input.is-invalid:focus {
+.was-validated .form-check-input:invalid:focus, .was-validated input[type=checkbox]:invalid:focus, .form-check-input.is-invalid:focus, input.is-invalid[type=checkbox]:focus {
   box-shadow: 0 0 0 0.25rem rgba(227, 52, 47, 0.25);
 }
-.was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label {
+.was-validated .form-check-input:invalid ~ .form-check-label, .was-validated input[type=checkbox]:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label, input.is-invalid[type=checkbox] ~ .form-check-label {
   color: #e3342f;
 }
 
-.form-check-inline .form-check-input ~ .invalid-feedback {
+.form-check-inline .form-check-input ~ .invalid-feedback, .form-check-inline input[type=checkbox] ~ .invalid-feedback {
   margin-left: 0.5em;
 }
 
@@ -16731,7 +16731,7 @@ textarea.form-control-lg {
   display: table-cell !important;
 }
 
-.d-flex {
+.d-flex, div[data-classification=box] > .formulate-input-wrapper {
   display: flex !important;
 }
 
@@ -23559,12 +23559,12 @@ textarea.form-control {
   padding-left: 1.25rem;
 }
 
-.form-check-input {
+.form-check-input, input[type=checkbox] {
   position: absolute;
   margin-top: 0.3rem;
   margin-left: -1.25rem;
 }
-.form-check-input[disabled] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label {
+.form-check-input[disabled] ~ .form-check-label, input[disabled][type=checkbox] ~ .form-check-label, .form-check-input:disabled ~ .form-check-label, input[type=checkbox]:disabled ~ .form-check-label {
   color: #6c757d;
 }
 
@@ -23578,7 +23578,7 @@ textarea.form-control {
   padding-left: 0;
   margin-right: 0.75rem;
 }
-.form-check-inline .form-check-input {
+.form-check-inline .form-check-input, .form-check-inline input[type=checkbox] {
   position: static;
   margin-top: 0;
   margin-right: 0.3125rem;
@@ -23647,12 +23647,14 @@ textarea.form-control {
   box-shadow: 0 0 0 0.25rem rgba(56, 193, 114, 0.25);
 }
 
-.was-validated .form-check-input:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label {
+.was-validated .form-check-input:valid ~ .form-check-label, .was-validated input[type=checkbox]:valid ~ .form-check-label, .form-check-input.is-valid ~ .form-check-label, input.is-valid[type=checkbox] ~ .form-check-label {
   color: #38c172;
 }
-.was-validated .form-check-input:valid ~ .valid-feedback,
-.was-validated .form-check-input:valid ~ .valid-tooltip, .form-check-input.is-valid ~ .valid-feedback,
-.form-check-input.is-valid ~ .valid-tooltip {
+.was-validated .form-check-input:valid ~ .valid-feedback, .was-validated input[type=checkbox]:valid ~ .valid-feedback,
+.was-validated .form-check-input:valid ~ .valid-tooltip,
+.was-validated input[type=checkbox]:valid ~ .valid-tooltip, .form-check-input.is-valid ~ .valid-feedback, input.is-valid[type=checkbox] ~ .valid-feedback,
+.form-check-input.is-valid ~ .valid-tooltip,
+input.is-valid[type=checkbox] ~ .valid-tooltip {
   display: block;
 }
 
@@ -23743,12 +23745,14 @@ textarea.form-control {
   box-shadow: 0 0 0 0.25rem rgba(227, 52, 47, 0.25);
 }
 
-.was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label {
+.was-validated .form-check-input:invalid ~ .form-check-label, .was-validated input[type=checkbox]:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label, input.is-invalid[type=checkbox] ~ .form-check-label {
   color: #e3342f;
 }
-.was-validated .form-check-input:invalid ~ .invalid-feedback,
-.was-validated .form-check-input:invalid ~ .invalid-tooltip, .form-check-input.is-invalid ~ .invalid-feedback,
-.form-check-input.is-invalid ~ .invalid-tooltip {
+.was-validated .form-check-input:invalid ~ .invalid-feedback, .was-validated input[type=checkbox]:invalid ~ .invalid-feedback,
+.was-validated .form-check-input:invalid ~ .invalid-tooltip,
+.was-validated input[type=checkbox]:invalid ~ .invalid-tooltip, .form-check-input.is-invalid ~ .invalid-feedback, input.is-invalid[type=checkbox] ~ .invalid-feedback,
+.form-check-input.is-invalid ~ .invalid-tooltip,
+input.is-invalid[type=checkbox] ~ .invalid-tooltip {
   display: block;
 }
 
@@ -23818,7 +23822,7 @@ textarea.form-control {
     width: auto;
     padding-left: 0;
   }
-  .form-inline .form-check-input {
+  .form-inline .form-check-input, .form-inline input[type=checkbox] {
     position: relative;
     flex-shrink: 0;
     margin-top: 0;
@@ -27856,7 +27860,7 @@ button.bg-dark:focus {
   display: table-cell !important;
 }
 
-.d-flex {
+.d-flex, div[data-classification=box] > .formulate-input-wrapper {
   display: flex !important;
 }
 
@@ -29217,7 +29221,7 @@ button.bg-dark:focus {
   margin-bottom: 0 !important;
 }
 
-.ml-0,
+.ml-0, input[type=checkbox],
 .mx-0 {
   margin-left: 0 !important;
 }
@@ -29279,7 +29283,7 @@ button.bg-dark:focus {
   margin-top: 1rem !important;
 }
 
-.mr-3,
+.mr-3, input[type=checkbox],
 .mx-3 {
   margin-right: 1rem !important;
 }
@@ -33228,133 +33232,133 @@ form.user .btn-user {
 
 @-webkit-keyframes noise-anim {
   0% {
-    clip: rect(81px, 9999px, 82px, 0);
+    clip: rect(91px, 9999px, 23px, 0);
   }
   5% {
-    clip: rect(34px, 9999px, 25px, 0);
+    clip: rect(17px, 9999px, 39px, 0);
   }
   10% {
-    clip: rect(40px, 9999px, 81px, 0);
+    clip: rect(38px, 9999px, 57px, 0);
   }
   15% {
-    clip: rect(76px, 9999px, 99px, 0);
+    clip: rect(8px, 9999px, 85px, 0);
   }
   20% {
-    clip: rect(83px, 9999px, 9px, 0);
+    clip: rect(21px, 9999px, 22px, 0);
   }
   25% {
-    clip: rect(46px, 9999px, 6px, 0);
+    clip: rect(38px, 9999px, 68px, 0);
   }
   30% {
-    clip: rect(77px, 9999px, 70px, 0);
+    clip: rect(93px, 9999px, 11px, 0);
   }
   35% {
-    clip: rect(7px, 9999px, 12px, 0);
+    clip: rect(52px, 9999px, 70px, 0);
   }
   40% {
-    clip: rect(54px, 9999px, 65px, 0);
+    clip: rect(60px, 9999px, 34px, 0);
   }
   45% {
-    clip: rect(98px, 9999px, 18px, 0);
+    clip: rect(16px, 9999px, 5px, 0);
   }
   50% {
-    clip: rect(98px, 9999px, 74px, 0);
+    clip: rect(51px, 9999px, 8px, 0);
   }
   55% {
-    clip: rect(71px, 9999px, 46px, 0);
+    clip: rect(79px, 9999px, 34px, 0);
   }
   60% {
-    clip: rect(9px, 9999px, 30px, 0);
+    clip: rect(58px, 9999px, 98px, 0);
   }
   65% {
-    clip: rect(35px, 9999px, 38px, 0);
+    clip: rect(59px, 9999px, 98px, 0);
   }
   70% {
-    clip: rect(49px, 9999px, 88px, 0);
+    clip: rect(90px, 9999px, 6px, 0);
   }
   75% {
-    clip: rect(49px, 9999px, 27px, 0);
+    clip: rect(31px, 9999px, 26px, 0);
   }
   80% {
-    clip: rect(56px, 9999px, 28px, 0);
+    clip: rect(43px, 9999px, 69px, 0);
   }
   85% {
-    clip: rect(13px, 9999px, 55px, 0);
+    clip: rect(28px, 9999px, 7px, 0);
   }
   90% {
-    clip: rect(5px, 9999px, 63px, 0);
+    clip: rect(4px, 9999px, 79px, 0);
   }
   95% {
-    clip: rect(91px, 9999px, 30px, 0);
+    clip: rect(65px, 9999px, 6px, 0);
   }
   100% {
-    clip: rect(85px, 9999px, 7px, 0);
+    clip: rect(94px, 9999px, 26px, 0);
   }
 }
 
 @keyframes noise-anim {
   0% {
-    clip: rect(81px, 9999px, 82px, 0);
+    clip: rect(91px, 9999px, 23px, 0);
   }
   5% {
-    clip: rect(34px, 9999px, 25px, 0);
+    clip: rect(17px, 9999px, 39px, 0);
   }
   10% {
-    clip: rect(40px, 9999px, 81px, 0);
+    clip: rect(38px, 9999px, 57px, 0);
   }
   15% {
-    clip: rect(76px, 9999px, 99px, 0);
+    clip: rect(8px, 9999px, 85px, 0);
   }
   20% {
-    clip: rect(83px, 9999px, 9px, 0);
+    clip: rect(21px, 9999px, 22px, 0);
   }
   25% {
-    clip: rect(46px, 9999px, 6px, 0);
+    clip: rect(38px, 9999px, 68px, 0);
   }
   30% {
-    clip: rect(77px, 9999px, 70px, 0);
+    clip: rect(93px, 9999px, 11px, 0);
   }
   35% {
-    clip: rect(7px, 9999px, 12px, 0);
+    clip: rect(52px, 9999px, 70px, 0);
   }
   40% {
-    clip: rect(54px, 9999px, 65px, 0);
+    clip: rect(60px, 9999px, 34px, 0);
   }
   45% {
-    clip: rect(98px, 9999px, 18px, 0);
+    clip: rect(16px, 9999px, 5px, 0);
   }
   50% {
-    clip: rect(98px, 9999px, 74px, 0);
+    clip: rect(51px, 9999px, 8px, 0);
   }
   55% {
-    clip: rect(71px, 9999px, 46px, 0);
+    clip: rect(79px, 9999px, 34px, 0);
   }
   60% {
-    clip: rect(9px, 9999px, 30px, 0);
+    clip: rect(58px, 9999px, 98px, 0);
   }
   65% {
-    clip: rect(35px, 9999px, 38px, 0);
+    clip: rect(59px, 9999px, 98px, 0);
   }
   70% {
-    clip: rect(49px, 9999px, 88px, 0);
+    clip: rect(90px, 9999px, 6px, 0);
   }
   75% {
-    clip: rect(49px, 9999px, 27px, 0);
+    clip: rect(31px, 9999px, 26px, 0);
   }
   80% {
-    clip: rect(56px, 9999px, 28px, 0);
+    clip: rect(43px, 9999px, 69px, 0);
   }
   85% {
-    clip: rect(13px, 9999px, 55px, 0);
+    clip: rect(28px, 9999px, 7px, 0);
   }
   90% {
-    clip: rect(5px, 9999px, 63px, 0);
+    clip: rect(4px, 9999px, 79px, 0);
   }
   95% {
-    clip: rect(91px, 9999px, 30px, 0);
+    clip: rect(65px, 9999px, 6px, 0);
   }
   100% {
-    clip: rect(85px, 9999px, 7px, 0);
+    clip: rect(94px, 9999px, 26px, 0);
   }
 }
 .error:after {
@@ -33372,133 +33376,133 @@ form.user .btn-user {
 
 @-webkit-keyframes noise-anim-2 {
   0% {
-    clip: rect(14px, 9999px, 84px, 0);
+    clip: rect(11px, 9999px, 73px, 0);
   }
   5% {
-    clip: rect(15px, 9999px, 73px, 0);
+    clip: rect(98px, 9999px, 52px, 0);
   }
   10% {
-    clip: rect(54px, 9999px, 19px, 0);
+    clip: rect(75px, 9999px, 21px, 0);
   }
   15% {
-    clip: rect(58px, 9999px, 86px, 0);
+    clip: rect(59px, 9999px, 80px, 0);
   }
   20% {
-    clip: rect(97px, 9999px, 76px, 0);
+    clip: rect(59px, 9999px, 94px, 0);
   }
   25% {
-    clip: rect(18px, 9999px, 28px, 0);
+    clip: rect(46px, 9999px, 22px, 0);
   }
   30% {
-    clip: rect(69px, 9999px, 13px, 0);
+    clip: rect(25px, 9999px, 99px, 0);
   }
   35% {
-    clip: rect(86px, 9999px, 86px, 0);
+    clip: rect(2px, 9999px, 2px, 0);
   }
   40% {
-    clip: rect(54px, 9999px, 74px, 0);
+    clip: rect(55px, 9999px, 55px, 0);
   }
   45% {
-    clip: rect(57px, 9999px, 57px, 0);
+    clip: rect(55px, 9999px, 14px, 0);
   }
   50% {
-    clip: rect(5px, 9999px, 58px, 0);
+    clip: rect(71px, 9999px, 72px, 0);
   }
   55% {
-    clip: rect(7px, 9999px, 37px, 0);
+    clip: rect(76px, 9999px, 53px, 0);
   }
   60% {
-    clip: rect(84px, 9999px, 91px, 0);
+    clip: rect(10px, 9999px, 18px, 0);
   }
   65% {
-    clip: rect(39px, 9999px, 94px, 0);
+    clip: rect(50px, 9999px, 43px, 0);
   }
   70% {
-    clip: rect(92px, 9999px, 61px, 0);
+    clip: rect(82px, 9999px, 47px, 0);
   }
   75% {
-    clip: rect(4px, 9999px, 26px, 0);
+    clip: rect(21px, 9999px, 83px, 0);
   }
   80% {
-    clip: rect(100px, 9999px, 42px, 0);
+    clip: rect(55px, 9999px, 14px, 0);
   }
   85% {
-    clip: rect(97px, 9999px, 5px, 0);
+    clip: rect(83px, 9999px, 41px, 0);
   }
   90% {
-    clip: rect(35px, 9999px, 14px, 0);
+    clip: rect(39px, 9999px, 10px, 0);
   }
   95% {
-    clip: rect(100px, 9999px, 52px, 0);
+    clip: rect(97px, 9999px, 46px, 0);
   }
   100% {
-    clip: rect(34px, 9999px, 22px, 0);
+    clip: rect(61px, 9999px, 57px, 0);
   }
 }
 
 @keyframes noise-anim-2 {
   0% {
-    clip: rect(14px, 9999px, 84px, 0);
+    clip: rect(11px, 9999px, 73px, 0);
   }
   5% {
-    clip: rect(15px, 9999px, 73px, 0);
+    clip: rect(98px, 9999px, 52px, 0);
   }
   10% {
-    clip: rect(54px, 9999px, 19px, 0);
+    clip: rect(75px, 9999px, 21px, 0);
   }
   15% {
-    clip: rect(58px, 9999px, 86px, 0);
+    clip: rect(59px, 9999px, 80px, 0);
   }
   20% {
-    clip: rect(97px, 9999px, 76px, 0);
+    clip: rect(59px, 9999px, 94px, 0);
   }
   25% {
-    clip: rect(18px, 9999px, 28px, 0);
+    clip: rect(46px, 9999px, 22px, 0);
   }
   30% {
-    clip: rect(69px, 9999px, 13px, 0);
+    clip: rect(25px, 9999px, 99px, 0);
   }
   35% {
-    clip: rect(86px, 9999px, 86px, 0);
+    clip: rect(2px, 9999px, 2px, 0);
   }
   40% {
-    clip: rect(54px, 9999px, 74px, 0);
+    clip: rect(55px, 9999px, 55px, 0);
   }
   45% {
-    clip: rect(57px, 9999px, 57px, 0);
+    clip: rect(55px, 9999px, 14px, 0);
   }
   50% {
-    clip: rect(5px, 9999px, 58px, 0);
+    clip: rect(71px, 9999px, 72px, 0);
   }
   55% {
-    clip: rect(7px, 9999px, 37px, 0);
+    clip: rect(76px, 9999px, 53px, 0);
   }
   60% {
-    clip: rect(84px, 9999px, 91px, 0);
+    clip: rect(10px, 9999px, 18px, 0);
   }
   65% {
-    clip: rect(39px, 9999px, 94px, 0);
+    clip: rect(50px, 9999px, 43px, 0);
   }
   70% {
-    clip: rect(92px, 9999px, 61px, 0);
+    clip: rect(82px, 9999px, 47px, 0);
   }
   75% {
-    clip: rect(4px, 9999px, 26px, 0);
+    clip: rect(21px, 9999px, 83px, 0);
   }
   80% {
-    clip: rect(100px, 9999px, 42px, 0);
+    clip: rect(55px, 9999px, 14px, 0);
   }
   85% {
-    clip: rect(97px, 9999px, 5px, 0);
+    clip: rect(83px, 9999px, 41px, 0);
   }
   90% {
-    clip: rect(35px, 9999px, 14px, 0);
+    clip: rect(39px, 9999px, 10px, 0);
   }
   95% {
-    clip: rect(100px, 9999px, 52px, 0);
+    clip: rect(97px, 9999px, 46px, 0);
   }
   100% {
-    clip: rect(34px, 9999px, 22px, 0);
+    clip: rect(61px, 9999px, 57px, 0);
   }
 }
 .error:before {
@@ -33528,7 +33532,7 @@ body.sidebar-toggled footer.sticky-footer {
 }
 
 .filepond--item {
-  width: calc(25% - .5em);
+  width: calc(25% - 0.5em);
 }
 
 .bg-gradient-primary {
@@ -33549,7 +33553,8 @@ body.sidebar-toggled footer.sticky-footer {
   height: 32px;
 }
 
-.VueTables__search, .VueTables__search-field {
+.VueTables__search,
+.VueTables__search-field {
   width: 80%;
 }
 
@@ -33559,4 +33564,8 @@ body.sidebar-toggled footer.sticky-footer {
 
 .breadcrumb {
   background-color: transparent;
+}
+
+input[type=checkbox] {
+  position: inherit;
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -30,4 +31,5 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('complaint', ComplaintController::class);
     Route::resource('complaint.maintenance', MaintenanceController::class)->only(['create']);
     Route::resource('maintenance', MaintenanceController::class);
+    Route::resource('user', UserController::class);
 });

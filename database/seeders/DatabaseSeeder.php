@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('admin')
         ]);
 
-        $admin->assignRole('admin');
+        $admin->assignRole([1]);
 
         VehicleCategory::create([
             'name' => '4X4 & 4X2'

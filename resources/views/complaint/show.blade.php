@@ -33,7 +33,7 @@
 
                         <div class="col-md-6 col-12">
                             <p class="text-secondary mb-0">Media Attachments : </p>
-                            <Lightbox :media="{{ $imgLinks }}"></Lightbox>
+                            <Lightbox :media="{{ $complaint->media_vue }}"></Lightbox>
                         </div>
                     </div>
 

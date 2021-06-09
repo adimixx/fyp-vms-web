@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use Bayfront\MimeTypes\MimeType;
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Complaint extends Model
 {
@@ -39,5 +42,38 @@ class Complaint extends Model
     public function status()
     {
         return $this->belongsTo(Status::class);
+    }
+
+    public function getMediaVueAttribute()
+    {
+        $mapImgUrl = function ($v) {
+            try {
+                $filetype = strstr(MimeType::fromFile($v), '/', true);
+                if ($filetype == "image") {
+                    return [
+                        'type' => $filetype,
+                        'thumb' => Storage::disk('azure_complaints')->url($v),
+                        'src' => Storage::disk('azure_complaints')->url($v)
+                    ];
+                } else {
+                    return [
+                        'type' => $filetype,
+                        'sources' => [
+                            [
+                                'src' => Storage::disk('azure_complaints')->url($v),
+                                'type' => MimeType::fromFile($v)
+                            ]
+                        ],
+                        "autoplay" => true
+                    ];
+                }
+            } catch (Exception $e) {
+                return [
+                    'description' => 'File not exists'
+                ];
+            }
+        };
+
+        return json_encode(array_map($mapImgUrl, $this->media));
     }
 }

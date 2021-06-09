@@ -40,6 +40,7 @@ files.keys().map(key =>
 
 import VueFormulate from "@braid/vue-formulate";
 Vue.use(VueFormulate, {
+    useInputDecorators: false,
     classes: {
         outer: "mb-3",
         label: "form-label",
@@ -49,7 +50,8 @@ Vue.use(VueFormulate, {
         errors: "text-danger list-unstyled mt-2",
         help: "form-text",
         groupRepeatable: "row",
-        formErrors: "alert alert-danger list-unstyled"
+        formErrors: "alert alert-danger list-unstyled",
+        decorator: "form-check-input"
     },
     locales: {
         en: {
