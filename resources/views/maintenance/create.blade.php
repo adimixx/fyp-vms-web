@@ -22,7 +22,9 @@
                                 :complaint-vehicle-inventory="{{ $complaint->vehicleInventory->id }}"
                             complaint-vehicle-inventory-name="{{ $complaint->vehicleInventory->reg_with_name }}" @endisset
                             submit-link="{{ route('api.data.maintenance-request.store') }}"
-                            prefix-redirect-link="{{ route('maintenance.index') }}"></maintenance-create>
+                            prefix-redirect-link="{{ route('maintenance.index') }}"
+                            maintenance-type-list="{{ route('api.select.maintenance-type') }}"
+                            maintenance-unit-list="{{ route('api.select.maintenance-unit') }}"></maintenance-create>
                     </div>
                 </div>
             </div>

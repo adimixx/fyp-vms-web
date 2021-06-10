@@ -53,13 +53,11 @@
                             <a class="nav-link" href="{{ url('/') }}"><i
                                     class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
                         </li>
+
+                        @hasrole('admin')
                         <li class="nav-item {{ request()->routeIs('vehicle.*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('vehicle.index') }}"><i
                                     class="fas fa-car-side"></i><span>Vehicle</span></a>
-                        </li>
-                        <li class="nav-item {{ request()->routeIs('complaint.*') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('complaint.index') }}"><i
-                                    class="fas fa-comments"></i><span>Complaints</span></a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('maintenance.*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('maintenance.index') }}"><i
@@ -69,6 +67,15 @@
                             <a class="nav-link" href="{{ route('user.index') }}"><i
                                     class="fas fa-user"></i><span>User</span></a>
                         </li>
+                        @endhasrole
+
+                        @hasanyrole('admin|staff')
+                        <li class="nav-item {{ request()->routeIs('complaint.*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('complaint.index') }}"><i
+                                    class="fas fa-comments"></i><span>Complaints</span></a>
+                        </li>
+                        @endhasanyrole
+
                     </ul>
                     <div class="text-center d-none d-md-inline">
                         <button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button>

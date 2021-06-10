@@ -13,7 +13,8 @@
 
     <div class="card shadow">
         <div class="card-body">
-            <complaint-create submit-link="{{ route('api.data.complaint.store') }}"></complaint-create>
+            <complaint-create submit-link="{{ route('api.data.complaint.store') }}"
+            select-vehicle="{{ route('api.select.vehicle') }}"></complaint-create>
         </div>
     </div>
 </div>

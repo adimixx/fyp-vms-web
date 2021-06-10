@@ -1,6 +1,6 @@
 <template>
     <v-server-table
-        url="/api/datatable/vehicle"
+        :url="tableUrl"
         :columns="table.columns"
         :options="table.options"
     >
@@ -32,7 +32,8 @@ export default {
         };
     },
     props: {
-        route: String
+        route: String,
+        tableUrl: String
     }
 };
 </script>

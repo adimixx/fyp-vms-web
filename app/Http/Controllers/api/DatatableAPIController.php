@@ -10,6 +10,7 @@ use App\Models\Status;
 use App\Models\User;
 use App\Models\VehicleInventory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use phpDocumentor\Reflection\Types\Boolean;
@@ -18,7 +19,6 @@ use Symfony\Component\Console\Input\Input;
 
 class DatatableAPIController extends Controller
 {
-
     private function returnData($data, $request)
     {
         if ($request->has('ascending') && $request->input('orderBy')) {
@@ -42,6 +42,10 @@ class DatatableAPIController extends Controller
             $data = $data->where('complaints.status_id', Status::complaint('pending')->id);
         } else {
             $data = $data->where('complaints.status_id', '!=', Status::complaint('pending')->id);
+        }
+
+        if (!$request->user()->hasRole('admin')) {
+            $data = $data->where('user_id', '=',$request->user()->id);
         }
 
         if ($request->input('query')) {
@@ -140,7 +144,7 @@ class DatatableAPIController extends Controller
 
     public function user(Request $request)
     {
-        $data = User::with(['roles:name,id','status']);
+        $data = User::with(['roles:name,id', 'status']);
 
         return $this->returnData($data, $request);
     }

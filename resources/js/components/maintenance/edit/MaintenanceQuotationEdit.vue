@@ -116,6 +116,7 @@ export default {
         },
         onDismissDeleteQuotation(dataChange) {
             this.showDeleteQuotation = false;
+            this.deleteQuotationData = null;
             if (dataChange) {
                 this.date = Date.now();
             }

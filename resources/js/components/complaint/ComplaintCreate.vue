@@ -95,11 +95,12 @@ export default {
         };
     },
     props: {
-        submitLink: String
+        submitLink: String,
+        selectVehicle: String,
     },
     methods: {
         loadVehicle: async function(query) {
-            var link = `/api/multiselect/vehicle`;
+            var link = this.selectVehicle;
             if (query) {
                 link += `?search=${query}`;
             }

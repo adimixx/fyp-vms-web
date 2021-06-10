@@ -12,7 +12,7 @@
             @processfile="handleFilePondUpdate"
             imagePreviewMaxHeight="300"
             maxFileSize="3MB"
-            :server="{ process: '/api/file', revert: onRevertFile }"
+            :server="{ process: onProcess, revert: onRevertFile }"
         />
     </div>
 </template>
@@ -52,8 +52,62 @@ export default {
                 })
             );
         },
+        async onProcess(
+            fieldName,
+            file,
+            metadata,
+            load,
+            error,
+            progress,
+            abort,
+            transfer,
+            options
+        ) {
+            try {
+            } catch (e) {}
+
+            // fieldName is the name of the input field
+            // file is the actual file object to send
+            const formData = new FormData();
+            formData.append(fieldName, file, file.name);
+            const CancelToken = axios.CancelToken;
+            const cancelSrc = CancelToken.source();
+
+            axios
+                .post("/backend/file", formData, {
+                    onUploadProgress: progressEvent => {
+                        progress(
+                            progressEvent.lengthComputable,
+                            progressEvent.loaded,
+                            progressEvent.total
+                        );
+                    },
+                    cancelToken: cancelSrc.token
+                })
+                .then(function(res) {
+                    load(res.data);
+                })
+                .catch(function(error) {
+                    if (axios.isCancel(thrown)) {
+                        console.log("Request canceled", thrown.message);
+                    } else {
+                        error("oh no");
+                    }
+                });
+
+            // Should expose an abort method so the request can be cancelled
+            return {
+                abort: () => {
+                    // This function is entered if the user has tapped the cancel button
+                    cancelSrc.cancel("upload cancelled");
+
+                    // Let FilePond know the request has been cancelled
+                    abort();
+                }
+            };
+        },
         async onRevertFile(uniqueFileID, load, error) {
-            await axios.delete("/api/file/" + uniqueFileID);
+            await axios.delete("/backend/file/" + uniqueFileID);
             load();
         }
     }

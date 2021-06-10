@@ -19,6 +19,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/fortify": "^1.7",
         "laravel/framework": "^8.40",
+        "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "matthewbdaly/laravel-azure-storage": "^1.6",
         "simplesoftwareio/simple-qrcode": "~4",

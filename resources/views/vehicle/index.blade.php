@@ -17,7 +17,7 @@
 
     <div class="card shadow">
         <div class="card-body">
-            <vehicle-datatable route="{{ route('vehicle.index') }}"></vehicle-datatable>
+            <vehicle-datatable route="{{ route('vehicle.index') }}" table-url="{{ route('api.datatable.vehicle') }}"></vehicle-datatable>
         </div>
     </div>
 </div>

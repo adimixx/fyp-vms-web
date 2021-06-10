@@ -22,12 +22,17 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'verified', 'make_user_active'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::resource('vehicle', VehicleController::class);
-    Route::resource('complaint', ComplaintController::class);
-    Route::resource('complaint.maintenance', MaintenanceController::class)->only(['create']);
-    Route::resource('maintenance', MaintenanceController::class);
-    Route::resource('user', UserController::class);
+
+    Route::middleware(['role:admin'])->group(function () {
+        Route::resource('user', UserController::class);
+        Route::resource('maintenance', MaintenanceController::class);
+        Route::resource('complaint.maintenance', MaintenanceController::class)->only(['create']);
+        Route::resource('vehicle', VehicleController::class);
+    });
+
+    Route::middleware(['role:staff|admin'])->group(function () {
+        Route::resource('complaint', ComplaintController::class);
+    });
 });

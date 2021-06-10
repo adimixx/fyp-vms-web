@@ -11,28 +11,7 @@ use Illuminate\Validation\ValidationException;
 
 class VehicleCatalogAPI extends Controller
 {
-    public function index(Request $request, $vehicle_category)
-    {
-        $catalog = VehicleCategory::find($vehicle_category)->vehicleCatalog()->get();
-
-        $mappedSelect = $catalog->map(function ($item) {
-            return [
-                'value' => $item->id,
-                'label' => $item->name
-            ];
-        });
-
-        if (isset($request->search)) {
-            $search = $request->search;
-            $mappedSelect =  $mappedSelect->filter(function ($item) use ($search) {
-                return false !== stripos($item['label'], $search);
-            })->values();
-        }
-
-        return $mappedSelect;
-    }
-
-    public function store($vehicle_category, Request $request)
+     public function store($vehicle_category, Request $request)
     {
         $validator = Validator::make($request->all(), [
             'brand' => 'required',

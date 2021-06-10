@@ -160,6 +160,8 @@ export default {
         maintenanceTypeName: String,
         maintenanceUnit: Number,
         maintenanceUnitName: String,
+        maintenanceTypeList: String,
+        maintenanceUnitList: String,
         isUpdate: false,
         maintenanceId: 0
     },
@@ -207,7 +209,7 @@ export default {
             return res.data;
         },
         async loadMaintenanceType(query) {
-            var link = `/api/multiselect/maintenance-type`;
+            var link = this.maintenanceTypeList;
             if (query) {
                 link += `?search=${query}`;
             }
@@ -216,7 +218,7 @@ export default {
             return res.data;
         },
         async loadMaintenanceUnit(query) {
-            var link = `/api/multiselect/maintenance-unit`;
+            var link = this.maintenanceUnitList;
             if (query) {
                 link += `?search=${query}`;
             }

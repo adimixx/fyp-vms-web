@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('phone')->nullable();
             $table->unsignedBigInteger('status_id');
             $table->foreign('status_id')->references('id')->on('statuses');
+            $table->softDeletes();
         });
     }
 

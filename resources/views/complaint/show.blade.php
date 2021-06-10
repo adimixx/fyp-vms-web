@@ -37,7 +37,7 @@
                         </div>
                     </div>
 
-                    @if ($complaint->status->name == 'pending')
+                    @if ($complaint->status->name == 'pending' && Auth::user()->hasRole('admin'))
                         <div>
                             <a href="{{ route('complaint.maintenance.create', $complaint->id) }}"
                                 class="text-decoration-none">

@@ -13,7 +13,9 @@
 
     <div class="card shadow">
         <div class="card-body">
-            <vehicle-create></vehicle-create>
+            <vehicle-create vehicle-category-list="{{ route('api.select.vehicle-category') }}"
+            vehicle-model-list="{{ route('api.select.vehicle-catalog', '') }}"
+            ></vehicle-create>
         </div>
     </div>
 </div>

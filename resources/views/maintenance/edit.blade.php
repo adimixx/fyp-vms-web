@@ -26,7 +26,9 @@
                             maintenance-type-name="{{ $maintenance->maintenanceCategory->name }}"
                             :maintenance-unit="{{ $maintenance->maintenanceUnit->id }}"
                             maintenance-unit-name="{{ $maintenance->maintenanceUnit->name }}" :is-update="true"
-                            @activate-alert="activateAlert"></maintenance-create>
+                            @activate-alert="activateAlert"
+                            maintenance-type-list="{{ route('api.select.maintenance-type') }}"
+                            maintenance-unit-list="{{ route('api.select.maintenance-unit') }}"></maintenance-create>
                     </div>
                 </div>
             </div>

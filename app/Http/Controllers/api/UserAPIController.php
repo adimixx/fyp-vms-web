@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use PDO;
 
 class UserAPIController extends Controller
 {
@@ -55,6 +56,22 @@ class UserAPIController extends Controller
         return $user;
     }
 
+    public function destroy($id, Request $request)
+    {
+        $user = User::find($id);
+
+        if (!isset($user)) {
+            return response(["message" => "invalid user"], status: 500);
+        } else if ($user == $request->user()) {
+            return response(["message" => "cannot self delete user"], status: 500);
+        }
+
+        $user->delete();
+
+        return response(status: 200);
+    }
+
+
     public function verifyUser(Request $request)
     {
         $validated = (object) Validator::make($request->all(), [
@@ -66,7 +83,7 @@ class UserAPIController extends Controller
 
         if (!$user) {
             return response(['message' => 'Invalid Staff Credentials. Please Contact Admin'], 500);
-        } else if ($user->status()->name != 'pending registration') {
+        } else if ($user->status->name != 'pending registration') {
             return response(['message' => 'You have registered your account. Please log in with your credentials'], 500);
         }
         return $user;

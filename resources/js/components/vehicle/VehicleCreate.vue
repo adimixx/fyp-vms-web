@@ -245,22 +245,19 @@ export default {
             inputErrors: {}
         };
     },
-    mounted() {
-        this.loadVehicleCategory();
+    props: {
+        vehicleCategoryList: String,
+        vehicleModelList: String,
+
     },
     methods: {
         loadVehicleCategory: async function() {
-            var res = await axios.get("/api/vehicle_category");
-            return res.data.map(item => {
-                const cont = {};
-                cont.value = item.id;
-                cont.label = item.name;
-                return cont;
-            });
+            var res = await axios.get(this.vehicleCategoryList);
+            return res.data;
         },
         loadVehicleModels: async function(query) {
             if (this.form.vehicleCategory) {
-                var link = `/api/vehicle_category/${this.form.vehicleCategory}/catalog`;
+                var link = `${this.vehicleModelList}/${this.form.vehicleCategory}`;
                 if (query) {
                     link += `?search=${query}`;
                 }
@@ -279,7 +276,7 @@ export default {
             }
         },
         async submitNewVehicleModel(data) {
-            var link = `/api/vehicle_category/${this.form.vehicleCategory}/catalog`;
+            var link = `/backend/vehicle_category/${this.form.vehicleCategory}/catalog`;
             var res = await axios.post(link, data);
 
             if (res) {
@@ -297,7 +294,7 @@ export default {
             }
         },
         async submitForm(data) {
-            var link = `/api/vehicle_category/${this.form.vehicleCategory}/catalog/${this.form.vehicleModel}/inventory`;
+            var link = `/backend/vehicle_category/${this.form.vehicleCategory}/catalog/${this.form.vehicleModel}/inventory`;
 
             axios
                 .post(link, data)

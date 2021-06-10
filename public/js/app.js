@@ -7335,24 +7335,72 @@ var FilePond = vue_filepond__WEBPACK_IMPORTED_MODULE_1___default()((filepond_plu
         return x.serverId;
       }));
     },
-    onRevertFile: function onRevertFile(uniqueFileID, load, error) {
+    onProcess: function onProcess(fieldName, file, metadata, load, error, progress, _abort, transfer, options) {
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var formData, CancelToken, cancelSrc;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.next = 2;
-                return axios["delete"]("/api/file/" + uniqueFileID);
+                try {} catch (e) {} // fieldName is the name of the input field
+                // file is the actual file object to send
+
+
+                formData = new FormData();
+                formData.append(fieldName, file, file.name);
+                CancelToken = axios.CancelToken;
+                cancelSrc = CancelToken.source();
+                axios.post("/backend/file", formData, {
+                  onUploadProgress: function onUploadProgress(progressEvent) {
+                    progress(progressEvent.lengthComputable, progressEvent.loaded, progressEvent.total);
+                  },
+                  cancelToken: cancelSrc.token
+                }).then(function (res) {
+                  load(res.data);
+                })["catch"](function (error) {
+                  if (axios.isCancel(thrown)) {
+                    console.log("Request canceled", thrown.message);
+                  } else {
+                    error("oh no");
+                  }
+                }); // Should expose an abort method so the request can be cancelled
+
+                return _context.abrupt("return", {
+                  abort: function abort() {
+                    // This function is entered if the user has tapped the cancel button
+                    cancelSrc.cancel("upload cancelled"); // Let FilePond know the request has been cancelled
+
+                    // Let FilePond know the request has been cancelled
+                    _abort();
+                  }
+                });
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    onRevertFile: function onRevertFile(uniqueFileID, load, error) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return axios["delete"]("/backend/file/" + uniqueFileID);
 
               case 2:
                 load();
 
               case 3:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     }
   }
@@ -7537,7 +7585,8 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
     };
   },
   props: {
-    submitLink: String
+    submitLink: String,
+    selectVehicle: String
   },
   methods: {
     loadVehicle: function () {
@@ -7547,7 +7596,7 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                link = "/api/multiselect/vehicle";
+                link = this.selectVehicle;
 
                 if (query) {
                   link += "?search=".concat(query);
@@ -7565,7 +7614,7 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, this);
       }));
 
       function loadVehicle(_x) {
@@ -7841,6 +7890,8 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
     maintenanceTypeName: String,
     maintenanceUnit: Number,
     maintenanceUnitName: String,
+    maintenanceTypeList: String,
+    maintenanceUnitList: String,
     isUpdate: false,
     maintenanceId: 0
   },
@@ -7910,13 +7961,15 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
       return loadVehicle;
     }(),
     loadMaintenanceType: function loadMaintenanceType(query) {
+      var _this = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
         var link, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                link = "/api/multiselect/maintenance-type";
+                link = _this.maintenanceTypeList;
 
                 if (query) {
                   link += "?search=".concat(query);
@@ -7938,13 +7991,15 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
       }))();
     },
     loadMaintenanceUnit: function loadMaintenanceUnit(query) {
+      var _this2 = this;
+
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
         var link, res;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                link = "/api/multiselect/maintenance-unit";
+                link = _this2.maintenanceUnitList;
 
                 if (query) {
                   link += "?search=".concat(query);
@@ -7966,26 +8021,26 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
       }))();
     },
     submitForm: function submitForm(data) {
-      var _this = this;
+      var _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                axios.post(_this.submitLink, data).then(function (res) {
+                axios.post(_this3.submitLink, data).then(function (res) {
                   if (res.status == 201) {
                     //created
-                    window.location.href = "".concat(_this.prefixRedirectLink, "/").concat(res.data.id, "/edit");
+                    window.location.href = "".concat(_this3.prefixRedirectLink, "/").concat(res.data.id, "/edit");
                   } else if (res.status == 200) {
                     //updated
                     console.log("updated");
 
-                    _this.$emit("activate-alert", "Success!", "Maintenance Information have been successfully saved.", "success");
+                    _this3.$emit("activate-alert", "Success!", "Maintenance Information have been successfully saved.", "success");
                   }
                 })["catch"](function (err) {
                   console.log(err);
-                  _this.inputErrors = err.response.data.errors;
+                  _this3.inputErrors = err.response.data.errors;
                   console.log(err.response.data);
                 });
 
@@ -8308,6 +8363,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     onDismissDeleteQuotation: function onDismissDeleteQuotation(dataChange) {
       this.showDeleteQuotation = false;
+      this.deleteQuotationData = null;
 
       if (dataChange) {
         this.date = Date.now();
@@ -8806,6 +8862,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -8821,7 +8878,8 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     dtUrl: String,
-    date: Number
+    date: Number,
+    userId: Number
   },
   watch: {
     date: function date(val) {
@@ -8841,7 +8899,7 @@ __webpack_require__.r(__webpack_exports__);
     role: function role(user) {
       this.$emit("on-role", user);
     },
-    "delete": function _delete(user) {
+    onDelete: function onDelete(user) {
       this.$emit("on-delete", user);
     }
   }
@@ -9070,6 +9128,51 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+var _methods;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -9113,18 +9216,22 @@ __webpack_require__.r(__webpack_exports__);
     return {
       userData: null,
       showUserForm: false,
-      date: null
+      deleteUrl: null,
+      date: null,
+      showDeleteModal: false,
+      deleteData: null
     };
   },
   props: {
     dtUrl: String,
     rolesList: Array,
-    userPostUrl: String
+    userPostUrl: String,
+    userId: Number
   },
   mounted: function mounted() {
     console.log(this.dtUrl);
   },
-  methods: {
+  methods: (_methods = {
     onEditUser: function onEditUser(user) {
       this.userData = user;
       this.userData.roles = user.roles.map(function (x) {
@@ -9149,7 +9256,18 @@ __webpack_require__.r(__webpack_exports__);
     onActivateToast: function onActivateToast(boldMsg, msg, classColor) {
       this.$emit("activate-toast", boldMsg, msg, classColor);
     }
-  }
+  }, _defineProperty(_methods, "onDelete", function onDelete(data) {
+    this.deleteUrl = "".concat(this.userPostUrl, "/").concat(data.id);
+    this.showDeleteModal = true;
+    this.deleteData = data;
+  }), _defineProperty(_methods, "onDismissDeleteModal", function onDismissDeleteModal(dataChange) {
+    this.showDeleteModal = false;
+    this.deleteData = null;
+
+    if (dataChange) {
+      this.date = Date.now();
+    }
+  }), _methods)
 });
 
 /***/ }),
@@ -9647,8 +9765,9 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
       inputErrors: {}
     };
   },
-  mounted: function mounted() {
-    this.loadVehicleCategory();
+  props: {
+    vehicleCategoryList: String,
+    vehicleModelList: String
   },
   methods: {
     loadVehicleCategory: function () {
@@ -9659,23 +9778,18 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return axios.get("/api/vehicle_category");
+                return axios.get(this.vehicleCategoryList);
 
               case 2:
                 res = _context.sent;
-                return _context.abrupt("return", res.data.map(function (item) {
-                  var cont = {};
-                  cont.value = item.id;
-                  cont.label = item.name;
-                  return cont;
-                }));
+                return _context.abrupt("return", res.data);
 
               case 4:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, this);
       }));
 
       function loadVehicleCategory() {
@@ -9696,7 +9810,7 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
                   break;
                 }
 
-                link = "/api/vehicle_category/".concat(this.form.vehicleCategory, "/catalog");
+                link = "".concat(this.vehicleModelList, "/").concat(this.form.vehicleCategory);
 
                 if (query) {
                   link += "?search=".concat(query);
@@ -9743,7 +9857,7 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                link = "/api/vehicle_category/".concat(_this.form.vehicleCategory, "/catalog");
+                link = "/backend/vehicle_category/".concat(_this.form.vehicleCategory, "/catalog");
                 _context3.next = 3;
                 return axios.post(link, data);
 
@@ -9782,7 +9896,7 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                link = "/api/vehicle_category/".concat(_this2.form.vehicleCategory, "/catalog/").concat(_this2.form.vehicleModel, "/inventory");
+                link = "/backend/vehicle_category/".concat(_this2.form.vehicleCategory, "/catalog/").concat(_this2.form.vehicleModel, "/inventory");
                 axios.post(link, data).then(function (res) {
                   if (res.status == 201) {
                     window.location.href = '/vehicle?success=create';
@@ -9844,7 +9958,8 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   props: {
-    route: String
+    route: String,
+    tableUrl: String
   }
 });
 
@@ -10138,7 +10253,11 @@ try {
 
 
 window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+window.axios.defaults.withCredentials = true;
+var csrf = document.querySelector('meta[name="csrf-token"]').content;
+console.log(csrf);
+window.axios.defaults.headers.common["X-CSRF-TOKEN"] = csrf;
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -54042,7 +54161,7 @@ var render = function() {
           files: _vm.initFiles,
           imagePreviewMaxHeight: "300",
           maxFileSize: "3MB",
-          server: { process: "/api/file", revert: _vm.onRevertFile }
+          server: { process: _vm.onProcess, revert: _vm.onRevertFile }
         },
         on: {
           init: _vm.handleFilePondInit,
@@ -55468,18 +55587,20 @@ var render = function() {
               [_c("i", { staticClass: "far fa-eye" })]
             ),
             _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "text-decoration-none text-danger",
-                on: {
-                  click: function($event) {
-                    delete props.row
-                  }
-                }
-              },
-              [_c("i", { staticClass: "fas fa-user-times" })]
-            )
+            _vm.userId != props.row.id
+              ? _c(
+                  "a",
+                  {
+                    staticClass: "text-decoration-none text-danger",
+                    on: {
+                      click: function($event) {
+                        return _vm.onDelete(props.row)
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-user-times" })]
+                )
+              : _vm._e()
           ]
         }
       },
@@ -55699,7 +55820,11 @@ var render = function() {
           { staticClass: "card-body" },
           [
             _c("user-datatable", {
-              attrs: { "dt-url": _vm.dtUrl, date: _vm.date },
+              attrs: {
+                "dt-url": _vm.dtUrl,
+                date: _vm.date,
+                userId: _vm.userId
+              },
               on: { "on-edit": _vm.onEditUser, "on-delete": _vm.onDelete }
             })
           ],
@@ -55718,6 +55843,94 @@ var render = function() {
               "on-hide": _vm.onHideModal,
               "activate-toast": _vm.onActivateToast
             }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.showDeleteModal
+        ? _c("bs-delete-modal", {
+            attrs: { url: _vm.deleteUrl },
+            on: {
+              "dismiss-modal": _vm.onDismissDeleteModal,
+              "activate-toast": _vm.onActivateToast
+            },
+            scopedSlots: _vm._u(
+              [
+                {
+                  key: "content",
+                  fn: function() {
+                    return [
+                      _c("div", { staticClass: "text-center" }, [
+                        _c("p", { staticClass: "mb-0 text-secondary" }, [
+                          _vm._v("User:")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-0 text-primary fw-bold" }, [
+                          _vm._v(
+                            "\n                    " +
+                              _vm._s(_vm.deleteData.name) +
+                              "\n                "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-0 text-secondary" }, [
+                          _vm._v(
+                            "\n                    Email :\n                    "
+                          ),
+                          _c("span", { staticClass: "fw-bold text-primary" }, [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(_vm.deleteData.email) +
+                                "\n                    "
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-0 text-secondary" }, [
+                          _vm._v(
+                            "\n                    Staff No :\n                    "
+                          ),
+                          _c("span", { staticClass: "fw-bold text-primary" }, [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(_vm.deleteData.staff_no) +
+                                "\n                    "
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "mb-0 text-secondary" }, [
+                          _vm._v(
+                            "\n                    NRIC :\n                    "
+                          ),
+                          _c("span", { staticClass: "fw-bold text-primary" }, [
+                            _vm._v(
+                              "\n                        " +
+                                _vm._s(_vm.deleteData.nric) +
+                                "\n                    "
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "span",
+                          {
+                            class:
+                              "badge bg-" +
+                              _vm.deleteData.status.color_class +
+                              " text-uppercase text-dark"
+                          },
+                          [_vm._v(_vm._s(_vm.deleteData.status.name))]
+                        )
+                      ])
+                    ]
+                  },
+                  proxy: true
+                }
+              ],
+              null,
+              false,
+              4194903328
+            )
           })
         : _vm._e()
     ],
@@ -56346,7 +56559,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("v-server-table", {
     attrs: {
-      url: "/api/datatable/vehicle",
+      url: _vm.tableUrl,
       columns: _vm.table.columns,
       options: _vm.table.options
     },

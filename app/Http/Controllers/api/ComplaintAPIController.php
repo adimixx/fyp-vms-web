@@ -34,7 +34,7 @@ class ComplaintAPIController extends Controller
             'name' => $validated->title,
             'detail' => $validated->description,
             'vehicle_inventory_id' => $validated->vehicle,
-            'user_id' => 1,
+            'user_id' => $request->user()->id,
             'status_id' => Status::complaint('pending')->id,
             'media' => serialize($validated->file) ?? null
         ]);

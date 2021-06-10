@@ -21,6 +21,7 @@
                     @on-edit="onEditUser"
                     @on-delete="onDelete"
                     :date="date"
+                    :userId="userId"
                 ></user-datatable>
             </div>
         </div>
@@ -33,6 +34,46 @@
             :post-url="userPostUrl"
             @activate-toast="onActivateToast"
         ></user-edit-modal>
+
+        <bs-delete-modal
+            :url="deleteUrl"
+            v-if="showDeleteModal"
+            @dismiss-modal="onDismissDeleteModal"
+            @activate-toast="onActivateToast"
+        >
+            <template v-slot:content>
+                <div class="text-center">
+                    <p class="mb-0 text-secondary">User:</p>
+                    <p class="mb-0 text-primary fw-bold">
+                        {{ deleteData.name }}
+                    </p>
+                    <p class="mb-0 text-secondary">
+                        Email :
+                        <span class= "fw-bold text-primary">
+                            {{ deleteData.email }}
+                        </span>
+                    </p>
+                    <p class="mb-0 text-secondary">
+                        Staff No :
+                        <span class="fw-bold text-primary">
+                            {{ deleteData.staff_no }}
+                        </span>
+                    </p>
+                    <p class="mb-0 text-secondary">
+                        NRIC :
+                        <span class="fw-bold text-primary">
+                            {{ deleteData.nric }}
+                        </span>
+                    </p>
+                    <span
+                        :class="
+                            `badge bg-${deleteData.status.color_class} text-uppercase text-dark`
+                        "
+                        >{{ deleteData.status.name }}</span
+                    >
+                </div>
+            </template>
+        </bs-delete-modal>
     </div>
 </template>
 
@@ -42,13 +83,17 @@ export default {
         return {
             userData: null,
             showUserForm: false,
-            date: null
+            deleteUrl: null,
+            date: null,
+            showDeleteModal: false,
+            deleteData: null
         };
     },
     props: {
         dtUrl: String,
         rolesList: Array,
-        userPostUrl: String
+        userPostUrl: String,
+        userId: Number
     },
     mounted() {
         console.log(this.dtUrl);
@@ -74,6 +119,18 @@ export default {
         },
         onActivateToast(boldMsg, msg, classColor) {
             this.$emit("activate-toast", boldMsg, msg, classColor);
+        },
+        onDelete(data) {
+            this.deleteUrl = `${this.userPostUrl}/${data.id}`;
+            this.showDeleteModal = true;
+            this.deleteData = data;
+        },
+        onDismissDeleteModal(dataChange) {
+            this.showDeleteModal = false;
+            this.deleteData = null;
+            if (dataChange) {
+                this.date = Date.now();
+            }
         }
     }
 };

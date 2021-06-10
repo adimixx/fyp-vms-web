@@ -19,7 +19,8 @@
             </a>
             <a
                 class="text-decoration-none text-danger"
-                @click="delete props.row"
+                @click="onDelete(props.row)"
+                v-if="userId != props.row.id"
             >
                 <i class="fas fa-user-times"></i>
             </a>
@@ -58,7 +59,8 @@ export default {
     },
     props: {
         dtUrl: String,
-        date: Number
+        date: Number,
+        userId: Number
     },
     watch: {
         date(val) {
@@ -78,7 +80,7 @@ export default {
         role(user) {
             this.$emit("on-role", user);
         },
-        delete(user) {
+        onDelete(user) {
             this.$emit("on-delete", user);
         }
     }
