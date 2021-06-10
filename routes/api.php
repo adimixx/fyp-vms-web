@@ -41,8 +41,8 @@ Route::name('api.data.')->group(function () {
     Route::resource('file', FileControllerAPI::class);
 
     Route::resource('user', UserAPIController::class)->only(['store']);
-
-
+    Route::post('user/register/verify', [UserAPIController::class, 'verifyUser'])->name('user.verify');
+    Route::post('user/register', [UserAPIController::class, 'registerUser'])->name('user.register');
 });
 
 Route::prefix('datatable')->name('api.datatable.')->group(function () {

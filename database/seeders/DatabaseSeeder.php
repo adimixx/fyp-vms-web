@@ -5,9 +5,11 @@ namespace Database\Seeders;
 use App\Models\MaintenanceCategory;
 use App\Models\MaintenanceUnit;
 use App\Models\MaintenanceVendor;
+use App\Models\Status;
 use App\Models\User;
 use App\Models\VehicleCategory;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -34,7 +36,9 @@ class DatabaseSeeder extends Seeder
         $admin = User::create([
             'name' => 'Admin',
             'email' => 'admin@vms.psm',
-            'password' => Hash::make('admin')
+            'password' => Hash::make('admin'),
+            'status_id' => Status::user('active')->id,
+            'email_verified_at' => Date::now()
         ]);
 
         $admin->assignRole([1]);

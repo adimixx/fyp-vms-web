@@ -140,7 +140,7 @@ class DatatableAPIController extends Controller
 
     public function user(Request $request)
     {
-        $data = User::with(['roles:name']);
+        $data = User::with(['roles:name,id','status']);
 
         return $this->returnData($data, $request);
     }

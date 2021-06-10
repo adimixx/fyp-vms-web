@@ -19,6 +19,7 @@
                 <user-datatable
                     :dt-url="dtUrl"
                     @on-edit="onEditUser"
+                    @on-delete="onDelete"
                     :date="date"
                 ></user-datatable>
             </div>
@@ -55,9 +56,13 @@ export default {
     methods: {
         onEditUser(user) {
             this.userData = user;
+            this.userData.roles = user.roles.map(x => x.id);
             this.showUserForm = true;
         },
         onCreateUser() {
+            this.showUserForm = true;
+        },
+        onDelete() {
             this.showUserForm = true;
         },
         onHideModal(updated) {

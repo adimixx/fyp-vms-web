@@ -5,6 +5,7 @@ use App\Models\MaintenanceQuotation;
 use App\Models\MaintenanceQuotationItem;
 use App\Models\MaintenanceRequest;
 use App\Models\Status;
+use App\Models\User;
 use App\Models\VehicleInventory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -46,6 +47,32 @@ class CreateStatusesTable extends Migration
         $vehicleInventory = get_class(new VehicleInventory);
         $vehicleComplaint = get_class(new Complaint);
         $maintenanceQuote = get_class(new MaintenanceQuotation);
+        $user = get_class(new User);
+
+        // User
+        Status::create([
+            'name' => 'Pending Registration',
+            'color_class' => 'warning',
+            'model_type' => $user
+        ]);
+
+        Status::create([
+            'name' => 'Pending Activation',
+            'color_class' => 'warning',
+            'model_type' => $user
+        ]);
+
+        Status::create([
+            'name' => 'Active',
+            'color_class' => 'success',
+            'model_type' => $user
+        ]);
+
+        Status::create([
+            'name' => 'Disabled',
+            'color_class' => 'secondary',
+            'model_type' => $user
+        ]);
 
         // Maintenance Quote
 

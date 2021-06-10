@@ -26,7 +26,7 @@ class Status extends Model
 
     private static function getStatus($class, $status)
     {
-        return Status::where('model_type', get_class($class))->where('name', $status)->first();
+        return Status::where('model_type', get_class($class))->where('name', strtolower($status))->first();
     }
 
     public static function vehicleInventory($status)
@@ -44,8 +44,13 @@ class Status extends Model
         return Status::getStatus(new MaintenanceRequest,$status);
     }
 
-    public function maintenanceQuotation($status)
+    public static function maintenanceQuotation($status)
     {
         return Status::getStatus(new MaintenanceQuotation,$status);
+    }
+
+    public static function user($status)
+    {
+        return Status::getStatus(new User,$status);
     }
 }

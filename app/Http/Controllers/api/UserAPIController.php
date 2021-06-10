@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Status;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -11,47 +12,63 @@ use Illuminate\Validation\Rule;
 
 class UserAPIController extends Controller
 {
+    private function uniqueUserVal($query, $request)
+    {
+        if ($request->input('id')) {
+            $query = $query->where('id', '!=', $request->input('id'));
+        }
+
+        return $query;
+    }
+
     public function store(Request $request)
     {
-        $uniqueUserVal = function ($query, $request) {
-            if ($request->input('id')) {
-                $query = $query->where('id', '!=', $request->input('id'));
-            }
-
-            return $query;
-        };
-
         $validated = (object) Validator::make($request->all(), [
             'id' => [Rule::exists('users')],
-            'name' => 'required',
-            'staff_no' => ['required', Rule::unique('users')->where(fn ($query) => $uniqueUserVal($query, $request))],
-            'nric' => ['required', Rule::unique('users')->where(fn ($query) => $uniqueUserVal($query, $request))],
-            'email' => ['required', Rule::unique('users')->where(fn ($query) => $uniqueUserVal($query, $request))],
-            'password' => 'required_if:id,null|min:8|confirmed',
-            'roles' => 'required_if:id,null|exclude_unless:id,null|array',
-            'roles.*' => 'exists:roles,id'
+            'staff_no' => ['required', Rule::unique('users')->where(fn ($query) => $this->uniqueUserVal($query, $request))],
+            'nric' => ['required', Rule::unique('users')->where(fn ($query) => $this->uniqueUserVal($query, $request))],
+            'roles' => 'required',
+            'roles.*' => 'exists:roles,id',
+            'email' => ['nullable', Rule::unique('users')->where(fn ($query) => $this->uniqueUserVal($query, $request))],
+            'name' => 'nullable'
         ])->validate();
 
         $data = [
-            'email' => $validated->email,
-            'name' => $validated->name,
+            'email' => $validated->email ?? null,
+            'name' => $validated->name ?? null,
             'nric' => $validated->nric,
             'staff_no' => $validated->staff_no,
             'phone' => $validated->phone ?? null
         ];
 
-        if (!isset($validated->id)){
+        if (!isset($validated->id)) {
             $data = array_merge([
-                'password' => Hash::make($validated->password)
+                'status_id' => Status::user('pending registration')->id
             ], $data);
 
             $user = User::create($data);
             $user->assignRole($validated->roles);
-        }
-        else{
+        } else {
             $user = User::find($validated->id)->update($data);
         }
 
+        return $user;
+    }
+
+    public function verifyUser(Request $request)
+    {
+        $validated = (object) Validator::make($request->all(), [
+            'staff_no' => ['required',],
+            'nric' => ['required', 'max:12', 'min:12']
+        ])->validate();
+
+        $user = User::where('staff_no', $validated->staff_no)->where('nric', $validated->nric)?->first();
+
+        if (!$user) {
+            return response(['message' => 'Invalid Staff Credentials. Please Contact Admin'], 500);
+        } else if ($user->status()->name != 'pending registration') {
+            return response(['message' => 'You have registered your account. Please log in with your credentials'], 500);
+        }
         return $user;
     }
 }

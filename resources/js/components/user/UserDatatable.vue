@@ -5,9 +5,23 @@
         :options="table.options"
         ref="userDt"
     >
+        <template v-slot:status="props">
+            <span
+                :class="
+                    `badge bg-${props.row.status.color_class} text-dark text-uppercase mx-1`
+                "
+                >{{ props.row.status.name }}</span
+            >
+        </template>
         <template v-slot:actions="props">
             <a class="text-decoration-none" @click="edit(props.row)">
                 <i class="far fa-eye"></i>
+            </a>
+            <a
+                class="text-decoration-none text-danger"
+                @click="delete props.row"
+            >
+                <i class="fas fa-user-times"></i>
             </a>
         </template>
         <template v-slot:roles="props">
@@ -26,7 +40,14 @@ export default {
     data() {
         return {
             table: {
-                columns: ["name", "email", "staff_no", "roles", "actions"],
+                columns: [
+                    "name",
+                    "email",
+                    "staff_no",
+                    "roles",
+                    "status",
+                    "actions"
+                ],
                 options: {
                     headings: {
                         staff_no: "Staff No"
@@ -50,6 +71,15 @@ export default {
         },
         edit(user) {
             this.$emit("on-edit", user);
+        },
+        password(user) {
+            this.$emit("on-password", user);
+        },
+        role(user) {
+            this.$emit("on-role", user);
+        },
+        delete(user) {
+            this.$emit("on-delete", user);
         }
     }
 };

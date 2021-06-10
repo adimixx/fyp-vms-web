@@ -70,11 +70,15 @@ Vue.use(VueFormulate, {
     validationNameStrategy: ["validationName", "label", "name", "type"],
     rules: {
         requiredIf: function(context, formKey, formValue) {
-            if (context.getFormValues()[formKey] == formValue) {
+            var a = (context.getFormValues()[formKey] == formValue);
+            var b = ((formValue == "undefined" || formValue == "null") && typeof context.getFormValues()[formKey] === "undefined");
+
+            if (a || b) {
                 if (context.value.length == 0) {
                     return false;
                 }
             }
+
             return true;
         }
     }

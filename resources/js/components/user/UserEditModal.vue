@@ -23,18 +23,10 @@
 
                         <FormulateInput
                             type="text"
-                            label="Name"
-                            name="name"
-                            validation="required"
-                            placeholder="eg: John Doe"
-                        />
-
-                        <FormulateInput
-                            type="text"
                             label="Staff No"
                             name="staff_no"
                             placeholder="eg: 01234"
-                            validation="required"
+                            validation="required:trim"
                         />
 
                         <FormulateInput
@@ -42,7 +34,16 @@
                             label="NRIC"
                             name="nric"
                             placeholder="eg: 910607089238"
-                            validation="required|min:12,length,max:12,length|number"
+                            validation="required:trim|min:12,length,max:12,length|number"
+                        />
+
+                        <FormulateInput
+                            input-class="input"
+                            type="checkbox"
+                            label="User Roles"
+                            name="roles"
+                            :options="rolesList"
+                            validation="required"
                         />
 
                         <FormulateInput
@@ -50,34 +51,18 @@
                             label="Email Address"
                             name="email"
                             placeholder="eg: john@vms.psm"
-                            validation="required|email"
+                            validation="optional|email"
+                            help="Optional"
                         />
 
-                        <div v-if="userData == null">
-                            <FormulateInput
-                                type="password"
-                                label="Password"
-                                name="password"
-                                validation="required|min:8,length"
-                                help="Password must be minimum 8 characters"
-                            />
-
-                            <FormulateInput
-                                type="password"
-                                label="Confirm Password"
-                                name="password_confirm"
-                                validation="required|confirm"
-                            />
-
-                            <FormulateInput
-                                input-class="input"
-                                type="checkbox"
-                                label="User Roles"
-                                name="roles"
-                                :options="rolesList"
-                                validation="required"
-                            />
-                        </div>
+                        <FormulateInput
+                            type="text"
+                            label="Name"
+                            name="name"
+                            validation="optional:trim"
+                            placeholder="eg: John Doe"
+                            help="Optional"
+                        />
 
                         <div class="text-center">
                             <button
@@ -134,14 +119,23 @@ export default {
         },
         async submit(data) {
             try {
-                data.password_confirmation = data.password_confirm;
                 var res = await axios.post(this.postUrl, data);
-                this.$emit(
-                    "activate-toast",
-                    "Success!",
-                    "User information have been saved",
-                    "success"
-                );
+                if (data.id) {
+                    this.$emit(
+                        "activate-toast",
+                        "Success!",
+                        "User information have been saved",
+                        "success"
+                    );
+                } else {
+                    this.$emit(
+                        "activate-toast",
+                        "User Created",
+                        "User can register their account with Staff No and NRIC provided",
+                        "info"
+                    );
+                }
+
                 this.hide(true);
             } catch (error) {
                 if (error.response) {

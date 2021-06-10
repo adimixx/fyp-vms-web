@@ -22,11 +22,9 @@ Route::get('/', function () {
     return redirect('login');
 });
 
-Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::resource('vehicle', VehicleController::class);
     Route::resource('complaint', ComplaintController::class);
     Route::resource('complaint.maintenance', MaintenanceController::class)->only(['create']);
