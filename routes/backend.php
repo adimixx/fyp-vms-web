@@ -4,12 +4,14 @@ use App\Http\Controllers\api\ComplaintAPIController;
 use App\Http\Controllers\api\DatatableAPIController;
 use App\Http\Controllers\api\MaintenanceQuotationAPIController;
 use App\Http\Controllers\api\MaintenanceRequestAPIController;
+use App\Http\Controllers\api\MaintenanceVendorAPIController;
 use App\Http\Controllers\api\MultiSelectAPIController;
 use App\Http\Controllers\api\UserAPIController;
 use App\Http\Controllers\api\VehicleCatalogAPI;
 use App\Http\Controllers\api\VehicleCategoryAPI;
 use App\Http\Controllers\api\VehicleInventoryAPI;
 use App\Http\Controllers\FileControllerAPI;
+use App\Models\MaintenanceVendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +32,7 @@ Route::name('api.data.')->group(function () {
         Route::resource('maintenance.quotation', MaintenanceQuotationAPIController::class);
         Route::resource('file', FileControllerAPI::class);
         Route::resource('user', UserAPIController::class)->only(['store','destroy']);
+        Route::resource('maintenance-vendor', MaintenanceVendorAPIController::class)->only(['store','destroy']);
     });
 
     Route::post('user/register/verify', [UserAPIController::class, 'verifyUser'])->name('user.verify');
@@ -47,6 +50,7 @@ Route::prefix('datatable')->name('api.datatable.')->middleware(['auth', 'verifie
 
     Route::get('maintenance/{maintenance_request}/quotation', [DatatableAPIController::class, 'maintenanceQuotation'])->name('maintenance.quotation');
     Route::get('user', [DatatableAPIController::class, 'user'])->name('user');
+    Route::get('maintenance-vendor', [DatatableAPIController::class, 'maintenanceVendor'])->name('maintenance-vendor');
 });
 
 Route::prefix('multiselect')->middleware(['auth', 'verified'])->name('api.select.')->group(function () {

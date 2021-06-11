@@ -4,6 +4,7 @@ use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -30,6 +31,7 @@ Route::middleware(['auth', 'verified', 'make_user_active'])->group(function () {
         Route::resource('maintenance', MaintenanceController::class);
         Route::resource('complaint.maintenance', MaintenanceController::class)->only(['create']);
         Route::resource('vehicle', VehicleController::class);
+        Route::resource('vendor', VendorController::class);
     });
 
     Route::middleware(['role:staff|admin'])->group(function () {

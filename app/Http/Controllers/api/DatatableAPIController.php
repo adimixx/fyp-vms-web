@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Complaint;
 use App\Models\MaintenanceQuotation;
 use App\Models\MaintenanceRequest;
+use App\Models\MaintenanceVendor;
 use App\Models\Status;
 use App\Models\User;
 use App\Models\VehicleInventory;
@@ -145,6 +146,13 @@ class DatatableAPIController extends Controller
     public function user(Request $request)
     {
         $data = User::with(['roles:name,id', 'status']);
+
+        return $this->returnData($data, $request);
+    }
+
+    public function maintenanceVendor(Request $request)
+    {
+        $data = MaintenanceVendor::with(['maintenanceQuotation']);
 
         return $this->returnData($data, $request);
     }

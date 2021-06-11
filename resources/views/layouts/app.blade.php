@@ -67,6 +67,10 @@
                             <a class="nav-link" href="{{ route('user.index') }}"><i
                                     class="fas fa-user"></i><span>User</span></a>
                         </li>
+                        <li class="nav-item {{ request()->routeIs('vendor.*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('vendor.index') }}"><i
+                                    class="fas fa-cogs"></i><span>Vendor</span></a>
+                        </li>
                         @endhasrole
 
                         @hasanyrole('admin|staff')
