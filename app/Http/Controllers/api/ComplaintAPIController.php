@@ -25,7 +25,7 @@ class ComplaintAPIController extends Controller
             'title' => 'required',
             'description' => 'required|max:250',
             'vehicle' => 'required|numeric|exists:vehicle_inventories,id',
-            'file' => 'array'
+            'file' => 'nullable|array'
         ]);
 
         $validated = (object) $validator->validate();

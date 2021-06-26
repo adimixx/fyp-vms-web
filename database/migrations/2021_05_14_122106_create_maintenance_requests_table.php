@@ -16,7 +16,7 @@ class CreateMaintenanceRequestsTable extends Migration
         Schema::create('maintenance_requests', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('code');
+            $table->string('code')->nullable();
             $table->unsignedBigInteger('vehicle_inventory_id');
             $table->unsignedBigInteger('maintenance_category_id');
             $table->unsignedBigInteger('maintenance_unit_id');

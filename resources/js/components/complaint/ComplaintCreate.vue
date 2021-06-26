@@ -89,7 +89,8 @@ export default {
     data() {
         return {
             form: {
-                vehicle: null
+                vehicle: null,
+                file: []
             },
             inputErrors: {}
         };

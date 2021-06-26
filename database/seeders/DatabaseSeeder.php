@@ -96,6 +96,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         MaintenanceCategory::create([
+            'name' => 'PEMBAIKAN MOTOSIKAL'
+        ]);
+
+        MaintenanceCategory::create([
             'name' => 'SERVIS BERKALA'
         ]);
 
@@ -159,8 +163,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Execute SQL Script Import
-        $sqlPath = 'database/scripts/script_1.sql';
-        DB::unprepared(file_get_contents($sqlPath));
-        $this->command->info('SQL Script (1) Executed');
+        $sqlPath =
+            ['database/scripts/script_1.sql', 'database/scripts/script_2.sql'];
+
+        foreach ($sqlPath as $val) {
+            DB::unprepared(file_get_contents($val));
+            $this->command->info($val . ' Executed');
+        }
     }
 }

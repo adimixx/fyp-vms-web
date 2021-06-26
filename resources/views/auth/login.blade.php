@@ -21,7 +21,7 @@
                                         <div class="mb-3">
                                             <input type="email"
                                                 class="form-control form-control-user @error('email') is-invalid @enderror"
-                                                id="exampleInputEmail" aria-describedby="emailHelp"
+                                                aria-describedby="emailHelp"
                                                 placeholder="Enter Email Address..." name="email"
                                                 value="{{ old('email') }}" required autocomplete="email" autofocus />
 
@@ -36,7 +36,7 @@
                                         <div class="mb-3">
                                             <input type="password"
                                                 class="form-control form-control-user  @error('password') is-invalid @enderror"
-                                                id="exampleInputPassword" placeholder="Password" name="password" required
+                                                placeholder="Password" name="password" required
                                                 autocomplete="current-password" />
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">

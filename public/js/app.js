@@ -7579,7 +7579,8 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
   data: function data() {
     return {
       form: {
-        vehicle: null
+        vehicle: null,
+        file: []
       },
       inputErrors: {}
     };
