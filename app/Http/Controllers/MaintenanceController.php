@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Complaint;
 use App\Models\MaintenanceRequest;
+use App\Models\Status;
 use Illuminate\Http\Request;
 
 class MaintenanceController extends Controller
@@ -37,7 +38,9 @@ class MaintenanceController extends Controller
             return 'Invalid Page';
         }
 
-        return view('maintenance.show', compact('maintenance'));
+        $maintenanceQuotationSelected = $maintenance->maintenanceQuotation()->firstWhere('status_id', Status::maintenanceQuotation('approved')->id);
+
+        return view('maintenance.show', compact('maintenance', 'maintenanceQuotationSelected'));
     }
 
     public function edit($id)

@@ -11,7 +11,7 @@
         </template>
         <template v-slot:status="props">
             <span
-                :class="`badge bg-${props.row.status_class} text-dark text-uppercase`"
+                :class="`badge bg-${props.row.status_class} text-white text-uppercase`"
                 >{{ props.row.status_name }}</span
             >
         </template>

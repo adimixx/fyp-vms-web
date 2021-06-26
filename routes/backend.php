@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\ChartAPIController;
 use App\Http\Controllers\api\ComplaintAPIController;
 use App\Http\Controllers\api\DatatableAPIController;
 use App\Http\Controllers\api\MaintenanceQuotationAPIController;
@@ -31,8 +32,8 @@ Route::name('api.data.')->group(function () {
         Route::resource('maintenance-request', MaintenanceRequestAPIController::class);
         Route::resource('maintenance.quotation', MaintenanceQuotationAPIController::class);
         Route::resource('file', FileControllerAPI::class);
-        Route::resource('user', UserAPIController::class)->only(['store','destroy']);
-        Route::resource('maintenance-vendor', MaintenanceVendorAPIController::class)->only(['store','destroy']);
+        Route::resource('user', UserAPIController::class)->only(['store', 'destroy']);
+        Route::resource('maintenance-vendor', MaintenanceVendorAPIController::class)->only(['store', 'destroy']);
     });
 
     Route::post('user/register/verify', [UserAPIController::class, 'verifyUser'])->name('user.verify');
@@ -66,7 +67,10 @@ Route::prefix('multiselect')->middleware(['auth', 'verified'])->name('api.select
 
 
 
-
+Route::prefix('chart')->group(function () {
+    Route::get('spending-maintenance-category', [ChartAPIController::class, 'SpendingMaintenanceCategories']);
+    Route::get('registered-vehicle-type', [ChartAPIController::class, 'RegisteredVehicleType']);
+});
 
 
 

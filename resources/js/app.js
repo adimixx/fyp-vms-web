@@ -132,6 +132,8 @@ Vue.use(
     }
 );
 
+window.Chart = require('chart.js');
+
 const app = new Vue({
     el: "#app",
     data() {

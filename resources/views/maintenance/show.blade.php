@@ -25,15 +25,47 @@
                     </div>
 
                     <div class="mb-2">
-                        <p class="text-dark">On Vehicle : <span
-                                class="fw-bold">{{ sprintf('%s - %s', $maintenance->vehicleInventory->reg_no, $maintenance->vehicleInventory->vehicleCatalog->name) }}</span>
+                        <p class="text-dark mb-0">On Vehicle :
                         </p>
+                        <span
+                            class="fw-bold">{{ sprintf('%s - %s', $maintenance->vehicleInventory->reg_no, $maintenance->vehicleInventory->vehicleCatalog->name) }}</span>
+                    </div>
+
+                    <div class="mb-2">
+                        <p class="text-dark mb-0">Maintenance Category :
+                        </p>
+                        <span class="fw-bold">{{ $maintenance->maintenanceCategory->name }}</span>
+                    </div>
+
+                    <div class="mb-2">
+                        <p class="text-dark mb-0">Maintenance Unit :
+                        </p>
+                        <span
+                            class="fw-bold">{{ sprintf('%s (%s)', $maintenance->maintenanceUnit->name, $maintenance->maintenanceUnit->code) }}</span>
                     </div>
 
                     <div class="mb-4">
-                        <span
-                            class="badge bg-{{ $maintenance->status->color_class }} text-uppercase">{{ $maintenance->status->name }}</span>
+                        <div class="d-flex d-flex-row ">
+                            <div class="mr-4">
+                                <p class="text-dark mb-0">Status :
+                                </p>
+                                <span
+                                    class="badge bg-{{ $maintenance->status->color_class }} text-uppercase">{{ $maintenance->status->name }}</span>
+                            </div>
+
+                            @isset($maintenance->code)
+                                <div class="mr-4">
+                                    <p class="text-dark mb-0">Unit Code :
+                                    </p>
+                                    <span class="text-uppercase fw-bold">{{ $maintenance->code }}</span>
+                                </div>
+                            @endisset
+
+                        </div>
+
                     </div>
+
+
 
                     <div class="row mt-3 mb-4">
                         <div class="col-12">
@@ -50,12 +82,31 @@
             </div>
         </div>
 
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="text-primary m-0 fw-bold">Maintenance Details</h6>
+
+        @isset($maintenanceQuotationSelected)
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="text-primary m-0 fw-bold">Selected Quotation</h6>
+                </div>
+                <div class="card-body">
+                    <div class="mb-2">
+                        <p class="mb-0 text-disabled">Vendor Name</p>
+                        <h5 class="text-uppercase text-primary mb-0 mt-0 fw-bold">
+                            {{ $maintenanceQuotationSelected->maintenanceVendor->name }}
+                        </h5>
+                    </div>
+
+                    <div class="mb-2">
+                        <p class="mb-0 text-disabled">Total Cost <span class="fw-bold">
+                                RM {{ number_format($maintenanceQuotationSelected->cost_total / 100, 2) }}
+                            </span></p>
+                    </div>
+
+
+                </div>
             </div>
-            <div class="card-body"></div>
-        </div>
+        @endisset
+
     </div>
 
 @endsection

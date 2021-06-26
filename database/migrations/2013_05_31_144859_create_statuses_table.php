@@ -174,7 +174,7 @@ class CreateStatusesTable extends Migration
         ]);
 
         Status::create([
-            'name' => 'APPROVED',
+            'name' => 'COMPLETED',
             'color_class' => 'success',
             'model_type' => $maintenanceReq,
         ]);

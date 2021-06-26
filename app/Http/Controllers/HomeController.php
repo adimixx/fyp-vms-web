@@ -27,18 +27,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $vehiclesRegistered = VehicleInventory::all();
-        $complaintsPending = Complaint::with(['status' => function ($query) {
-            return $query->where('name', 'pending');
-        }])->get();
-
-        $pendingMaintenance = MaintenanceRequest::with(['status' => function ($query) {
-            return $query->where('name', 'pending');
-        }])->get();
-
-        $settledMaintenance = MaintenanceRequest::with(['status' => function ($query) {
-            return $query->where('name', 'approved');
-        }])->get();
+        $vehiclesRegistered = VehicleInventory::count();
+        $complaintsPending = Complaint::where('status_id', Status::complaint('pending')->id)->count();
+        $pendingMaintenance = MaintenanceRequest::where('status_id', Status::maintenanceRequest('pending')->id)->count();
+        $settledMaintenance = MaintenanceRequest::where('status_id', Status::maintenanceRequest('completed')->id)->count();
 
         return view('home', compact('vehiclesRegistered', 'complaintsPending', 'pendingMaintenance', 'settledMaintenance'));
     }

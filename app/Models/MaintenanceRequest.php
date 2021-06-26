@@ -55,7 +55,7 @@ class MaintenanceRequest extends Model
 
     public function maintenanceQuotation()
     {
-        return $this->hasMany(MaintenanceRequest::class);
+        return $this->hasMany(MaintenanceQuotation::class);
     }
 
     public function status()
