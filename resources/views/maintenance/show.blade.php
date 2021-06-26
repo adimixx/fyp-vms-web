@@ -71,7 +71,7 @@
                         <div class="col-12">
                             <div class="mb-2">
                                 <p class="text-secondary mb-0">Maintenance Description : </p><span
-                                    class="text-uppercase text-dark fw-bold">{{ $maintenance->detail }} KM</span>
+                                    class="text-dark fw-bold">{{ $maintenance->detail }}</span>
                             </div>
                         </div>
                         <div class="col-12">
