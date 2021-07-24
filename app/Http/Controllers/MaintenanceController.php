@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Complaint;
+use App\Models\MaintenanceQuotation;
 use App\Models\MaintenanceRequest;
 use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MaintenanceController extends Controller
 {
@@ -35,11 +37,8 @@ class MaintenanceController extends Controller
         if (!isset($maintenance)) {
             return 'Invalid Page';
         }
-        $maintenanceQuotation = $maintenance->maintenanceQuotation();
-
-        $quote = $maintenanceQuotation->where('status_id', '!=', Status::maintenanceQuotation('approved')->id)->get();
-        $quoteSelected = $maintenanceQuotation->firstWhere('status_id', Status::maintenanceQuotation('approved')->id);
-
+        $quote = $maintenance->maintenanceQuotation()->where('status_id', '!=', Status::maintenanceQuotation('approved')->id)->get();
+        $quoteSelected = $maintenance->maintenanceQuotation()->where('status_id', Status::maintenanceQuotation('approved')->id)->first();
         return view('maintenance.show', compact('maintenance', 'quote', 'quoteSelected'));
     }
 
