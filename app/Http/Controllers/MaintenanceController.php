@@ -20,9 +20,7 @@ class MaintenanceController extends Controller
             $complaint  = Complaint::find($complaint);
             if (!isset($complaint)) {
                 return 'Invalid Page';
-            }
-
-            else if ($complaint->status->name != 'pending') {
+            } else if ($complaint->status->name != 'pending') {
                 return 'complaint has been resolved';
             }
         }
@@ -34,20 +32,22 @@ class MaintenanceController extends Controller
     {
         $maintenance = MaintenanceRequest::find($id);
 
-        if (!isset($maintenance)){
+        if (!isset($maintenance)) {
             return 'Invalid Page';
         }
+        $maintenanceQuotation = $maintenance->maintenanceQuotation();
 
-        $maintenanceQuotationSelected = $maintenance->maintenanceQuotation()->firstWhere('status_id', Status::maintenanceQuotation('approved')->id);
+        $quote = $maintenanceQuotation->where('status_id', '!=', Status::maintenanceQuotation('approved')->id)->get();
+        $quoteSelected = $maintenanceQuotation->firstWhere('status_id', Status::maintenanceQuotation('approved')->id);
 
-        return view('maintenance.show', compact('maintenance', 'maintenanceQuotationSelected'));
+        return view('maintenance.show', compact('maintenance', 'quote', 'quoteSelected'));
     }
 
     public function edit($id)
     {
         $maintenance = MaintenanceRequest::find($id);
 
-        if (!isset($maintenance)){
+        if (!isset($maintenance)) {
             return 'Invalid Page';
         }
 

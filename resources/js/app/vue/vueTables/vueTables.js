@@ -1,12 +1,14 @@
-
-
 import { ServerTable, ClientTable, Event } from "vue-tables-2";
 // Vue.use(ClientTable, [options = {}], [useVuex = false], [theme = 'bootstrap4'], [swappables = {}]);
 // Vue.use(ServerTable, [options = {}], [useVuex = false], [theme = 'bootstrap4'], [swappables = {}]);
 import vtGenericFilter from "./vtGenericFilter.vue";
 import vtPerPageSelector from "./vtPerPageSelector.vue";
 
-Vue.use(ClientTable, {}, false, "bootstrap4");
+Vue.use(ClientTable, {}, false, "bootstrap4", {
+    genericFilter: vtGenericFilter,
+    perPageSelector: vtPerPageSelector
+});
+
 Vue.use(
     ServerTable,
     {

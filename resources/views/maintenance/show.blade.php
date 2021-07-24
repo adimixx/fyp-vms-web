@@ -83,7 +83,7 @@
         </div>
 
 
-        @isset($maintenanceQuotationSelected)
+        @isset($quoteSelected)
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
                     <h6 class="text-primary m-0 fw-bold">Selected Quotation</h6>
@@ -92,13 +92,13 @@
                     <div class="mb-2">
                         <p class="mb-0 text-disabled">Vendor Name</p>
                         <h5 class="text-uppercase text-primary mb-0 mt-0 fw-bold">
-                            {{ $maintenanceQuotationSelected->maintenanceVendor->name }}
+                            {{ $quoteSelected->maintenanceVendor->name }}
                         </h5>
                     </div>
 
                     <div class="mb-2">
                         <p class="mb-0 text-disabled">Total Cost <span class="fw-bold">
-                                RM {{ number_format($maintenanceQuotationSelected->cost_total / 100, 2) }}
+                                RM {{ number_format($quoteSelected->cost_total / 100, 2) }}
                             </span></p>
                     </div>
 
@@ -106,6 +106,40 @@
                 </div>
             </div>
         @endisset
+
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="text-primary m-0 fw-bold">Quotation Provided</h6>
+            </div>
+            <div class="card-body">
+
+                @foreach ($quote as $qt)
+                    <div class="mb-2">
+                        <h5 class="text-uppercase text-primary mb-0 mt-0 fw-bold">
+                            {{ $qt->maintenanceVendor->name }}
+                        </h5>
+                    </div>
+
+                    <div class="mb-2">
+                        <p class="mb-0 text-disabled">Total Cost <span class="fw-bold">
+                                RM {{ number_format($qt->cost_total / 100, 2) }}
+                            </span></p>
+                    </div>
+
+                    <div class="mb-3">
+                        <v-client-table :data="{{ $qt->maintenanceQuotationItem }}"  :columns="['item','quantity','price','subtotal']">
+                            <template v-slot:price="props">
+                                <span>@{{ props.row.price | currencyWithRM }}</span>
+                            </template>
+
+                            <template v-slot:subtotal="props">
+                                <span>@{{ props.row.subtotal | currencyWithRM }}</span>
+                            </template>
+                        </v-client-table>
+                    </div>
+                @endforeach
+            </div>
+        </div>
 
     </div>
 

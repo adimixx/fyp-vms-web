@@ -21,6 +21,7 @@ window.Vue = require("vue").default;
 
  require("./vueFormulate");
  require("./vueTables/vueTables");
+ require("./vueFilters");
 
  const app = new Vue({
     el: "#app",

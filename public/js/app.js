@@ -10656,6 +10656,8 @@ __webpack_require__(/*! ./vueFormulate */ "./resources/js/app/vue/vueFormulate.j
 
 __webpack_require__(/*! ./vueTables/vueTables */ "./resources/js/app/vue/vueTables/vueTables.js");
 
+__webpack_require__(/*! ./vueFilters */ "./resources/js/app/vue/vueFilters.js");
+
 var app = new Vue({
   el: "#app",
   data: function data() {
@@ -10691,6 +10693,41 @@ var app = new Vue({
       this.toast.show = false;
     }
   }
+});
+
+/***/ }),
+
+/***/ "./resources/js/app/vue/vueFilters.js":
+/*!********************************************!*\
+  !*** ./resources/js/app/vue/vueFilters.js ***!
+  \********************************************/
+/***/ (() => {
+
+Vue.filter("currency", function (val) {
+  var format = val / 100;
+  return format.toFixed(2);
+});
+Vue.filter("currencyWithRM", function (val) {
+  var format = val / 100;
+  if (format == 0) return "-";
+  return "RM " + format.toFixed(2);
+});
+Vue.filter("currencyToDB", function (val) {
+  var format = val * 100;
+  return format;
+});
+Vue.filter("dateOnly", function (val) {
+  return moment(val).format("L");
+});
+Vue.filter("uppercase", function (val) {
+  return val.toUpperCase();
+});
+Vue.filter("nullString", function (val) {
+  if (val == null || val == "") {
+    return '-';
+  }
+
+  return val;
 });
 
 /***/ }),
@@ -10772,7 +10809,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-Vue.use(vue_tables_2__WEBPACK_IMPORTED_MODULE_0__.ClientTable, {}, false, "bootstrap4");
+Vue.use(vue_tables_2__WEBPACK_IMPORTED_MODULE_0__.ClientTable, {}, false, "bootstrap4", {
+  genericFilter: _vtGenericFilter_vue__WEBPACK_IMPORTED_MODULE_1__.default,
+  perPageSelector: _vtPerPageSelector_vue__WEBPACK_IMPORTED_MODULE_2__.default
+});
 Vue.use(vue_tables_2__WEBPACK_IMPORTED_MODULE_0__.ServerTable, {
   skin: "table table-striped table-hover table-light",
   sortIcon: {
