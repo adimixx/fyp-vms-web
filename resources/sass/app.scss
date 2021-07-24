@@ -1,76 +1,15 @@
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Nunito");
-
-@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
-
-@import "@fortawesome/fontawesome-free/scss/brands.scss";
-@import "@fortawesome/fontawesome-free/scss/solid.scss";
-@import "@fortawesome/fontawesome-free/scss/regular.scss";
-
-// Variables
-@import "variables";
-
-// Bootstrap
-@import "~bootstrap/scss/bootstrap";
+@import "fontawesome";
+@import "bootstrap";
+@import "sb-admin";
+@import "filepond";
+@import "vue-formulate";
+@import "vue-tables";
 
 @import "@vueform/multiselect/themes/default.css";
-
 @import "animate.css/animate.css";
+@import "vue-it-bigger/dist/vue-it-bigger.min.css";
+@import "vue-select/src/scss/vue-select.scss";
 
-@import "startbootstrap-sb-admin-2/scss/sb-admin-2";
 
-// Filepond
-@import "filepond/dist/filepond.min.css";
-@import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
 
-@import "vue-it-bigger/dist/vue-it-bigger.min.css"; // when using webpack
-
-.filepond--item {
-    width: calc(25% - 0.5em);
-}
-
-// @import '@braid/vue-formulate/themes/snow/snow.scss';
-
-.bg-gradient-primary {
-    background-color: $blue;
-}
-
-.bg-login-image {
-    background: url("../images/login.jpg");
-    background-position: center;
-    background-size: cover;
-}
-
-.sidebar-brand-icon {
-    background: url("../images/utem_logo.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 30px;
-    height: 32px;
-}
-
-.VueTables__search,
-.VueTables__search-field {
-    width: 80%;
-}
-
-.VuePagination__pagination.pagination.VuePagination__pagination {
-    display: inline-flex;
-}
-
-.breadcrumb {
-    background-color: transparent;
-}
-
-// Classes for Vue Formulate
-
-div[data-classification="box"] > .formulate-input-wrapper{
-    @extend .d-flex;
-}
-
-input[type="checkbox"] {
-    @extend .form-check-input;
-    @extend .ml-0;
-    @extend .mr-3;
-    position: inherit;
-}

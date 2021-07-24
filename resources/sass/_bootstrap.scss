@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
 // Body
 $body-bg: #f8fafc;
 
@@ -18,6 +20,6 @@ $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 
-$fa-font-path: "../webfonts";
+@import "~bootstrap/scss/bootstrap";
 
 

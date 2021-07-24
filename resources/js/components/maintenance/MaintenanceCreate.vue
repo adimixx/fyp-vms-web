@@ -200,7 +200,7 @@ export default {
     },
     methods: {
         loadVehicle: async function(query) {
-            var link = `/api/multiselect/vehicle`;
+            var link = `/backend/multiselect/vehicle`;
             if (query) {
                 link += `?search=${query}`;
             }

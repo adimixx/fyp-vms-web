@@ -1,0 +1,27 @@
+// @import '@braid/vue-formulate/themes/snow/snow.scss';
+
+div[data-classification="box"] > .formulate-input-wrapper {
+    @extend .d-flex;
+}
+
+input[type="checkbox"] {
+    @extend .form-check-input;
+    @extend .ml-0;
+    @extend .mr-3;
+    position: inherit;
+}
+
+input[type="radio"] {
+    @extend .form-check-input;
+    @extend .ml-0;
+    @extend .mr-3;
+    position: inherit;
+}
+
+div[data-type="radio"][data-classification="box"] {
+    @extend .mb-1;
+}
+
+div[data-type="radio"][data-classification="box"] label {
+    @extend .fw-light;
+}

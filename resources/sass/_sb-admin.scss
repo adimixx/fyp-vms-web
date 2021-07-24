@@ -1,0 +1,19 @@
+@import "startbootstrap-sb-admin-2/scss/sb-admin-2";
+
+.bg-gradient-primary {
+    background-color: $blue;
+}
+
+.bg-login-image {
+    background: url("../images/login.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.sidebar-brand-icon {
+    background: url("../images/utem_logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 32px;
+}

@@ -36,6 +36,7 @@
         "startbootstrap-sb-admin-2": "^4.1.4",
         "vue-filepond": "^6.0.3",
         "vue-it-bigger": "^0.2.2",
+        "vue-select": "^3.12.1",
         "vue-tables-2": "^2.3.0"
     }
 }
