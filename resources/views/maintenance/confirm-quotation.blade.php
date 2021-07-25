@@ -51,9 +51,10 @@
                     @endisset
                 </div>
                 <hr>
-                <maintenance-confirm-quotation-form
+                <maintenance-confirm-quotation-form @isset($approvedQuote) :approved-quote="{{ $approvedQuote }}" @endisset
                     quotation-select-url="{{ route('api.select.maintenance.confirm-quotation', $maintenance->id) }}"
-                    submit-url="{{ route('api.data.maintenance.quotation.confirm', $maintenance->id) }}">
+                    submit-url="{{ route('api.data.maintenance.quotation.confirm', $maintenance->id) }}"
+                    back-url="{{ route('maintenance.show', $maintenance->id) }}">
                 </maintenance-confirm-quotation-form>
             </div>
         </div>

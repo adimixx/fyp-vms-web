@@ -64,14 +64,15 @@ class MaintenanceController extends Controller
             return redirect()->route('maintenance.show', $id)->with('boldMsg', 'Alert')->with('msg', 'Quotation is not pending')->with('classColor', 'warning')->with('date', 1123);
         }
 
-        $quote = $maintenance->maintenanceQuotation()->where('status_id', Status::maintenanceQuotation('quoted')->id);
+        $quote = $maintenance->maintenanceQuotation()->whereNotIn('status_id', [Status::maintenanceQuotation('pending quote')->id]);
 
         if ($quote->count() <= 0) {
             return redirect()->route('maintenance.edit', $id)->with('boldMsg', 'Alert')->with('msg', 'Please add a quoted Quotation')->with('classColor', 'warning')->with('date', 1123);
         }
 
+        $approvedQuote = $quote->where('status_id', [Status::maintenanceQuotation('approved')->id])->first()->id;
         $quote = $quote->get();
 
-        return view('maintenance.confirm-quotation', compact('quote', 'maintenance'));
+        return view('maintenance.confirm-quotation', compact('quote', 'maintenance','approvedQuote'));
     }
 }

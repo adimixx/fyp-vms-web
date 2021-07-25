@@ -29,7 +29,7 @@ class SelectBackendController extends Controller
         $searchCol = "mv.name";
         $data = MaintenanceQuotation::join('maintenance_vendors AS mv', 'mv.id', 'maintenance_quotations.maintenance_vendor_id')
             ->where('maintenance_quotations.maintenance_request_id', $maintenanceId)
-            ->where('maintenance_quotations.status_id', Status::maintenanceQuotation('quoted')->id)
+            ->whereNotIn('maintenance_quotations.status_id', [Status::maintenanceQuotation('pending quote')->id])
             ->select(DB::raw("CONCAT(mv.name, ' (RM ' , TRUNCATE(maintenance_quotations.cost_total/100, 2) , ')') AS label"), 'maintenance_quotations.id AS value');
 
         return $this->returnData($data, $request, $searchCol);

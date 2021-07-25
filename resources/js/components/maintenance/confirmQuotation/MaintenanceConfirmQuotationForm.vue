@@ -35,13 +35,21 @@ export default {
         };
     },
     props: {
+        approvedQuote: Number,
         quotationSelectUrl: String,
         submitUrl: String,
+        backUrl: String,
         data: Object
     },
-    mounted() {},
+    mounted() {
+        if (this.approvedQuote){
+            this.form.quotation = this.approvedQuote;
+        }
+    },
     methods: {
-        onDismiss() {},
+        onDismiss() {
+            window.location.href = this.backUrl;
+        },
         async onSubmit(data) {
             try {
                 const res = await axios.post(this.submitUrl, data);

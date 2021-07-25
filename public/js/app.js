@@ -8670,13 +8670,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   props: {
+    approvedQuote: Number,
     quotationSelectUrl: String,
     submitUrl: String,
+    backUrl: String,
     data: Object
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {
+    if (this.approvedQuote) {
+      this.form.quotation = this.approvedQuote;
+    }
+  },
   methods: {
-    onDismiss: function onDismiss() {},
+    onDismiss: function onDismiss() {
+      window.location.href = this.backUrl;
+    },
     onSubmit: function onSubmit(data) {
       var _this = this;
 
@@ -11096,9 +11104,6 @@ var app = new Vue({
         show: false
       }
     };
-  },
-  mounted: function mounted() {
-    console.log(window.location);
   },
   methods: {
     activateAlert: function activateAlert(boldMsg, msg, classColor) {
