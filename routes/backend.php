@@ -11,6 +11,7 @@ use App\Http\Controllers\api\UserAPIController;
 use App\Http\Controllers\api\VehicleCatalogAPI;
 use App\Http\Controllers\api\VehicleCategoryAPI;
 use App\Http\Controllers\api\VehicleInventoryAPI;
+use App\Http\Controllers\backend\SelectBackendController;
 use App\Http\Controllers\FileControllerAPI;
 use App\Models\MaintenanceVendor;
 use Illuminate\Http\Request;
@@ -31,6 +32,7 @@ Route::name('api.data.')->group(function () {
         Route::resource('complaint', ComplaintAPIController::class);
         Route::resource('maintenance-request', MaintenanceRequestAPIController::class);
         Route::resource('maintenance.quotation', MaintenanceQuotationAPIController::class);
+        Route::post('maintenance/{maintenance}/quotation/confirm', [MaintenanceQuotationAPIController::class, 'confirmQuotation'])->name('maintenance.quotation.confirm');
         Route::resource('file', FileControllerAPI::class);
         Route::resource('user', UserAPIController::class)->only(['store', 'destroy']);
         Route::resource('maintenance-vendor', MaintenanceVendorAPIController::class)->only(['store', 'destroy']);
@@ -62,9 +64,8 @@ Route::prefix('multiselect')->middleware(['auth', 'verified'])->name('api.select
     Route::get('status/{model}', [MultiSelectAPIController::class, 'status'])->name('status');
     Route::get('vehicle-catalog/{category}', [MultiSelectAPIController::class, 'vehicleCatalog'])->name('vehicle-catalog');
     Route::get('vehicle-category', [MultiSelectAPIController::class, 'vehicleCategory'])->name('vehicle-category');
+    Route::get('maintenance/{maintenanceId}/confirm-quotation', [SelectBackendController::class, 'confirmQuotation'])->name('maintenance.confirm-quotation');
 });
-
-
 
 
 Route::prefix('chart')->group(function () {

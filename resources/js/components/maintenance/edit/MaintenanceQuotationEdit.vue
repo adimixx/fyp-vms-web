@@ -5,9 +5,11 @@
                 class="card-header fw-bold text-primary d-flex justify-content-between"
             >
                 <span>Quotation</span>
-                <button class="btn btn-secondary" @click="onNewQuotation">
-                    <i class="fas fa-money-check-alt"></i> New Quotation
-                </button>
+                <div>
+                    <button class="btn btn-secondary" @click="onNewQuotation">
+                        <i class="fas fa-money-check-alt"></i> New Quotation
+                    </button>
+                </div>
             </div>
             <div class="card-body">
                 <maintenance-quotation-datatable
@@ -68,8 +70,12 @@ export default {
             quotationFormData: {},
             date: 0,
             deleteQuotationUrl: null,
-            deleteQuotationData: null
+            deleteQuotationData: null,
+            canAddQuotation: false
         };
+    },
+    mounted(){
+
     },
     methods: {
         onNewQuotation() {

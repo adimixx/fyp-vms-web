@@ -114,12 +114,26 @@ class MaintenanceQuotationAPIController extends Controller
 
         $maintenanceQuotation = MaintenanceQuotation::find($validated->quotation);
 
-        if ($maintenanceQuotation->maintenanceQuotationItem()->exists()){
+        if ($maintenanceQuotation->maintenanceQuotationItem()->exists()) {
             $maintenanceQuotation->maintenanceQuotationItem()->delete();
         }
 
         $maintenanceQuotation->delete();
 
         return response(['messages' => 'Item Deleted']);
+    }
+
+    public function confirmQuotation($maintenance, Request $request)
+    {
+        $validated = (object) Validator::make(array_merge($request->all(), ['maintenance' => $maintenance]), [
+            'quotation' => 'required|numeric|exists:maintenance_quotations,id',
+            'maintenance' => 'required|numeric|exists:maintenance_requests,id',
+        ])->validate();
+
+        MaintenanceQuotation::find($validated->quotation)->update(['status_id' => Status::maintenanceQuotation('approved')->id]);
+
+        MaintenanceRequest::find($validated->maintenance)->maintenanceQuotation()->where('id', '!=', $validated->quotation)->where('status_id', Status::maintenanceQuotation('quoted')->id)->update(['status_id' => Status::maintenanceQuotation('approved')->id]);
+
+        return response(['redirect' => route('maintenance.show', $maintenance)]);
     }
 }

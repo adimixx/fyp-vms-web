@@ -44,12 +44,31 @@ class MaintenanceController extends Controller
 
     public function edit($id)
     {
-        $maintenance = MaintenanceRequest::find($id);
+        $maintenance = MaintenanceRequest::with(['maintenanceUnit','maintenanceCategory','vehicleInventory','status'])->find($id);
 
         if (!isset($maintenance)) {
             return 'Invalid Page';
         }
 
         return view('maintenance.edit', compact('maintenance'));
+    }
+
+    public function confirmQuotation($id)
+    {
+        $maintenance = MaintenanceRequest::find($id);
+
+        if (strtolower($maintenance->status->name) != 'pending'){
+            return redirect(route('maintenance.show', $id));
+        }
+
+        $quote = $maintenance->maintenanceQuotation()->where('status_id', Status::maintenanceQuotation('quoted')->id);
+
+        if ($quote->count() <= 0){
+            return redirect(route('maintenance.edit', $id));
+        }
+
+        $quote = $quote->get();
+
+        return view('maintenance.confirm-quotation', compact('quote','maintenance'));
     }
 }

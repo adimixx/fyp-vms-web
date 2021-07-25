@@ -4,15 +4,13 @@
     <div class="container-fluid">
         <div class="d-flex justify-content-between">
             <div>
-                <h3 class="text-dark mb-0">Maintenance Details</h3>
+                <h3 class="text-dark mb-0">Confirm Quotation</h3>
                 <p class="text-capitalize text-secondary">Maintenance Management</p>
             </div>
             <div>
-                @if ($maintenance->status->name == 'pending')
-                    <a href="{{ route('maintenance.edit', $maintenance->id) }}" class="text-decoration-none">
-                        <button class="btn btn-primary"><i class="fas fa-edit"></i> Edit</button>
-                    </a>
-                @endif
+                <a href="{{ route('maintenance.show', $maintenance->id) }}" class="text-decoration-none">
+                    <button class="btn btn-primary"><i class="fas fa-info-circle"></i> Back to Maintenance Details</button>
+                </a>
             </div>
         </div>
 
@@ -20,7 +18,7 @@
             <div class="card-body">
                 <div>
                     <div class="mb-2">
-                        <p class="mb-0 text-disabled">Maintenance Title</p>
+                        <p class="mb-0 text-disabled">Maintenance Name: </p>
                         <h4 class="text-uppercase text-primary mb-0 mt-0 fw-bold">{{ $maintenance->name }}</h4>
                     </div>
 
@@ -44,99 +42,21 @@
                             class="fw-bold">{{ sprintf('%s (%s)', $maintenance->maintenanceUnit->name, $maintenance->maintenanceUnit->code) }}</span>
                     </div>
 
-                    <div class="mb-4">
-                        <div class="d-flex d-flex-row ">
-                            <div class="mr-4">
-                                <p class="text-dark mb-0">Status :
-                                </p>
-                                <span
-                                    class="badge bg-{{ $maintenance->status->color_class }} text-uppercase">{{ $maintenance->status->name }}</span>
-                            </div>
-
-                            @isset($maintenance->code)
-                                <div class="mr-4">
-                                    <p class="text-dark mb-0">Unit Code :
-                                    </p>
-                                    <span class="text-uppercase fw-bold">{{ $maintenance->code }}</span>
-                                </div>
-                            @endisset
-
+                    @isset($maintenance->code)
+                        <div class="mb-2">
+                            <p class="text-dark mb-0">Unit Code :
+                            </p>
+                            <span class="text-uppercase fw-bold">{{ $maintenance->code }}</span>
                         </div>
-
-                    </div>
-
-
-
-                    <div class="row mt-3 mb-4">
-                        <div class="col-12">
-                            <div class="mb-2">
-                                <p class="text-secondary mb-0">Maintenance Description : </p><span
-                                    class="text-dark fw-bold">{{ $maintenance->detail }}</span>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <p class="text-secondary mb-0">Media Attachments : </p>
-                        </div>
-                    </div>
+                    @endisset
                 </div>
+                <hr>
+                <maintenance-confirm-quotation-form
+                    quotation-select-url="{{ route('api.select.maintenance.confirm-quotation', $maintenance->id) }}"
+                    submit-url="{{ route('api.data.maintenance.quotation.confirm', $maintenance->id) }}">
+                </maintenance-confirm-quotation-form>
             </div>
         </div>
-
-        @isset($quoteSelected)
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h6 class="text-primary m-0 fw-bold">Selected Quotation</h6>
-                </div>
-                <div class="card-body">
-                    <div class="mb-2">
-                        <h5 class="text-uppercase text-primary mb-0 fw-bold">
-                            {{ $quoteSelected->maintenanceVendor->name }}
-                        </h5>
-                        <span
-                            class="badge bg-{{ $quoteSelected->status->color_class }} text-uppercase">{{ $quoteSelected->status->name }}</span>
-                    </div>
-
-                    <div>
-                        <div class="d-flex d-flex-row mb-2">
-                            <div class="mr-auto">
-                                <p class="fw-bold">Quote Details</p>
-                            </div>
-                            <div class="text-right mr-3">
-                                <span class="text-black">Request Date</span>
-                                <p class="fw-bold">
-                                    {{ $quoteSelected->date_request }}
-                                </p>
-                            </div>
-                            <div class="text-right mr-3">
-                                <span class="text-black">Quote Date</span>
-                                <p class="fw-bold">
-                                    {{ $quoteSelected->date_invoice ?? '-' }}
-                                </p>
-                            </div>
-                            <div class="text-right">
-                                <span class="text-black">Total Cost</span>
-                                <p class="fw-bold">
-                                    RM {{ number_format($quoteSelected->cost_total / 100, 2) ?? '-' }}
-                                </p>
-                            </div>
-                        </div>
-
-                        <v-client-table :data="{{ $quoteSelected->maintenanceQuotationItem }}"
-                            :columns="['item','quantity','price','subtotal']" :options="{filterable: false}">
-                            <template v-slot:price="props">
-                                <span>@{{ (props . row . price) | currencyWithRM }}</span>
-                            </template>
-
-                            <template v-slot:subtotal="props">
-                                <span>@{{ (props . row . subtotal) | currencyWithRM }}</span>
-                            </template>
-                        </v-client-table>
-                    </div>
-
-
-                </div>
-            </div>
-        @endisset
 
         @isset($quote)
             <div class="card shadow mb-4">

@@ -16,7 +16,9 @@
                         Maintenance Detail
                     </div>
                     <div class="card-body">
-                        <maintenance-create :maintenance-id="{{ $maintenance->id }}"
+
+                        <maintenance-create
+                        :maintenance-id="{{ $maintenance->id }}"
                             complaint-title="{{ $maintenance->name }}"
                             complaint-description="{{ $maintenance->detail }}"
                             :complaint-vehicle-inventory="{{ $maintenance->vehicleInventory->id }}"

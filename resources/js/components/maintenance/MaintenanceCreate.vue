@@ -162,8 +162,7 @@ export default {
         maintenanceUnitName: String,
         maintenanceTypeList: String,
         maintenanceUnitList: String,
-        isUpdate: false,
-        maintenanceId: 0
+        maintenanceId: 0,
     },
     mounted() {
         if (this.complaint != null) {

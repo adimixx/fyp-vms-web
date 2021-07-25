@@ -80,7 +80,6 @@
 import VueCompositionAPI from "@vue/composition-api";
 Vue.use(VueCompositionAPI);
 import Multiselect from "@vueform/multiselect/dist/multiselect.vue2.js";
-import Filepond from "../Filepond.vue";
 
 export default {
     components: {

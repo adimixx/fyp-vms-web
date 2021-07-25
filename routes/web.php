@@ -29,6 +29,7 @@ Route::middleware(['auth', 'verified', 'make_user_active'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         Route::resource('user', UserController::class);
         Route::resource('maintenance', MaintenanceController::class);
+        Route::get('maintenance/{id}/confirm-quotation', [MaintenanceController::class, 'confirmQuotation']);
         Route::resource('complaint.maintenance', MaintenanceController::class)->only(['create']);
         Route::resource('vehicle', VehicleController::class);
         Route::resource('vendor', VendorController::class);
