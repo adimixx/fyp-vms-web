@@ -78,6 +78,7 @@
 
             <div class="col-12">
                 <maintenance-quotation-edit
+                    :enable-quotation-edit="{{ $enableNewQuote }}"
                     datatable-api-url="{{ route('api.datatable.maintenance.quotation', $maintenance->id) }}"
                     vendor-select-url="{{ route('api.select.vendor') }}"
                     status-quotation-select-url="{{ route('api.select.status', 1) }}"

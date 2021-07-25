@@ -43,7 +43,7 @@ export default {
     data() {
         return {
             table: {
-                columns: ["vendor", "cost_total", "is_approved", "actions"],
+                columns: ["vendor", "cost_total", "is_approved"],
                 options: {
                     headings: {
                         vendor: "Vendor Name",
@@ -57,11 +57,18 @@ export default {
     props: {
         route: String,
         apiUrl: String,
-        date: Number
+        date: Number,
+        hasAction: Boolean
+    },
+    mounted() {
+        this.onHasAction();
     },
     watch: {
         date(val) {
             this.refreshTable();
+        },
+        onHasAction(val){
+            this.hasAction();
         }
     },
     methods: {
@@ -73,6 +80,15 @@ export default {
         },
         onDeleteQuotation(data) {
             this.$emit("delete-quotation", data);
+        },
+        onHasAction() {
+            if (this.hasAction) this.table.columns.push("actions");
+            else {
+                const index = this.table.columns.indexOf("actions");
+                if (index > -1) {
+                    this.table.columns.splice(index, 1);
+                }
+            }
         }
     }
 };

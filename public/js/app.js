@@ -8775,7 +8775,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       table: {
-        columns: ["vendor", "cost_total", "is_approved", "actions"],
+        columns: ["vendor", "cost_total", "is_approved"],
         options: {
           headings: {
             vendor: "Vendor Name",
@@ -8789,11 +8789,18 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     route: String,
     apiUrl: String,
-    date: Number
+    date: Number,
+    hasAction: Boolean
+  },
+  mounted: function mounted() {
+    this.onHasAction();
   },
   watch: {
     date: function date(val) {
       this.refreshTable();
+    },
+    onHasAction: function onHasAction(val) {
+      this.hasAction();
     }
   },
   methods: {
@@ -8805,6 +8812,15 @@ __webpack_require__.r(__webpack_exports__);
     },
     onDeleteQuotation: function onDeleteQuotation(data) {
       this.$emit("delete-quotation", data);
+    },
+    onHasAction: function onHasAction() {
+      if (this.hasAction) this.table.columns.push("actions");else {
+        var index = this.table.columns.indexOf("actions");
+
+        if (index > -1) {
+          this.table.columns.splice(index, 1);
+        }
+      }
     }
   }
 });
@@ -8887,12 +8903,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     datatableApiUrl: String,
     vendorSelectUrl: String,
     statusQuotationSelectUrl: String,
-    quotationUrl: String
+    quotationUrl: String,
+    enableQuotationEdit: Boolean
   },
   data: function data() {
     return {
@@ -94541,17 +94559,19 @@ var render = function() {
             _c("span", [_vm._v("Quotation")]),
             _vm._v(" "),
             _c("div", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-secondary",
-                  on: { click: _vm.onNewQuotation }
-                },
-                [
-                  _c("i", { staticClass: "fas fa-money-check-alt" }),
-                  _vm._v(" New Quotation\n                ")
-                ]
-              )
+              _vm.enableQuotationEdit
+                ? _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-secondary",
+                      on: { click: _vm.onNewQuotation }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-money-check-alt" }),
+                      _vm._v(" New Quotation\n                ")
+                    ]
+                  )
+                : _vm._e()
             ])
           ]
         ),
@@ -94561,7 +94581,11 @@ var render = function() {
           { staticClass: "card-body" },
           [
             _c("maintenance-quotation-datatable", {
-              attrs: { "api-url": _vm.datatableApiUrl, date: _vm.date },
+              attrs: {
+                "api-url": _vm.datatableApiUrl,
+                date: _vm.date,
+                "has-action": _vm.enableQuotationEdit
+              },
               on: {
                 "edit-quotation": _vm.onEditQuotation,
                 "delete-quotation": _vm.onDeleteQuotation

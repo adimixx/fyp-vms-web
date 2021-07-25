@@ -6,7 +6,7 @@
             >
                 <span>Quotation</span>
                 <div>
-                    <button class="btn btn-secondary" @click="onNewQuotation">
+                    <button class="btn btn-secondary" @click="onNewQuotation" v-if="enableQuotationEdit">
                         <i class="fas fa-money-check-alt"></i> New Quotation
                     </button>
                 </div>
@@ -15,6 +15,7 @@
                 <maintenance-quotation-datatable
                     :api-url="datatableApiUrl"
                     :date="date"
+                    :has-action="enableQuotationEdit"
                     @edit-quotation="onEditQuotation"
                     @delete-quotation="onDeleteQuotation"
                 ></maintenance-quotation-datatable>
@@ -61,7 +62,8 @@ export default {
         datatableApiUrl: String,
         vendorSelectUrl: String,
         statusQuotationSelectUrl: String,
-        quotationUrl: String
+        quotationUrl: String,
+        enableQuotationEdit: Boolean
     },
     data() {
         return {
@@ -71,7 +73,7 @@ export default {
             date: 0,
             deleteQuotationUrl: null,
             deleteQuotationData: null,
-            canAddQuotation: false
+            canAddQuotation: false,
         };
     },
     mounted(){
