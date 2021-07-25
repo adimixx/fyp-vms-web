@@ -143,6 +143,13 @@
                 <div class="card-header py-3">
                     <div class="d-flex justify-content-between">
                         <h6 class="text-primary m-0 fw-bold my-auto">Quotation Provided</h6>
+                        <div>
+                            @if ($maintenance->status->name == 'pending')
+                                <a href="{{ route('maintenance.confirm-quotation', $maintenance->id) }}" class="text-decoration-none">
+                                    <button class="btn btn-primary"><i class="fas fa-check"></i> Approve Quotation</button>
+                                </a>
+                            @endif
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">

@@ -7153,7 +7153,13 @@ __webpack_require__.r(__webpack_exports__);
     boldMsg: String,
     msg: String,
     classColor: String,
-    date: Number
+    date: Number,
+    initVisible: Boolean
+  },
+  mounted: function mounted() {
+    if (this.initVisible) {
+      this.visible = true;
+    }
   },
   watch: {
     date: function date(val) {
@@ -11090,6 +11096,9 @@ var app = new Vue({
         show: false
       }
     };
+  },
+  mounted: function mounted() {
+    console.log(window.location);
   },
   methods: {
     activateAlert: function activateAlert(boldMsg, msg, classColor) {

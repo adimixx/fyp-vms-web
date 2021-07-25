@@ -26,7 +26,13 @@ export default {
         boldMsg: String,
         msg: String,
         classColor: String,
-        date: Number
+        date: Number,
+        initVisible: Boolean
+    },
+    mounted(){
+        if (this.initVisible){
+            this.visible = true;
+        }
     },
     watch: {
         date: function (val) {

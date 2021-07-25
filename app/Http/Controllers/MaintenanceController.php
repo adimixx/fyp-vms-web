@@ -6,6 +6,7 @@ use App\Models\Complaint;
 use App\Models\MaintenanceQuotation;
 use App\Models\MaintenanceRequest;
 use App\Models\Status;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -60,13 +61,13 @@ class MaintenanceController extends Controller
         $maintenance = MaintenanceRequest::find($id);
 
         if (strtolower($maintenance->status->name) != 'pending') {
-            return redirect(route('maintenance.show', $id));
+            return redirect()->route('maintenance.show', $id)->with('boldMsg', 'Alert')->with('msg', 'Quotation is not pending')->with('classColor', 'warning')->with('date', 1123);
         }
 
         $quote = $maintenance->maintenanceQuotation()->where('status_id', Status::maintenanceQuotation('quoted')->id);
 
         if ($quote->count() <= 0) {
-            return redirect(route('maintenance.edit', $id));
+            return redirect()->route('maintenance.edit', $id)->with('boldMsg', 'Alert')->with('msg', 'Please add a quoted Quotation')->with('classColor', 'warning')->with('date', 1123);
         }
 
         $quote = $quote->get();

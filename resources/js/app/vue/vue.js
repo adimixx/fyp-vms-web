@@ -42,6 +42,9 @@ window.Vue = require("vue").default;
             }
         };
     },
+    mounted(){
+        console.log(window.location);
+    },
     methods: {
         activateAlert(boldMsg, msg, classColor) {
             this.alert.msg = msg;

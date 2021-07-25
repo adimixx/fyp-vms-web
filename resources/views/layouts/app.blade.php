@@ -150,26 +150,34 @@
                     </nav>
 
                     <main>
-                        <bs-alert :bold-msg="alert.boldMsg" :msg="alert.msg" :class-color="alert.classColor"
-                            :date="alert.date"></bs-alert>
-                        <bs-toast :bold-msg="toast.boldMsg" :msg="toast.msg" :class-color="toast.classColor"
-                            v-if="toast.show" @dismiss-toast="dismissToast"></bs-toast>
-                        @yield('content')
-                    </main>
-                </div>
-
-                <footer class="bg-white sticky-footer">
-                    <div class="container my-auto">
-                        <div class="text-center my-auto copyright">
-                            <span>Copyright © Adi Iman 2021</span>
-                        </div>
+                        <div class="container-fluid mb-3">
+                            @if (session('date') != null)
+                                <bs-alert bold-msg="{{ session('boldMsg') }}" msg="{{ session('msg') }}"
+                                    class-color="{{ session('classColor') }}" :date="{{ session('date') }}"
+                                    :init-visible="true"></bs-alert>
+                            @endisset
+                            <bs-alert :bold-msg="alert.boldMsg" :msg="alert.msg" :class-color="alert.classColor"
+                                :date="alert.date"></bs-alert>
+                            <bs-toast :bold-msg="toast.boldMsg" :msg="toast.msg" :class-color="toast.classColor"
+                                v-if="toast.show" @dismiss-toast="dismissToast"></bs-toast>
                     </div>
-                </footer>
+
+                    @yield('content')
+                </main>
             </div>
 
-            <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright">
+                        <span>Copyright © Adi Iman 2021</span>
+                    </div>
+                </div>
+            </footer>
         </div>
+
+        <a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
     </div>
+</div>
 </body>
 
 </html>
