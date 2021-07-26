@@ -14,7 +14,17 @@ class MaintenanceController extends Controller
 {
     public function index()
     {
-        return view('maintenance.index');
+        $maintenance = MaintenanceRequest::all();
+
+        $pendingStatus = Status::maintenanceRequest('pending');
+        $pendingApprovalStatus = Status::maintenanceRequest('pending approval');
+        $approvedStatus = Status::maintenanceRequest('approved');
+
+        $pendingCount = $maintenance->where('status_id', $pendingStatus->id)->count();
+        $pendingApprovalCount = $maintenance->where('status_id', $pendingApprovalStatus->id)->count();
+        $approvedCount = $maintenance->where('status_id', $approvedStatus->id)->count();
+
+        return view('maintenance.index', compact('pendingCount', 'pendingApprovalCount', 'approvedCount', 'pendingStatus', 'pendingApprovalStatus', 'approvedStatus'));
     }
 
     public function create($complaint = null)
@@ -38,7 +48,7 @@ class MaintenanceController extends Controller
         if (!isset($maintenance)) {
             return redirect()->route('maintenance.index')->with('boldMsg', 'Alert')->with('msg', 'Invalid Maintenance')->with('classColor', 'warning')->with('date', 1123);
         }
-        $quote = $maintenance->maintenanceQuotation()->whereNotIn('status_id', [ Status::maintenanceQuotation('approved')->id ])->get();
+        $quote = $maintenance->maintenanceQuotation()->whereNotIn('status_id', [Status::maintenanceQuotation('approved')->id])->get();
         $quoteSelected = $maintenance->maintenanceQuotation()->where('status_id', Status::maintenanceQuotation('approved')->id)->first();
         return view('maintenance.show', compact('maintenance', 'quote', 'quoteSelected'));
     }

@@ -11,6 +11,7 @@ use App\Http\Controllers\api\UserAPIController;
 use App\Http\Controllers\api\VehicleCatalogAPI;
 use App\Http\Controllers\api\VehicleCategoryAPI;
 use App\Http\Controllers\api\VehicleInventoryAPI;
+use App\Http\Controllers\backend\MaintenanceRequest\MaintenanceRequestDTBackendController;
 use App\Http\Controllers\backend\SelectBackendController;
 use App\Http\Controllers\FileControllerAPI;
 use App\Models\MaintenanceVendor;
@@ -52,7 +53,8 @@ Route::prefix('datatable')->name('api.datatable.')->middleware(['auth', 'verifie
 
     Route::get('maintenance-pending', [DatatableAPIController::class, 'maintenancePending'])->name('maintenance.pending');
     Route::get('maintenance-pending-review', [DatatableAPIController::class, 'maintenancePendingReview'])->name('maintenance.pending-review');
-    Route::get('maintenance-history', [DatatableAPIController::class, 'maintenanceHistory'])->name('maintenance.history');
+    Route::get('maintenance-approved', [MaintenanceRequestDTBackendController::class, 'maintenanceApproved'])->name('maintenance.approved');
+    Route::get('maintenance-history', [MaintenanceRequestDTBackendController::class, 'maintenanceHistory'])->name('maintenance.history');
     Route::get('maintenance/{vehicle}', [DatatableAPIController::class, 'maintenanceVehicle'])->name('maintenance.vehicle');
 
     Route::get('maintenance/{maintenance_request}/quotation', [DatatableAPIController::class, 'maintenanceQuotation'])->name('maintenance.quotation');
