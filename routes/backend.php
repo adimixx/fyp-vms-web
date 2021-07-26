@@ -30,7 +30,10 @@ Route::name('api.data.')->group(function () {
         Route::resource('vehicle_category.catalog.inventory', VehicleInventoryAPI::class);
         Route::resource('vehicle', VehicleInventoryAPI::class);
         Route::resource('complaint', ComplaintAPIController::class);
+
         Route::resource('maintenance-request', MaintenanceRequestAPIController::class);
+        Route::post('maintenance-request/approval-review', [MaintenanceRequestAPIController::class, 'approvalReview'])->name('maintenance-request.approval-review');
+
         Route::resource('maintenance.quotation', MaintenanceQuotationAPIController::class);
         Route::post('maintenance/{maintenance}/quotation/confirm', [MaintenanceQuotationAPIController::class, 'confirmQuotation'])->name('maintenance.quotation.confirm');
         Route::resource('file', FileControllerAPI::class);
@@ -48,6 +51,7 @@ Route::prefix('datatable')->name('api.datatable.')->middleware(['auth', 'verifie
     Route::get('complaint/{vehicle}', [DatatableAPIController::class, 'complaintVehicle'])->name('complaint.vehicle');
 
     Route::get('maintenance-pending', [DatatableAPIController::class, 'maintenancePending'])->name('maintenance.pending');
+    Route::get('maintenance-pending-review', [DatatableAPIController::class, 'maintenancePendingReview'])->name('maintenance.pending-review');
     Route::get('maintenance-history', [DatatableAPIController::class, 'maintenanceHistory'])->name('maintenance.history');
     Route::get('maintenance/{vehicle}', [DatatableAPIController::class, 'maintenanceVehicle'])->name('maintenance.vehicle');
 

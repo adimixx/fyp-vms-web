@@ -8615,6 +8615,117 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      form: {}
+    };
+  },
+  props: {
+    id: Number,
+    statusOptions: Array,
+    submitUrl: String,
+    backUrl: String
+  },
+  mounted: function mounted() {},
+  methods: {
+    onDismiss: function onDismiss() {
+      window.location.href = this.backUrl;
+    },
+    onSubmit: function onSubmit(data) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return axios.post(_this.submitUrl, data);
+
+              case 3:
+                res = _context.sent;
+
+                if (res.data.redirect) {
+                  window.location.href = res.data.redirect;
+                }
+
+                _this.$eventBus.$emit("on-toast", "Maklumat Berjaya Disimpan!", "Maklumat Insentif berjaya disimpan", "success");
+
+                _context.next = 11;
+                break;
+
+              case 8:
+                _context.prev = 8;
+                _context.t0 = _context["catch"](0);
+
+                if (_context.t0.response) {
+                  _this.$formulate.handle({
+                    inputErrors: _context.t0.response.data.errors,
+                    formErrors: _context.t0.response.data.message
+                  }, "form");
+                }
+
+              case 11:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 8]]);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/confirmQuotation/MaintenanceConfirmQuotationForm.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/confirmQuotation/MaintenanceConfirmQuotationForm.vue?vue&type=script&lang=js& ***!
@@ -11175,7 +11286,7 @@ Vue.use(_braid_vue_formulate__WEBPACK_IMPORTED_MODULE_0__.default, {
   useInputDecorators: false,
   classes: {
     outer: "mb-3",
-    label: "form-label",
+    label: "form-label fw-bold",
     element: "mw-100",
     input: "form-control",
     inputHasErrors: "is-invalid",
@@ -91720,6 +91831,45 @@ component.options.__file = "resources/js/components/maintenance/MaintenanceDatat
 
 /***/ }),
 
+/***/ "./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _MaintenanceApprovalReviewForm_vue_vue_type_template_id_df4f1936___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MaintenanceApprovalReviewForm.vue?vue&type=template&id=df4f1936& */ "./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue?vue&type=template&id=df4f1936&");
+/* harmony import */ var _MaintenanceApprovalReviewForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MaintenanceApprovalReviewForm.vue?vue&type=script&lang=js& */ "./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _MaintenanceApprovalReviewForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _MaintenanceApprovalReviewForm_vue_vue_type_template_id_df4f1936___WEBPACK_IMPORTED_MODULE_0__.render,
+  _MaintenanceApprovalReviewForm_vue_vue_type_template_id_df4f1936___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/maintenance/confirmQuotation/MaintenanceConfirmQuotationForm.vue":
 /*!**************************************************************************************************!*\
   !*** ./resources/js/components/maintenance/confirmQuotation/MaintenanceConfirmQuotationForm.vue ***!
@@ -92467,6 +92617,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************!*\
+  !*** ./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceApprovalReviewForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceApprovalReviewForm.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceApprovalReviewForm_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/maintenance/confirmQuotation/MaintenanceConfirmQuotationForm.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************!*\
   !*** ./resources/js/components/maintenance/confirmQuotation/MaintenanceConfirmQuotationForm.vue?vue&type=script&lang=js& ***!
@@ -92926,6 +93092,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceDatatable_vue_vue_type_template_id_8cc98010___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceDatatable_vue_vue_type_template_id_8cc98010___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceDatatable.vue?vue&type=template&id=8cc98010& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/MaintenanceDatatable.vue?vue&type=template&id=8cc98010&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue?vue&type=template&id=df4f1936&":
+/*!*****************************************************************************************************************************!*\
+  !*** ./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue?vue&type=template&id=df4f1936& ***!
+  \*****************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceApprovalReviewForm_vue_vue_type_template_id_df4f1936___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceApprovalReviewForm_vue_vue_type_template_id_df4f1936___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_MaintenanceApprovalReviewForm_vue_vue_type_template_id_df4f1936___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./MaintenanceApprovalReviewForm.vue?vue&type=template&id=df4f1936& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue?vue&type=template&id=df4f1936&");
 
 
 /***/ }),
@@ -94350,6 +94533,85 @@ var render = function() {
       }
     ])
   })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue?vue&type=template&id=df4f1936&":
+/*!********************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue?vue&type=template&id=df4f1936& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c(
+        "FormulateForm",
+        {
+          attrs: { name: "form" },
+          on: { submit: _vm.onSubmit },
+          model: {
+            value: _vm.form,
+            callback: function($$v) {
+              _vm.form = $$v
+            },
+            expression: "form"
+          }
+        },
+        [
+          _c("FormulateInput", {
+            attrs: { type: "hidden", name: "id" },
+            model: {
+              value: _vm.id,
+              callback: function($$v) {
+                _vm.id = $$v
+              },
+              expression: "id"
+            }
+          }),
+          _vm._v(" "),
+          _c("FormulateInput", {
+            attrs: {
+              "input-class": "form-check pl-0",
+              type: "radio",
+              validation: "required",
+              name: "status",
+              label: "Approval Status",
+              options: _vm.statusOptions
+            }
+          }),
+          _vm._v(" "),
+          _c("FormulateInput", {
+            attrs: {
+              type: "textarea",
+              name: "status_note",
+              label: "Review Note",
+              validation: "optional|max:250"
+            }
+          }),
+          _vm._v(" "),
+          _c("BsSubmitBtn", { on: { "on-dismiss": _vm.onDismiss } })
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -116297,6 +116559,7 @@ var map = {
 	"./components/home/HomeSpendingMaintenanceCategoryChart.vue": "./resources/js/components/home/HomeSpendingMaintenanceCategoryChart.vue",
 	"./components/maintenance/MaintenanceCreate.vue": "./resources/js/components/maintenance/MaintenanceCreate.vue",
 	"./components/maintenance/MaintenanceDatatable.vue": "./resources/js/components/maintenance/MaintenanceDatatable.vue",
+	"./components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue": "./resources/js/components/maintenance/approvalReview/MaintenanceApprovalReviewForm.vue",
 	"./components/maintenance/confirmQuotation/MaintenanceConfirmQuotationForm.vue": "./resources/js/components/maintenance/confirmQuotation/MaintenanceConfirmQuotationForm.vue",
 	"./components/maintenance/edit/MaintenanceQuotationDatatable.vue": "./resources/js/components/maintenance/edit/MaintenanceQuotationDatatable.vue",
 	"./components/maintenance/edit/MaintenanceQuotationEdit.vue": "./resources/js/components/maintenance/edit/MaintenanceQuotationEdit.vue",

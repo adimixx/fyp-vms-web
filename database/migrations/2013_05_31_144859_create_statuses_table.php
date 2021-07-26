@@ -37,13 +37,18 @@ class CreateStatusesTable extends Migration
             BEGIN
                DECLARE sequence_t int;
 
-               SELECT IFNULL(MAX(sequence), 0) + 1 INTO sequence_t from statuses WHERE model_type = NEW.model_type ;
-               SET NEW.sequence = sequence_t;
-               SET NEW.name = LOWER(NEW.name);
+               IF NEW.front_visible = 1 THEN
+                    SELECT IFNULL(MAX(sequence), 0) + 1 INTO sequence_t from statuses WHERE model_type = NEW.model_type ;
+                    SET NEW.sequence = sequence_t;
+                    SET NEW.name = LOWER(NEW.name);
+                ELSE
+                    SET NEW.sequence = 0;
+                END IF;
+
+                SET NEW.name = LOWER(NEW.name);
             END;
         ');
 
-        $maintenanceReq = get_class(new MaintenanceRequest);
         $vehicleInventory = get_class(new VehicleInventory);
         $vehicleComplaint = get_class(new Complaint);
         $maintenanceQuote = get_class(new MaintenanceQuotation);
@@ -154,36 +159,9 @@ class CreateStatusesTable extends Migration
             'model_type' => $vehicleComplaint
         ]);
 
-        // Maintenance Request
-        Status::create([
-            'name' => 'PENDING',
-            'color_class' => 'warning',
-            'model_type' => $maintenanceReq,
-        ]);
 
-        Status::create([
-            'name' => 'DISMISSED',
-            'color_class' => 'danger',
-            'model_type' => $maintenanceReq,
-        ]);
 
-        Status::create([
-            'name' => 'PENDING APPROVAL',
-            'color_class' => 'info',
-            'model_type' => $maintenanceReq,
-        ]);
 
-        Status::create([
-            'name' => 'COMPLETED',
-            'color_class' => 'success',
-            'model_type' => $maintenanceReq,
-        ]);
-
-        Status::create([
-            'name' => 'REJECTED',
-            'color_class' => 'danger',
-            'model_type' => $maintenanceReq,
-        ]);
     }
 
     /**

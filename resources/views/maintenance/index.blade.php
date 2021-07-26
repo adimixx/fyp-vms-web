@@ -14,6 +14,14 @@
         </div>
     </div>
 
+    <div class="card shadow mb-3">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h6 class="text-primary fw-bold m-0">Pending Review Maintenance</h6>
+        </div>
+        <div class="card-body">
+            <maintenance-datatable route="{{ route('maintenance.approval-review') }}" api-url="{{ route('api.datatable.maintenance.pending-review') }}"></maintenance-datatable>
+        </div>
+    </div>
 
     <div class="card shadow mb-3">
         <div class="card-header d-flex justify-content-between align-items-center">

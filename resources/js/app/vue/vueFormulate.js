@@ -3,7 +3,7 @@ Vue.use(VueFormulate, {
     useInputDecorators: false,
     classes: {
         outer: "mb-3",
-        label: "form-label",
+        label: "form-label fw-bold",
         element: "mw-100",
         input: "form-control",
         inputHasErrors: "is-invalid",

@@ -22,9 +22,9 @@ class MaintenanceController extends Controller
         if ($complaint != null) {
             $complaint  = Complaint::find($complaint);
             if (!isset($complaint)) {
-                return 'Invalid Page';
-            } else if ($complaint->status->name != 'pending') {
-                return 'complaint has been resolved';
+                return redirect()->route('maintenance.index')->with('boldMsg', 'Alert')->with('msg', 'Invalid Maintenance')->with('classColor', 'warning')->with('date', 1123);
+            } else if ($complaint->status_id != Status::complaint('pending')->id) {
+                return redirect()->route('complaint.show', $complaint->id)->with('boldMsg', 'Alert')->with('msg', 'Complaint has been resolved')->with('classColor', 'warning')->with('date', 1123);
             }
         }
 
@@ -36,9 +36,9 @@ class MaintenanceController extends Controller
         $maintenance = MaintenanceRequest::find($id);
 
         if (!isset($maintenance)) {
-            return 'Invalid Page';
+            return redirect()->route('maintenance.index')->with('boldMsg', 'Alert')->with('msg', 'Invalid Maintenance')->with('classColor', 'warning')->with('date', 1123);
         }
-        $quote = $maintenance->maintenanceQuotation()->where('status_id', '!=', Status::maintenanceQuotation('approved')->id)->get();
+        $quote = $maintenance->maintenanceQuotation()->whereNotIn('status_id', [ Status::maintenanceQuotation('approved')->id ])->get();
         $quoteSelected = $maintenance->maintenanceQuotation()->where('status_id', Status::maintenanceQuotation('approved')->id)->first();
         return view('maintenance.show', compact('maintenance', 'quote', 'quoteSelected'));
     }
@@ -48,7 +48,7 @@ class MaintenanceController extends Controller
         $maintenance = MaintenanceRequest::with(['maintenanceUnit', 'maintenanceCategory', 'vehicleInventory', 'status'])->find($id);
 
         if (!isset($maintenance)) {
-            return 'Invalid Page';
+            return redirect()->route('maintenance.index')->with('boldMsg', 'Alert')->with('msg', 'Invalid Maintenance')->with('classColor', 'warning')->with('date', 1123);
         }
 
         $enableNewQuote = ($maintenance->maintenanceQuotation()->where('status_id', Status::maintenanceQuotation('approved')->id)->count() <= 0) ? "true" : "false";
@@ -70,9 +70,69 @@ class MaintenanceController extends Controller
             return redirect()->route('maintenance.edit', $id)->with('boldMsg', 'Alert')->with('msg', 'Please add a quoted Quotation')->with('classColor', 'warning')->with('date', 1123);
         }
 
-        $approvedQuote = $quote->where('status_id', [Status::maintenanceQuotation('approved')->id])->first()->id;
         $quote = $quote->get();
 
-        return view('maintenance.confirm-quotation', compact('quote', 'maintenance','approvedQuote'));
+        return view('maintenance.confirm-quotation', compact('quote', 'maintenance'));
+    }
+
+    public function submitReview($id)
+    {
+        $maintenance = MaintenanceRequest::find($id);
+
+        if (!isset($maintenance)) {
+            return redirect()->route('maintenance.index')->with('boldMsg', 'Alert')->with('msg', 'Invalid Maintenance')->with('classColor', 'warning')->with('date', 1123);
+        } else if ($maintenance->maintenanceQuotation()->count() <= 0) {
+            return redirect()->route('maintenance.edit', $id)->with('boldMsg', 'Alert')->with('msg', 'Please add a approved quotation before submitting for review')->with('classColor', 'warning')->with('date', 1123);
+        } else if ($maintenance->maintenanceQuotation()->where('status_id', Status::maintenanceQuotation('approved')->id)->count() <= 0) {
+            return redirect()->route('maintenance.show', $id)->with('boldMsg', 'Alert')->with('msg', 'Please approve a quotation before submitting for review')->with('classColor', 'warning')->with('date', 1123);
+        }
+
+        $quote = $maintenance->maintenanceQuotation()->where('status_id', '!=', Status::maintenanceQuotation('approved')->id)->get();
+        $quoteSelected = $maintenance->maintenanceQuotation()->where('status_id', Status::maintenanceQuotation('approved')->id)->first();
+        return view('maintenance.submit-review', compact('maintenance', 'quote', 'quoteSelected'));
+    }
+
+    public function submitReviewPost($id, Request $request)
+    {
+        $maintenance = MaintenanceRequest::find($id);
+
+        if (!isset($maintenance)) {
+            return redirect()->route('maintenance.index')->with('boldMsg', 'Alert')->with('msg', 'Invalid Maintenance')->with('classColor', 'warning')->with('date', 1123);
+        } else if ($maintenance->status_id != Status::maintenanceRequest('pending')->id) {
+            return redirect()->route('maintenance.show', $id)->with('boldMsg', 'Alert')->with('msg', 'Maintenance is not pending')->with('classColor', 'warning')->with('date', 1123);
+        }
+
+        $maintenance->update([
+            'status_id' => Status::maintenanceRequest('pending approval')->id
+        ]);
+
+        return redirect()->route('maintenance.show', $maintenance->id)->with('boldMsg', 'Success!')->with('msg', 'Maintenance has been submitted for review')->with('classColor', 'success')->with('date', 1123);
+    }
+
+    public function approvalReview($id = null)
+    {
+        if ($id == null) {
+            return redirect()->route('maintenance.index');
+        }
+
+        $maintenance = MaintenanceRequest::find($id);
+
+        if (!isset($maintenance)) {
+            return redirect()->route('maintenance.index')->with('boldMsg', 'Alert')->with('msg', 'Invalid Maintenance')->with('classColor', 'warning')->with('date', 1123);
+        } else if ($maintenance->status_id != Status::maintenanceRequest('pending approval')->id) {
+            return redirect()->route('maintenance.show', $maintenance->id)->with('boldMsg', 'Alert')->with('msg', 'Maintenance is not pending for review')->with('classColor', 'warning')->with('date', 1123);
+        }
+
+        $quote = $maintenance->maintenanceQuotation()->where('status_id', '!=', Status::maintenanceQuotation('approved')->id)->get();
+        $quoteSelected = $maintenance->maintenanceQuotation()->where('status_id', Status::maintenanceQuotation('approved')->id)->first();
+
+        $statusOption = Status::where('model_type', get_class(new MaintenanceRequest))->where('front_visible', true)->get()->map(function ($q) {
+            return [
+                'label' => ucwords($q->name),
+                'value' => $q->sequence
+            ];
+        });
+
+        return view('maintenance.approval-review', compact('maintenance', 'quote', 'quoteSelected', 'statusOption'));
     }
 }

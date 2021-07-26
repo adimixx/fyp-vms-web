@@ -56,7 +56,7 @@ class DatatableAPIController extends Controller
         return $this->returnData($data, $request);
     }
 
-    private function maintenance(Request $request, int $vehicle = 0, bool $isPending = false)
+    private function maintenance(Request $request, int $vehicle = 0, bool $isPending = false, bool $isPendingReview = false)
     {
         $data = MaintenanceRequest::select('maintenance_requests.*', 'inv.reg_no AS reg_no',  DB::raw('CONCAT_WS(\' \',ctlg.brand, ctlg.model, ctlg.variant, CASE WHEN ctlg.year IS NOT NULL THEN CONCAT(\'(\', ctlg.year, \')\') ELSE NULL END) AS model'), 'sts.name AS status_name', 'sts.color_class AS status_class')
             ->join('vehicle_inventories AS inv', 'inv.id', '=', 'maintenance_requests.vehicle_inventory_id')
@@ -70,13 +70,19 @@ class DatatableAPIController extends Controller
             $data = $data->where('vehicle_inventory_id', $vehicle);
         } else if ($isPending) {
             $data = $data->where('maintenance_requests.status_id', Status::maintenanceRequest('pending')->id);
-        } else {
-            $data = $data->where('maintenance_requests.status_id', '!=', Status::maintenanceRequest('pending')->id);
+        }
+        else if ($isPendingReview){
+            $data = $data->where('maintenance_requests.status_id', Status::maintenanceRequest('pending approval')->id);
+        }
+        else {
+            $data = $data->whereNotIn('maintenance_requests.status_id', [Status::maintenanceRequest('pending')->id ,Status::maintenanceRequest('pending approval')->id]);
         }
 
         if ($request->input('query')) {
             // $data = $data->where('reg_no', 'LIKE', "%{$request->input('query')}%");
         }
+
+        $data = $data->orderBy('maintenance_requests.id','desc');
 
         return $this->returnData($data, $request);
     }
@@ -113,6 +119,11 @@ class DatatableAPIController extends Controller
     public function maintenancePending(Request $request)
     {
         return $this->maintenance($request, isPending: true);
+    }
+
+    public function maintenancePendingReview(Request $request)
+    {
+        return $this->maintenance($request, isPendingReview: true);
     }
 
     public function maintenanceHistory(Request $request)

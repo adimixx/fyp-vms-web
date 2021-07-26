@@ -8,6 +8,7 @@ use App\Models\MaintenanceRequest;
 use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class MaintenanceRequestAPIController extends Controller
 {
@@ -50,5 +51,33 @@ class MaintenanceRequestAPIController extends Controller
         }
 
         return $maintenanceRequest;
+    }
+
+    public function approvalReview(Request $request)
+    {
+        $validated = (object) Validator::make($request->all(), [
+            'id' => ['required', Rule::exists('maintenance_requests', 'id')->where(function ($query) use ($request) {
+                return $query->where('status_id', Status::maintenanceRequest('pending approval')->id);
+            })],
+            'status' => ['required', Rule::exists('statuses', 'sequence')->where(function ($query) use ($request) {
+                return $query->where('model_type', get_class(new MaintenanceRequest))->where('front_visible', true);
+            })],
+            'status_note' => 'nullable|max:250'
+        ])->validate();
+
+        $maintenance = MaintenanceRequest::find($validated->id);
+
+        $status = Status::where('model_type', get_class(new MaintenanceRequest))->where('front_visible', true)->where('sequence', $validated->status)->first();
+
+        $maintenance->update([
+            'status_id' => $status->id,
+            'status_note' => $validated->status_note ?? null
+        ]);
+
+        $request->session()->flash('boldMsg', 'Success!');
+        $request->session()->flash('msg', 'Maintenance review has been saved');
+        $request->session()->flash('classColor', 'success');
+        $request->session()->flash('date', 1123);
+        return response(['redirect' => route('maintenance.index')]);
     }
 }

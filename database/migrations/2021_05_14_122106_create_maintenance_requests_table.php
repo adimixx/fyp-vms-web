@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\MaintenanceRequest;
+use App\Models\Status;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -33,6 +35,49 @@ class CreateMaintenanceRequestsTable extends Migration
             $table->foreign('complaint_id')->references('id')->on('complaints');
             $table->foreign('status_id')->references('id')->on('statuses');
         });
+
+        $maintenanceReq = get_class(new MaintenanceRequest);
+
+        // Maintenance Request
+        Status::create([
+            'name' => 'PENDING',
+            'color_class' => 'warning',
+            'model_type' => $maintenanceReq,
+            'front_visible' => false
+        ]);
+
+        Status::create([
+            'name' => 'DISMISSED',
+            'color_class' => 'secondary',
+            'model_type' => $maintenanceReq,
+            'front_visible' => false
+        ]);
+
+        Status::create([
+            'name' => 'PENDING APPROVAL',
+            'color_class' => 'info',
+            'model_type' => $maintenanceReq,
+            'front_visible' => false
+        ]);
+
+        Status::create([
+            'name' => 'COMPLETED',
+            'color_class' => 'success',
+            'model_type' => $maintenanceReq,
+            'front_visible' => false
+        ]);
+
+        Status::create([
+            'name' => 'APPROVED',
+            'color_class' => 'primary',
+            'model_type' => $maintenanceReq,
+        ]);
+
+        Status::create([
+            'name' => 'REJECTED',
+            'color_class' => 'danger',
+            'model_type' => $maintenanceReq,
+        ]);
     }
 
     /**

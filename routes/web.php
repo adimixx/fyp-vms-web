@@ -28,9 +28,18 @@ Route::middleware(['auth', 'verified', 'make_user_active'])->group(function () {
 
     Route::middleware(['role:admin'])->group(function () {
         Route::resource('user', UserController::class);
+
+        Route::get('maintenance/approval-review/{id?}', [MaintenanceController::class, 'approvalReview'])->name('maintenance.approval-review');
         Route::resource('maintenance', MaintenanceController::class);
-        Route::get('maintenance/{id}/confirm-quotation', [MaintenanceController::class, 'confirmQuotation'])->name('maintenance.confirm-quotation');
+        Route::prefix('maintenance/{id}')->as('maintenance.')->group(function ()
+        {
+            Route::get('/confirm-quotation', [MaintenanceController::class, 'confirmQuotation'])->name('confirm-quotation');
+            Route::get('/submit-review', [MaintenanceController::class, 'submitReview'])->name('submit-review');
+            Route::post('/submit-review', [MaintenanceController::class, 'submitReviewPost'])->name('submit-review-post');
+        });
+
         Route::resource('complaint.maintenance', MaintenanceController::class)->only(['create']);
+
         Route::resource('vehicle', VehicleController::class);
         Route::resource('vendor', VendorController::class);
     });

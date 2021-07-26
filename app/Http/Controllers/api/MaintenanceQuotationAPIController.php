@@ -38,7 +38,7 @@ class MaintenanceQuotationAPIController extends Controller
             })],
             'date_request' => 'required|date|before_or_equal:today',
             'status' => ['required', Rule::exists('statuses', 'sequence')->where(function ($query) use ($request) {
-                return $query->where('model_type', get_class(new MaintenanceRequest))->where('front_visible', true);
+                return $query->where('model_type', get_class(new MaintenanceQuotation))->where('front_visible', true);
             })],
             'date_invoice' => 'exclude_unless:status,2|required_if:status,2|date|after_or_equal:date_request|before_or_equal:today',
             'particulars' => 'exclude_unless:status,2|required_if:status,2|array',
@@ -132,7 +132,7 @@ class MaintenanceQuotationAPIController extends Controller
 
         MaintenanceQuotation::find($validated->quotation)->update(['status_id' => Status::maintenanceQuotation('approved')->id]);
 
-        MaintenanceRequest::find($validated->maintenance)->maintenanceQuotation()->where('id', '!=', $validated->quotation)->where('status_id', Status::maintenanceQuotation('quoted')->id)->update(['status_id' => Status::maintenanceQuotation('approved')->id]);
+        MaintenanceRequest::find($validated->maintenance)->maintenanceQuotation()->where('id', '!=', $validated->quotation)->where('status_id', Status::maintenanceQuotation('quoted')->id)->update(['status_id' => Status::maintenanceQuotation('declined')->id]);
 
         return response(['redirect' => route('maintenance.show', $maintenance)]);
     }

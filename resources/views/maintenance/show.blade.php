@@ -10,7 +10,10 @@
             <div>
                 @if ($maintenance->status->name == 'pending')
                     <a href="{{ route('maintenance.edit', $maintenance->id) }}" class="text-decoration-none">
-                        <button class="btn btn-primary"><i class="fas fa-edit"></i> Edit</button>
+                        <button class="btn btn-secondary"><i class="fas fa-edit"></i> Edit</button>
+                    </a>
+                    <a href="{{ route('maintenance.submit-review', $maintenance->id) }}" class="text-decoration-none">
+                        <button class="btn btn-primary"><i class="fas fa-comments"></i> Submit for Review</button>
                     </a>
                 @endif
             </div>
@@ -51,6 +54,13 @@
                                 </p>
                                 <span
                                     class="badge bg-{{ $maintenance->status->color_class }} text-uppercase">{{ $maintenance->status->name }}</span>
+
+                                @isset($maintenance->status_note)
+                                    <p class="text-dark mb-0">Status Note:
+                                    </p>
+                                    <p>{{ $maintenance->status_note }}</p>
+                                @endisset
+
                             </div>
 
                             @isset($maintenance->code)
@@ -145,7 +155,8 @@
                         <h6 class="text-primary m-0 fw-bold my-auto">Quotation Provided</h6>
                         <div>
                             @if ($maintenance->status->name == 'pending')
-                                <a href="{{ route('maintenance.confirm-quotation', $maintenance->id) }}" class="text-decoration-none">
+                                <a href="{{ route('maintenance.confirm-quotation', $maintenance->id) }}"
+                                    class="text-decoration-none">
                                     <button class="btn btn-primary"><i class="fas fa-check"></i> Approve Quotation</button>
                                 </a>
                             @endif
@@ -195,7 +206,7 @@
                                             </div>
                                         </div>
 
-                                        @if ($qt->status->name == 'quoted')
+                                        @if ($qt->status->name != 'pending quote' && $qt->maintenanceQuotationItem->count() > 0)
                                             <v-client-table :data="{{ $qt->maintenanceQuotationItem }}"
                                                 :columns="['item','quantity','price','subtotal']"
                                                 :options="{filterable: false}">
