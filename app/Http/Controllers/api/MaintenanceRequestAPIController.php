@@ -104,7 +104,7 @@ class MaintenanceRequestAPIController extends Controller
 
         $maintenance->update([
             'finalize_note' => $validated->finalize_note ?? null,
-            'finalize_file' => serialize($validated->file) ?? null,
+            'finalize_file' => (isset($validated->file)) ? serialize((array)$validated->file) : null,
             'status_id' => Status::maintenanceRequest('completed')->id
         ]);
 

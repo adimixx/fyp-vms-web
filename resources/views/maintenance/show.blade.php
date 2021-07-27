@@ -85,15 +85,14 @@
                             </div>
                         </div>
                     </div>
-
                     @if ($maintenance->status->name == 'completed')
                         <div class="mb-3">
                             <div class="mb-3">
                                 <label for="finalize_note">Maintenance Finalization Note</label>
-                                <p>{{ $maintenance->finalize_note }}</p>
+                                <p class="fw-bold">{{ $maintenance->finalize_note }}</p>
 
                                 <label for="finalize_note">Maintenance Finalization Attachment</label>
-                                <Lightbox :media="{{ $complaint->finalize_file_vue }}"></Lightbox>
+                                <Lightbox :media="{{ $maintenance->finalize_file_vue }}"></Lightbox>
                             </div>
                         </div>
                     @endif

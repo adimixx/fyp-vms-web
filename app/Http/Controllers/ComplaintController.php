@@ -22,7 +22,6 @@ class ComplaintController extends Controller
     public function show($id)
     {
         $complaint = Complaint::find($id);
-
         return view('complaint.show', compact('complaint'));
     }
 

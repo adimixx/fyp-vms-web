@@ -104,6 +104,6 @@ class MaintenanceRequest extends Model
             }
         };
 
-        return json_encode(array_map($mapImgUrl, $this->media));
+        return json_encode(array_map($mapImgUrl, $this->finalize_file));
     }
 }
