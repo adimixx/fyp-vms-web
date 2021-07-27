@@ -7350,8 +7350,6 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.uploadedFileName);
     },
     process: function process(fieldName, file, metadata, load, error, progress, _abort, transfer, options) {
-      var _this = this;
-
       console.log("uploading file");
       var formData = new FormData();
       formData.append(fieldName, file, file.name);
@@ -7364,8 +7362,7 @@ __webpack_require__.r(__webpack_exports__);
         cancelToken: source.token
       }).then(function (res) {
         load(res.data);
-
-        _this.uploadedFileName.push(res.data);
+        console.log('uploaded');
       })["catch"](function (err) {
         if (axios.isCancel(thrown)) {
           console.log("Request canceled", thrown.message);

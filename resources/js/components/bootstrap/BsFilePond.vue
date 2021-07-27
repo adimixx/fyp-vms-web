@@ -77,7 +77,8 @@ export default {
                 })
                 .then(res => {
                     load(res.data);
-                    this.uploadedFileName.push(res.data);
+                    console.log('uploaded');
+
                 })
                 .catch(err => {
                     if (axios.isCancel(thrown)) {
