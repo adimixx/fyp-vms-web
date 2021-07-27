@@ -28,6 +28,8 @@ class CreateMaintenanceRequestsTable extends Migration
             $table->string('detail');
             $table->unsignedBigInteger('status_id');
             $table->string('status_note')->nullable();
+            $table->string('finalize_note')->nullable();
+            $table->binary('finalize_file')->nullable();
             $table->foreign('vehicle_inventory_id')->references('id')->on('vehicle_inventories');
             $table->foreign('maintenance_category_id')->references('id')->on('maintenance_categories');
             $table->foreign('maintenance_unit_id')->references('id')->on('maintenance_units');

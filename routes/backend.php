@@ -34,6 +34,7 @@ Route::name('api.data.')->group(function () {
 
         Route::resource('maintenance-request', MaintenanceRequestAPIController::class);
         Route::post('maintenance-request/approval-review', [MaintenanceRequestAPIController::class, 'approvalReview'])->name('maintenance-request.approval-review');
+        Route::post('maintenance-request/finalize', [MaintenanceRequestAPIController::class, 'finalize'])->name('maintenance-request.finalize');
 
         Route::resource('maintenance.quotation', MaintenanceQuotationAPIController::class);
         Route::post('maintenance/{maintenance}/quotation/confirm', [MaintenanceQuotationAPIController::class, 'confirmQuotation'])->name('maintenance.quotation.confirm');

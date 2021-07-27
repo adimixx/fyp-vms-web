@@ -145,4 +145,22 @@ class MaintenanceController extends Controller
 
         return view('maintenance.approval-review', compact('maintenance', 'quote', 'quoteSelected', 'statusOption'));
     }
+
+    public function finalize($id)
+    {
+        $maintenance = MaintenanceRequest::find($id);
+
+        if (!isset($maintenance)) {
+            return redirect()->route('maintenance.index')->with('boldMsg', 'Alert')->with('msg', 'Invalid Maintenance')->with('classColor', 'warning')->with('date', 1123);
+        }
+        else if ($maintenance->status_id != Status::maintenanceRequest('approved')->id) {
+            return redirect()->route('maintenance.show', $id)->with('boldMsg', 'Alert')->with('msg', 'Maintenance is not approved')->with('classColor', 'warning')->with('date', 1123);
+        }
+
+        $quote = $maintenance->maintenanceQuotation()->whereNotIn('status_id', [Status::maintenanceQuotation('approved')->id])->get();
+        $quoteSelected = $maintenance->maintenanceQuotation()->where('status_id', Status::maintenanceQuotation('approved')->id)->first();
+        $completedStatus = Status::maintenanceRequest('completed');
+
+        return view('maintenance.finalize', compact('maintenance', 'quote', 'quoteSelected','completedStatus'));
+    }
 }

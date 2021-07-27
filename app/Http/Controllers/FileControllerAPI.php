@@ -17,7 +17,7 @@ class FileControllerAPI extends Controller
     public function store(Request $request)
     {
         $validate = Validator::make($request->all(), [
-            'file' => 'required|file|mimetypes:image/jpeg,image/png,video/mp4'
+            'file' => 'required|file'
         ]);
         $validated = (object) $validate->validate();
 

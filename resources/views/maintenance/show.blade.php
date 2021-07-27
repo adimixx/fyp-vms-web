@@ -15,6 +15,10 @@
                     <a href="{{ route('maintenance.submit-review', $maintenance->id) }}" class="text-decoration-none">
                         <button class="btn btn-primary"><i class="fas fa-comments"></i> Submit for Review</button>
                     </a>
+                @elseif ($maintenance->status->name == 'approved')
+                    <a href="{{ route('maintenance.finalize', $maintenance->id) }}" class="text-decoration-none">
+                        <button class="btn btn-primary"><i class="fas fa-check-square"></i> Finalize</button>
+                    </a>
                 @endif
             </div>
         </div>
@@ -47,20 +51,20 @@
                             class="fw-bold">{{ sprintf('%s (%s)', $maintenance->maintenanceUnit->name, $maintenance->maintenanceUnit->code) }}</span>
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mb-3">
                         <div class="d-flex d-flex-row ">
                             <div class="mr-4">
-                                <p class="text-dark mb-0">Status :
-                                </p>
-                                <span
-                                    class="badge bg-{{ $maintenance->status->color_class }} text-uppercase">{{ $maintenance->status->name }}</span>
-
+                                <div class="mb-3">
+                                    <p class="text-dark mb-0">Status :
+                                    </p>
+                                    <span
+                                        class="badge bg-{{ $maintenance->status->color_class }} text-uppercase">{{ $maintenance->status->name }}</span>
+                                </div>
                                 @isset($maintenance->status_note)
                                     <p class="text-dark mb-0">Status Note:
                                     </p>
-                                    <p>{{ $maintenance->status_note }}</p>
+                                    <p class="fw-bold">{{ $maintenance->status_note }}</p>
                                 @endisset
-
                             </div>
 
                             @isset($maintenance->code)
@@ -70,24 +74,29 @@
                                     <span class="text-uppercase fw-bold">{{ $maintenance->code }}</span>
                                 </div>
                             @endisset
-
                         </div>
-
                     </div>
 
-
-
-                    <div class="row mt-3 mb-4">
+                    <div class="row mb-4">
                         <div class="col-12">
                             <div class="mb-2">
                                 <p class="text-secondary mb-0">Maintenance Description : </p><span
                                     class="text-dark fw-bold">{{ $maintenance->detail }}</span>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <p class="text-secondary mb-0">Media Attachments : </p>
-                        </div>
                     </div>
+
+                    @if ($maintenance->status->name == 'completed')
+                        <div class="mb-3">
+                            <div class="mb-3">
+                                <label for="finalize_note">Maintenance Finalization Note</label>
+                                <p>{{ $maintenance->finalize_note }}</p>
+
+                                <label for="finalize_note">Maintenance Finalization Attachment</label>
+                                <Lightbox :media="{{ $complaint->finalize_file_vue }}"></Lightbox>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

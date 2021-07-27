@@ -126,8 +126,6 @@ class DatatableAPIController extends Controller
         return $this->maintenance($request, isPendingReview: true);
     }
 
-
-
     public function maintenanceVehicle($vehicle, Request $request)
     {
         return $this->maintenance($request, vehicle: $vehicle);

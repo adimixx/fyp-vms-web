@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FileControllerAPI;
 use App\Models\Complaint;
 use App\Models\MaintenanceRequest;
 use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -76,6 +78,38 @@ class MaintenanceRequestAPIController extends Controller
 
         $request->session()->flash('boldMsg', 'Success!');
         $request->session()->flash('msg', 'Maintenance review has been saved');
+        $request->session()->flash('classColor', 'success');
+        $request->session()->flash('date', 1123);
+        return response(['redirect' => route('maintenance.index')]);
+    }
+
+    public function finalize(Request $request)
+    {
+        $validated = (object) Validator::make($request->all(), [
+            'id' => ['required', Rule::exists('maintenance_requests', 'id')->where(function ($query) use ($request) {
+                return $query->where('status_id', Status::maintenanceRequest('approved')->id);
+            })],
+            'finalize_note' => 'nullable|max:250',
+            'file' => 'nullable'
+        ])->validate();
+
+        $maintenance = MaintenanceRequest::find($validated->id);
+
+        if (isset($validated->file)) {
+            foreach ((array)$validated->file as $file) {
+                Storage::disk('azure_maintenances')->put($file, Storage::disk('local')->get(sprintf('temp/%s', $file)));
+                FileControllerAPI::destroyTempFile($file);
+            }
+        }
+
+        $maintenance->update([
+            'finalize_note' => $validated->finalize_note ?? null,
+            'finalize_file' => serialize($validated->file) ?? null,
+            'status_id' => Status::maintenanceRequest('completed')->id
+        ]);
+
+        $request->session()->flash('boldMsg', 'Success!');
+        $request->session()->flash('msg', 'Maintenance has been finalized');
         $request->session()->flash('classColor', 'success');
         $request->session()->flash('date', 1123);
         return response(['redirect' => route('maintenance.index')]);
