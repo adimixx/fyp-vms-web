@@ -1,4 +1,4 @@
-<?php
+ <?php
 
 use App\Http\Controllers\api\ChartAPIController;
 use App\Http\Controllers\api\ComplaintAPIController;
@@ -12,6 +12,7 @@ use App\Http\Controllers\api\VehicleCatalogAPI;
 use App\Http\Controllers\api\VehicleCategoryAPI;
 use App\Http\Controllers\api\VehicleInventoryAPI;
 use App\Http\Controllers\backend\MaintenanceRequest\MaintenanceRequestDTBackendController;
+use App\Http\Controllers\backend\Report\ReportDTBackendController;
 use App\Http\Controllers\backend\SelectBackendController;
 use App\Http\Controllers\FileControllerAPI;
 use App\Models\MaintenanceVendor;
@@ -61,6 +62,11 @@ Route::prefix('datatable')->name('api.datatable.')->middleware(['auth', 'verifie
     Route::get('maintenance/{maintenance_request}/quotation', [DatatableAPIController::class, 'maintenanceQuotation'])->name('maintenance.quotation');
     Route::get('user', [DatatableAPIController::class, 'user'])->name('user');
     Route::get('maintenance-vendor', [DatatableAPIController::class, 'maintenanceVendor'])->name('maintenance-vendor');
+
+    Route::prefix('report')->name('report.')->group(function ()
+    {
+        Route::get('spending-vehicle',[ReportDTBackendController::class, 'spendingVehicle'])->name('spending-vehicle');
+    });
 });
 
 Route::prefix('multiselect')->middleware(['auth', 'verified'])->name('api.select.')->group(function () {

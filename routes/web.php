@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\VendorController;
@@ -31,8 +32,7 @@ Route::middleware(['auth', 'verified', 'make_user_active'])->group(function () {
 
         Route::get('maintenance/approval-review/{id?}', [MaintenanceController::class, 'approvalReview'])->name('maintenance.approval-review');
         Route::resource('maintenance', MaintenanceController::class);
-        Route::prefix('maintenance/{id}')->as('maintenance.')->group(function ()
-        {
+        Route::prefix('maintenance/{id}')->as('maintenance.')->group(function () {
             Route::get('/confirm-quotation', [MaintenanceController::class, 'confirmQuotation'])->name('confirm-quotation');
             Route::get('/submit-review', [MaintenanceController::class, 'submitReview'])->name('submit-review');
             Route::post('/submit-review', [MaintenanceController::class, 'submitReviewPost'])->name('submit-review-post');
@@ -43,6 +43,8 @@ Route::middleware(['auth', 'verified', 'make_user_active'])->group(function () {
 
         Route::resource('vehicle', VehicleController::class);
         Route::resource('vendor', VendorController::class);
+
+        Route::get('report', [ReportController::class, 'index'])->name('report.index');
     });
 
     Route::middleware(['role:staff|admin'])->group(function () {

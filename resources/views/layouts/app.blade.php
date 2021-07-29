@@ -71,6 +71,10 @@
                             <a class="nav-link" href="{{ route('vendor.index') }}"><i
                                     class="fas fa-cogs"></i><span>Vendor</span></a>
                         </li>
+                        <li class="nav-item {{ request()->routeIs('report.*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('report.index') }}"><i
+                                    class="fas fa-chart-pie"></i><span>Report</span></a>
+                        </li>
                         @endhasrole
 
                         @hasanyrole('admin|staff')
