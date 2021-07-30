@@ -9808,11 +9808,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       table: {
-        columns: ["spending", "reg_no", "vehicle", "vehicle_category", "actions"],
+        columns: ["spending", "number_of_maintenance", "reg_no", "vehicle", "vehicle_category", "actions"],
         options: {
           headings: {
             vehicle_category: "Category",
-            reg_no: "Plate Number"
+            reg_no: "Plate Number",
+            number_of_maintenance: "Number of Maintenance"
           }
         }
       }
@@ -9902,9 +9903,11 @@ Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
   data: function data() {
     return {
       table: {
-        columns: ["spending", "vendor"],
+        columns: ["spending", "vendor", "number_of_maintenance"],
         options: {
-          headings: {}
+          headings: {
+            number_of_maintenance: "Number of Maintenance"
+          }
         }
       },
       dtUrl: "",

@@ -17,11 +17,12 @@ export default {
     data() {
         return {
             table: {
-                columns: ["spending", "reg_no", "vehicle", "vehicle_category", "actions"],
+                columns: ["spending","number_of_maintenance", "reg_no", "vehicle", "vehicle_category", "actions"],
                 options: {
                     headings: {
                         vehicle_category: "Category",
-                        reg_no: "Plate Number"
+                        reg_no: "Plate Number",
+                        number_of_maintenance: "Number of Maintenance"
                     }
                 }
             }

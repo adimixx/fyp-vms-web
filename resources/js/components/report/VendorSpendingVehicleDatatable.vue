@@ -55,9 +55,11 @@ export default {
     data() {
         return {
             table: {
-                columns: ["spending", "vendor"],
+                columns: ["spending", "vendor", "number_of_maintenance"],
                 options: {
-                    headings: {}
+                    headings: {
+                        number_of_maintenance: "Number of Maintenance"
+                    }
                 }
             },
             dtUrl: "",

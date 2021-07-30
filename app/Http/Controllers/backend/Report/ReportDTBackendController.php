@@ -24,7 +24,7 @@ class ReportDTBackendController extends Controller
             ->where('smq.name', 'approved')
             ->where('smr.name', 'completed')
             ->groupBy('vi.id')
-            ->select('vi.id', DB::raw("CONCAT('RM ', COALESCE(TRUNCATE(SUM(mq.cost_total)/2,2),0)) AS spending"), 'vi.reg_no', DB::raw("CONCAT(COALESCE(vc.brand,''), ' ',COALESCE(vc.model,''), ' ', COALESCE(vc.variant,''), COALESCE(CONCAT('(' , vc.year, ')'),'') ) AS vehicle"), 'vcgr.name AS vehicle_category')
+            ->select('vi.id', DB::raw('COUNT(mr.id) AS number_of_maintenance') , DB::raw("CONCAT('RM ', COALESCE(TRUNCATE(SUM(mq.cost_total)/2,2),0)) AS spending"), 'vi.reg_no', DB::raw("CONCAT(COALESCE(vc.brand,''), ' ',COALESCE(vc.model,''), ' ', COALESCE(vc.variant,''), COALESCE(CONCAT('(' , vc.year, ')'),'') ) AS vehicle"), 'vcgr.name AS vehicle_category')
             ->orderBy(DB::raw('COALESCE(SUM(mq.cost_total),0)'), 'DESC');
 
         if ($request->input('query')) {
@@ -45,7 +45,7 @@ class ReportDTBackendController extends Controller
             ->where('smq.name', 'approved')
             ->where('smr.name', 'completed')
             ->groupBy('v.id')
-            ->select(DB::raw("CONCAT('RM ', COALESCE(TRUNCATE(SUM(mq.cost_total)/2,2),0)) AS spending"), 'v.name AS vendor')
+            ->select(DB::raw("CONCAT('RM ', COALESCE(TRUNCATE(SUM(mq.cost_total)/2,2),0)) AS spending"), 'v.name AS vendor', DB::raw('COUNT(mr.id) AS number_of_maintenance'))
             ->orderBy(DB::raw('COALESCE(SUM(mq.cost_total),0)'), 'DESC');
 
         if (isset($maintenanceCat)) {
