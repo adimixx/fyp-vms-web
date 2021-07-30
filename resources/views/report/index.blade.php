@@ -48,6 +48,19 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-5 col-xl-4">
+                <div class="card shadow mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h6 class="text-primary fw-bold m-0">Vendor Spending</h6>
+                    </div>
+                    <div class="card-body">
+                        <vendor-spending-vehicle-datatable api-url="{{ route('api.datatable.report.spending-vendor') }}"
+                            maintenance-type-list="{{ route('api.select.maintenance-type') }}">
+                        </vendor-spending-vehicle-datatable>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 @endsection

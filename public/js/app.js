@@ -9826,6 +9826,147 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/report/VendorSpendingVehicleDatatable.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/report/VendorSpendingVehicleDatatable.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _vue_composition_api__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vue/composition-api */ "./node_modules/@vue/composition-api/dist/vue-composition-api.esm.js");
+/* harmony import */ var _vueform_multiselect_dist_multiselect_vue2_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @vueform/multiselect/dist/multiselect.vue2.js */ "./node_modules/@vueform/multiselect/dist/multiselect.vue2.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+Vue.use(_vue_composition_api__WEBPACK_IMPORTED_MODULE_1__.default);
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    Multiselect: _vueform_multiselect_dist_multiselect_vue2_js__WEBPACK_IMPORTED_MODULE_2__.default
+  },
+  data: function data() {
+    return {
+      table: {
+        columns: ["spending", "vendor"],
+        options: {
+          headings: {}
+        }
+      },
+      dtUrl: "",
+      maintenanceType: 0,
+      loaded: false,
+      showFilter: false
+    };
+  },
+  props: {
+    route: String,
+    apiUrl: String,
+    maintenanceTypeList: String
+  },
+  mounted: function mounted() {
+    this.dtUrl = this.apiUrl;
+    this.loaded = true;
+  },
+  watch: {
+    maintenanceType: function maintenanceType(val) {
+      console.log(val);
+
+      if (val > 0) {
+        this.dtUrl = this.apiUrl + "/".concat(val);
+      } else this.dtUrl = this.apiUrl;
+    }
+  },
+  methods: {
+    loadMaintenanceType: function loadMaintenanceType(query) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var link, res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                link = _this.maintenanceTypeList;
+
+                if (query) {
+                  link += "?search=".concat(query);
+                }
+
+                _context.next = 4;
+                return axios.get(link);
+
+              case 4:
+                res = _context.sent;
+                return _context.abrupt("return", res.data);
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user/UserDatatable.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user/UserDatatable.vue?vue&type=script&lang=js& ***!
@@ -92398,6 +92539,45 @@ component.options.__file = "resources/js/components/report/ReportSpendingVehicle
 
 /***/ }),
 
+/***/ "./resources/js/components/report/VendorSpendingVehicleDatatable.vue":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/report/VendorSpendingVehicleDatatable.vue ***!
+  \***************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _VendorSpendingVehicleDatatable_vue_vue_type_template_id_9c2f6cf8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./VendorSpendingVehicleDatatable.vue?vue&type=template&id=9c2f6cf8& */ "./resources/js/components/report/VendorSpendingVehicleDatatable.vue?vue&type=template&id=9c2f6cf8&");
+/* harmony import */ var _VendorSpendingVehicleDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./VendorSpendingVehicleDatatable.vue?vue&type=script&lang=js& */ "./resources/js/components/report/VendorSpendingVehicleDatatable.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _VendorSpendingVehicleDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _VendorSpendingVehicleDatatable_vue_vue_type_template_id_9c2f6cf8___WEBPACK_IMPORTED_MODULE_0__.render,
+  _VendorSpendingVehicleDatatable_vue_vue_type_template_id_9c2f6cf8___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/report/VendorSpendingVehicleDatatable.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/user/UserDatatable.vue":
 /*!********************************************************!*\
   !*** ./resources/js/components/user/UserDatatable.vue ***!
@@ -93117,6 +93297,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/report/VendorSpendingVehicleDatatable.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/report/VendorSpendingVehicleDatatable.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VendorSpendingVehicleDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./VendorSpendingVehicleDatatable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/report/VendorSpendingVehicleDatatable.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_VendorSpendingVehicleDatatable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/user/UserDatatable.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************!*\
   !*** ./resources/js/components/user/UserDatatable.vue?vue&type=script&lang=js& ***!
@@ -93648,6 +93844,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportSpendingVehicleDatatable_vue_vue_type_template_id_08701f70___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ReportSpendingVehicleDatatable_vue_vue_type_template_id_08701f70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ReportSpendingVehicleDatatable.vue?vue&type=template&id=08701f70& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/report/ReportSpendingVehicleDatatable.vue?vue&type=template&id=08701f70&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/report/VendorSpendingVehicleDatatable.vue?vue&type=template&id=9c2f6cf8&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/components/report/VendorSpendingVehicleDatatable.vue?vue&type=template&id=9c2f6cf8& ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VendorSpendingVehicleDatatable_vue_vue_type_template_id_9c2f6cf8___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VendorSpendingVehicleDatatable_vue_vue_type_template_id_9c2f6cf8___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_VendorSpendingVehicleDatatable_vue_vue_type_template_id_9c2f6cf8___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./VendorSpendingVehicleDatatable.vue?vue&type=template&id=9c2f6cf8& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/report/VendorSpendingVehicleDatatable.vue?vue&type=template&id=9c2f6cf8&");
 
 
 /***/ }),
@@ -96080,6 +96293,121 @@ var render = function() {
       }
     ])
   })
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/report/VendorSpendingVehicleDatatable.vue?vue&type=template&id=9c2f6cf8&":
+/*!*************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/report/VendorSpendingVehicleDatatable.vue?vue&type=template&id=9c2f6cf8& ***!
+  \*************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "mb-2" }, [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-secondary",
+            on: {
+              click: function($event) {
+                _vm.showFilter = !_vm.showFilter
+              }
+            }
+          },
+          [
+            _c("i", { staticClass: "fas fa-filter" }),
+            _vm._v(" Filter\n        ")
+          ]
+        ),
+        _vm._v(" "),
+        _vm.showFilter
+          ? _c("div", { staticClass: "m-1" }, [
+              _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  { staticClass: "col-6" },
+                  [
+                    _c("label", { staticClass: "form-label" }, [
+                      _vm._v("Filter by Maintenance Category")
+                    ]),
+                    _vm._v(" "),
+                    _c("Multiselect", {
+                      ref: "maintenanceTypeSelect",
+                      attrs: {
+                        filterResults: false,
+                        minChars: 0,
+                        delay: 0,
+                        resolveOnLoad: true,
+                        searchable: true,
+                        options: _vm.loadMaintenanceType
+                      },
+                      model: {
+                        value: _vm.maintenanceType,
+                        callback: function($$v) {
+                          _vm.maintenanceType = $$v
+                        },
+                        expression: "maintenanceType"
+                      }
+                    })
+                  ],
+                  1
+                )
+              ])
+            ])
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _vm.loaded
+        ? _c("v-server-table", {
+            attrs: {
+              url: _vm.dtUrl,
+              columns: _vm.table.columns,
+              options: _vm.table.options
+            },
+            scopedSlots: _vm._u(
+              [
+                {
+                  key: "actions",
+                  fn: function(props) {
+                    return [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "text-decoration-none",
+                          attrs: { href: _vm.route + "/" + props.row.id }
+                        },
+                        [_c("i", { staticClass: "far fa-eye" })]
+                      )
+                    ]
+                  }
+                }
+              ],
+              null,
+              false,
+              1194596455
+            )
+          })
+        : _vm._e()
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -117223,6 +117551,7 @@ var map = {
 	"./components/maintenance/edit/MaintenanceQuotationFormModal.vue": "./resources/js/components/maintenance/edit/MaintenanceQuotationFormModal.vue",
 	"./components/maintenance/finalize/MaintenanceFinalizeForm.vue": "./resources/js/components/maintenance/finalize/MaintenanceFinalizeForm.vue",
 	"./components/report/ReportSpendingVehicleDatatable.vue": "./resources/js/components/report/ReportSpendingVehicleDatatable.vue",
+	"./components/report/VendorSpendingVehicleDatatable.vue": "./resources/js/components/report/VendorSpendingVehicleDatatable.vue",
 	"./components/user/UserDatatable.vue": "./resources/js/components/user/UserDatatable.vue",
 	"./components/user/UserEditModal.vue": "./resources/js/components/user/UserEditModal.vue",
 	"./components/user/UserIndex.vue": "./resources/js/components/user/UserIndex.vue",

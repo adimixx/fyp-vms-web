@@ -24,8 +24,34 @@ class ReportDTBackendController extends Controller
             ->where('smq.name', 'approved')
             ->where('smr.name', 'completed')
             ->groupBy('vi.id')
-            ->select('vi.id',DB::raw( "CONCAT('RM ', COALESCE(TRUNCATE(SUM(mq.cost_total)/2,2),0)) AS spending"), 'vi.reg_no', DB::raw("CONCAT(COALESCE(vc.brand,''), ' ',COALESCE(vc.model,''), ' ', COALESCE(vc.variant,''), COALESCE(CONCAT('(' , vc.year, ')'),'') ) AS vehicle"), 'vcgr.name AS vehicle_category')
-            ->orderBy(DB::raw('COALESCE(SUM(mq.cost_total),0)'),'DESC');
+            ->select('vi.id', DB::raw("CONCAT('RM ', COALESCE(TRUNCATE(SUM(mq.cost_total)/2,2),0)) AS spending"), 'vi.reg_no', DB::raw("CONCAT(COALESCE(vc.brand,''), ' ',COALESCE(vc.model,''), ' ', COALESCE(vc.variant,''), COALESCE(CONCAT('(' , vc.year, ')'),'') ) AS vehicle"), 'vcgr.name AS vehicle_category')
+            ->orderBy(DB::raw('COALESCE(SUM(mq.cost_total),0)'), 'DESC');
+
+        if ($request->input('query')) {
+            // $data = $data->where('reg_no', 'LIKE', "%{$request->input('query')}%");
+        }
+
+        return DatatableBackendController::returnData($data, $request);
+    }
+
+    public function spendingVendor(Request $request, $maintenanceCat = null)
+    {
+        $data =
+            MaintenanceQuotation::from('maintenance_quotations AS mq')
+            ->join('maintenance_requests AS mr', 'mr.id', 'mq.maintenance_request_id')
+            ->rightJoin('maintenance_vendors AS v', 'v.id', 'mq.maintenance_vendor_id')
+            ->leftJoin('statuses AS smq', 'smq.id', 'mq.status_id')
+            ->leftJoin('statuses AS smr', 'smr.id', 'mr.status_id')
+            ->where('smq.name', 'approved')
+            ->where('smr.name', 'completed')
+            ->groupBy('v.id')
+            ->select(DB::raw("CONCAT('RM ', COALESCE(TRUNCATE(SUM(mq.cost_total)/2,2),0)) AS spending"), 'v.name AS vendor')
+            ->orderBy(DB::raw('COALESCE(SUM(mq.cost_total),0)'), 'DESC');
+
+        if (isset($maintenanceCat)) {
+            $data->where('mr.maintenance_category_id', $maintenanceCat);
+        }
+
 
         if ($request->input('query')) {
             // $data = $data->where('reg_no', 'LIKE', "%{$request->input('query')}%");

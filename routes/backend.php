@@ -66,6 +66,7 @@ Route::prefix('datatable')->name('api.datatable.')->middleware(['auth', 'verifie
     Route::prefix('report')->name('report.')->group(function ()
     {
         Route::get('spending-vehicle',[ReportDTBackendController::class, 'spendingVehicle'])->name('spending-vehicle');
+        Route::get('spending-vendor/{maintenanceCat?}',[ReportDTBackendController::class, 'spendingVendor'])->name('spending-vendor');
     });
 });
 
