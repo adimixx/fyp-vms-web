@@ -9,6 +9,11 @@ use Bayfront\MimeTypes\MimeType;
 
 class ComplaintController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['role:admin|staff|management']);
+    }
+
     public function index()
     {
         return view('complaint.index');
@@ -23,10 +28,5 @@ class ComplaintController extends Controller
     {
         $complaint = Complaint::find($id);
         return view('complaint.show', compact('complaint'));
-    }
-
-    public function edit($id)
-    {
-        //
     }
 }

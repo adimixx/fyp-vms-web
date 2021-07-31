@@ -55,17 +55,30 @@
                         </li>
 
                         @hasrole('admin')
-                        <li class="nav-item {{ request()->routeIs('vehicle.*') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('vehicle.index') }}"><i
-                                    class="fas fa-car-side"></i><span>Vehicle</span></a>
+                        <li class="nav-item {{ request()->routeIs('user.*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('user.index') }}"><i
+                                    class="fas fa-user"></i><span>User</span></a>
                         </li>
+                        @endhasrole
+
+                        @hasanyrole('admin|staff|management')
+                        <li class="nav-item {{ request()->routeIs('complaint.*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('complaint.index') }}"><i
+                                    class="fas fa-comments"></i><span>Complaints</span></a>
+                        </li>
+                        @endhasanyrole
+
+                        @hasanyrole('admin|management|committee')
                         <li class="nav-item {{ request()->routeIs('maintenance.*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('maintenance.index') }}"><i
                                     class="fas fa-wrench"></i><span>Maintenance</span></a>
                         </li>
-                        <li class="nav-item {{ request()->routeIs('user.*') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('user.index') }}"><i
-                                    class="fas fa-user"></i><span>User</span></a>
+                        @endhasanyrole
+
+                        @hasanyrole('admin|management')
+                        <li class="nav-item {{ request()->routeIs('vehicle.*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('vehicle.index') }}"><i
+                                    class="fas fa-car-side"></i><span>Vehicle</span></a>
                         </li>
                         <li class="nav-item {{ request()->routeIs('vendor.*') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ route('vendor.index') }}"><i
@@ -75,14 +88,9 @@
                             <a class="nav-link" href="{{ route('report.index') }}"><i
                                     class="fas fa-chart-pie"></i><span>Report</span></a>
                         </li>
-                        @endhasrole
-
-                        @hasanyrole('admin|staff')
-                        <li class="nav-item {{ request()->routeIs('complaint.*') ? 'active' : '' }}">
-                            <a class="nav-link" href="{{ route('complaint.index') }}"><i
-                                    class="fas fa-comments"></i><span>Complaints</span></a>
-                        </li>
                         @endhasanyrole
+
+
 
                     </ul>
                     <div class="text-center d-none d-md-inline">

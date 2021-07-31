@@ -30,6 +30,14 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Role::create([
+            'name' => 'committee'
+        ]);
+
+        Role::create([
+            'name' => 'management'
+        ]);
+
+        Role::create([
             'name' => 'staff'
         ]);
 
@@ -170,5 +178,10 @@ class DatabaseSeeder extends Seeder
             DB::unprepared(file_get_contents($val));
             $this->command->info($val . ' Executed');
         }
+
+        // Execute Seeders
+        $this->call([
+            MaintenancePermissionSeeder::class
+        ]);
     }
 }

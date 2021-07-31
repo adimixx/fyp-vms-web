@@ -8,27 +8,43 @@ use App\Models\MaintenanceRequest;
 use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MaintenanceController extends Controller
 {
-    public function index()
+    public function __construct()
+    {
+        $this->middleware(['permission:maintenance:crud'])->only(['create','edit','confirmQuotation','submitReview','submitReviewPost','finalize']);
+        $this->middleware(['permission:maintenance:crud_pending_review'])->only(['approvalReview']);
+        $this->middleware(['permission:maintenance:view']);
+    }
+
+    public function index(Request $request)
     {
         $maintenance = MaintenanceRequest::all();
+        $pendingStatus = null;
+        $pendingCount = null;
 
-        $pendingStatus = Status::maintenanceRequest('pending');
-        $pendingApprovalStatus = Status::maintenanceRequest('pending approval');
-        $approvedStatus = Status::maintenanceRequest('approved');
+        if ($request->user()->hasPermissionTo('maintenance:pending')) {
+            $pendingStatus = Status::maintenanceRequest('pending');
+            $pendingCount = $maintenance->where('status_id', $pendingStatus->id)->count();
+        }
 
-        $pendingCount = $maintenance->where('status_id', $pendingStatus->id)->count();
-        $pendingApprovalCount = $maintenance->where('status_id', $pendingApprovalStatus->id)->count();
-        $approvedCount = $maintenance->where('status_id', $approvedStatus->id)->count();
+        if ($request->user()->hasRole(['admin', 'management', 'committee'])) {
+            $pendingApprovalStatus = Status::maintenanceRequest('pending approval');
+            $approvedStatus = Status::maintenanceRequest('approved');
+
+            $pendingApprovalCount = $maintenance->where('status_id', $pendingApprovalStatus->id)->count();
+            $approvedCount = $maintenance->where('status_id', $approvedStatus->id)->count();
+        }
 
         return view('maintenance.index', compact('pendingCount', 'pendingApprovalCount', 'approvedCount', 'pendingStatus', 'pendingApprovalStatus', 'approvedStatus'));
     }
 
     public function create($complaint = null)
     {
+
         if ($complaint != null) {
             $complaint  = Complaint::find($complaint);
             if (!isset($complaint)) {
@@ -41,13 +57,18 @@ class MaintenanceController extends Controller
         return view('maintenance.create', compact('complaint'));
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
         $maintenance = MaintenanceRequest::find($id);
 
         if (!isset($maintenance)) {
             return redirect()->route('maintenance.index')->with('boldMsg', 'Alert')->with('msg', 'Invalid Maintenance')->with('classColor', 'warning')->with('date', 1123);
         }
+
+        else if ($maintenance->status->name == 'pending' && !$request->user()->can('maintenance:pending')){
+            return redirect()->route('maintenance.index')->with('boldMsg', 'Alert')->with('msg', 'You have no permission to access the maintenance')->with('classColor', 'warning')->with('date', 1123);
+        }
+
         $quote = $maintenance->maintenanceQuotation()->whereNotIn('status_id', [Status::maintenanceQuotation('approved')->id])->get();
         $quoteSelected = $maintenance->maintenanceQuotation()->where('status_id', Status::maintenanceQuotation('approved')->id)->first();
         return view('maintenance.show', compact('maintenance', 'quote', 'quoteSelected'));
@@ -152,8 +173,7 @@ class MaintenanceController extends Controller
 
         if (!isset($maintenance)) {
             return redirect()->route('maintenance.index')->with('boldMsg', 'Alert')->with('msg', 'Invalid Maintenance')->with('classColor', 'warning')->with('date', 1123);
-        }
-        else if ($maintenance->status_id != Status::maintenanceRequest('approved')->id) {
+        } else if ($maintenance->status_id != Status::maintenanceRequest('approved')->id) {
             return redirect()->route('maintenance.show', $id)->with('boldMsg', 'Alert')->with('msg', 'Maintenance is not approved')->with('classColor', 'warning')->with('date', 1123);
         }
 
@@ -161,6 +181,6 @@ class MaintenanceController extends Controller
         $quoteSelected = $maintenance->maintenanceQuotation()->where('status_id', Status::maintenanceQuotation('approved')->id)->first();
         $completedStatus = Status::maintenanceRequest('completed');
 
-        return view('maintenance.finalize', compact('maintenance', 'quote', 'quoteSelected','completedStatus'));
+        return view('maintenance.finalize', compact('maintenance', 'quote', 'quoteSelected', 'completedStatus'));
     }
 }

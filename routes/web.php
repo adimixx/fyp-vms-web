@@ -27,27 +27,27 @@ Route::get('/', function () {
 Route::middleware(['auth', 'verified', 'make_user_active'])->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-    Route::middleware(['role:admin'])->group(function () {
-        Route::resource('user', UserController::class);
+    Route::resource('user', UserController::class);
 
-        Route::get('maintenance/approval-review/{id?}', [MaintenanceController::class, 'approvalReview'])->name('maintenance.approval-review');
-        Route::resource('maintenance', MaintenanceController::class);
-        Route::prefix('maintenance/{id}')->as('maintenance.')->group(function () {
-            Route::get('/confirm-quotation', [MaintenanceController::class, 'confirmQuotation'])->name('confirm-quotation');
-            Route::get('/submit-review', [MaintenanceController::class, 'submitReview'])->name('submit-review');
-            Route::post('/submit-review', [MaintenanceController::class, 'submitReviewPost'])->name('submit-review-post');
-            Route::get('/finalize', [MaintenanceController::class, 'finalize'])->name('finalize');
-        });
+    Route::get('maintenance/approval-review/{id?}', [MaintenanceController::class, 'approvalReview'])->name('maintenance.approval-review');
+    Route::resource('maintenance', MaintenanceController::class);
 
-        Route::resource('complaint.maintenance', MaintenanceController::class)->only(['create']);
-
-        Route::resource('vehicle', VehicleController::class);
-        Route::resource('vendor', VendorController::class);
-
-        Route::get('report', [ReportController::class, 'index'])->name('report.index');
+    Route::prefix('maintenance/{id}')->as('maintenance.')->group(function () {
+        Route::get('/confirm-quotation', [MaintenanceController::class, 'confirmQuotation'])->name('confirm-quotation');
+        Route::get('/submit-review', [MaintenanceController::class, 'submitReview'])->name('submit-review');
+        Route::post('/submit-review', [MaintenanceController::class, 'submitReviewPost'])->name('submit-review-post');
+        Route::get('/finalize', [MaintenanceController::class, 'finalize'])->name('finalize');
     });
 
-    Route::middleware(['role:staff|admin'])->group(function () {
-        Route::resource('complaint', ComplaintController::class);
-    });
+    Route::resource('complaint.maintenance', MaintenanceController::class)->only(['create']);
+
+    Route::resource('vehicle', VehicleController::class);
+    Route::resource('vendor', VendorController::class);
+
+    Route::get('report', [ReportController::class, 'index'])->name('report.index');
+
+
+
+
+    Route::resource('complaint', ComplaintController::class)->only(['index','create','show']);
 });

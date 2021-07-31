@@ -8,18 +8,22 @@
                 <p class="text-capitalize text-secondary">Maintenance Management</p>
             </div>
             <div>
-                @if ($maintenance->status->name == 'pending')
-                    <a href="{{ route('maintenance.edit', $maintenance->id) }}" class="text-decoration-none">
-                        <button class="btn btn-secondary"><i class="fas fa-edit"></i> Edit</button>
-                    </a>
-                    <a href="{{ route('maintenance.submit-review', $maintenance->id) }}" class="text-decoration-none">
-                        <button class="btn btn-primary"><i class="fas fa-comments"></i> Submit for Review</button>
-                    </a>
-                @elseif ($maintenance->status->name == 'approved')
-                    <a href="{{ route('maintenance.finalize', $maintenance->id) }}" class="text-decoration-none">
-                        <button class="btn btn-primary"><i class="fas fa-check-square"></i> Finalize</button>
-                    </a>
-                @endif
+                @can('maintenance:crud')
+                    @if ($maintenance->status->name == 'pending')
+
+                        <a href="{{ route('maintenance.edit', $maintenance->id) }}" class="text-decoration-none">
+                            <button class="btn btn-secondary"><i class="fas fa-edit"></i> Edit</button>
+                        </a>
+                        <a href="{{ route('maintenance.submit-review', $maintenance->id) }}" class="text-decoration-none">
+                            <button class="btn btn-primary"><i class="fas fa-comments"></i> Submit for Review</button>
+                        </a>
+                    @elseif ($maintenance->status->name == 'approved')
+                        <a href="{{ route('maintenance.finalize', $maintenance->id) }}" class="text-decoration-none">
+                            <button class="btn btn-primary"><i class="fas fa-check-square"></i> Finalize</button>
+                        </a>
+                    @endif
+                @endcan
+
             </div>
         </div>
 
@@ -162,12 +166,14 @@
                     <div class="d-flex justify-content-between">
                         <h6 class="text-primary m-0 fw-bold my-auto">Quotation Provided</h6>
                         <div>
-                            @if ($maintenance->status->name == 'pending')
-                                <a href="{{ route('maintenance.confirm-quotation', $maintenance->id) }}"
-                                    class="text-decoration-none">
-                                    <button class="btn btn-primary"><i class="fas fa-check"></i> Approve Quotation</button>
-                                </a>
-                            @endif
+                            @can('maintenance:crud')
+                                @if ($maintenance->status->name == 'pending')
+                                    <a href="{{ route('maintenance.confirm-quotation', $maintenance->id) }}"
+                                        class="text-decoration-none">
+                                        <button class="btn btn-primary"><i class="fas fa-check"></i> Approve Quotation</button>
+                                    </a>
+                                @endif
+                            @endcan
                         </div>
                     </div>
                 </div>
