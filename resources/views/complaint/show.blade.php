@@ -37,15 +37,16 @@
                         </div>
                     </div>
 
-                    @if ($complaint->status->name == 'pending' && Auth::user()->hasRole('admin'))
-                        <div>
-                            <a href="{{ route('complaint.maintenance.create', $complaint->id) }}"
-                                class="text-decoration-none">
-                                <button class="btn btn-primary">Resolve Issue</button>
-                            </a>
-                        </div>
-                    @endif
-
+                    @can('maintenance:crud')
+                        @if ($complaint->status->name == 'pending')
+                            <div>
+                                <a href="{{ route('complaint.maintenance.create', $complaint->id) }}"
+                                    class="text-decoration-none">
+                                    <button class="btn btn-primary">Resolve Issue</button>
+                                </a>
+                            </div>
+                        @endif
+                    @endcan
                 </div>
             </div>
         </div>

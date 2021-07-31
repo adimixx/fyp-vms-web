@@ -49,10 +49,13 @@
                     </a>
                     <hr class="sidebar-divider my-0" />
                     <ul class="navbar-nav text-light" id="accordionSidebar">
+                        @hasanyrole('admin|management')
+
                         <li class="nav-item {{ request()->routeIs('home') ? 'active' : '' }}">
                             <a class="nav-link" href="{{ url('/') }}"><i
                                     class="fas fa-tachometer-alt"></i><span>Dashboard</span></a>
                         </li>
+                        @endhasanyrole
 
                         @hasrole('admin')
                         <li class="nav-item {{ request()->routeIs('user.*') ? 'active' : '' }}">

@@ -45,8 +45,8 @@ class DatatableAPIController extends Controller
             $data = $data->where('complaints.status_id', '!=', Status::complaint('pending')->id);
         }
 
-        if (!$request->user()->hasRole('admin')) {
-            $data = $data->where('user_id', '=',$request->user()->id);
+        if (!$request->user()->can('complaint:crud_all')) {
+            $data = $data->where('user_id', '=' , $request->user()->id);
         }
 
         if ($request->input('query')) {

@@ -10,23 +10,19 @@ class MaintenancePermissionSeeder extends Seeder
 {
     public function run()
     {
-        Permission::create([
+        Permission::firstOrCreate([
             'name' => 'maintenance:view'
         ]);
 
-        Permission::create([
+        Permission::firstOrCreate([
             'name' => 'maintenance:crud'
         ]);
 
-        Permission::create([
-            'name' => 'maintenance:pending'
-        ]);
-
-        Permission::create([
+        Permission::firstOrCreate([
             'name' => 'maintenance:pending_review'
         ]);
 
-        Permission::create([
+        Permission::firstOrCreate([
             'name' => 'maintenance:crud_pending_review'
         ]);
 

@@ -25,8 +25,17 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
+        if (!$request->user()->hasAnyRole('admin', 'management')){
+            if ($request->user()->hasAnyRole('staff')){
+                return redirect()->route('complaint.index');
+            }
+            elseif ($request->user()->hasAnyRole('committee')){
+                return redirect()->route('maintenance.index');
+            }
+        }
+
         $vehiclesRegistered = VehicleInventory::count();
         $complaintsPending = Complaint::where('status_id', Status::complaint('pending')->id)->count();
         $pendingMaintenance = MaintenanceRequest::where('status_id', Status::maintenanceRequest('pending')->id)->count();

@@ -181,7 +181,8 @@ class DatabaseSeeder extends Seeder
 
         // Execute Seeders
         $this->call([
-            MaintenancePermissionSeeder::class
+            MaintenancePermissionSeeder::class,
+            ComplaintPermissionSeeder::class
         ]);
     }
 }
