@@ -24,7 +24,7 @@
             <div class="col-lg-5 col-xl-4">
                 <div class="card shadow mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                        <h6 class="text-primary fw-bold m-0">Spending by Vehicle Type</h6>
+                        <h6 class="text-primary fw-bold m-0">Registered Vehicles</h6>
                     </div>
                     <div class="card-body">
                         <div class="chart-area position-relative">

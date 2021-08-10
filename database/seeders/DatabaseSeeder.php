@@ -170,19 +170,29 @@ class DatabaseSeeder extends Seeder
             'code' => 'UMM'
         ]);
 
-        // Execute SQL Script Import
-        // $sqlPath =
-        //     ['database/scripts/script_1.sql', 'database/scripts/script_2.sql'];
-
-        // foreach ($sqlPath as $val) {
-        //     DB::unprepared(file_get_contents($val));
-        //     $this->command->info($val . ' Executed');
-        // }
-
         // Execute Seeders
         $this->call([
             MaintenancePermissionSeeder::class,
-            ComplaintPermissionSeeder::class
+            ComplaintPermissionSeeder::class,
         ]);
+
+        // Execute SQL Dummy
+        $sqlPath =
+            ['database/scripts/script_dummy.sql'];
+
+        foreach ($sqlPath as $val) {
+            DB::unprepared(file_get_contents($val));
+            $this->command->info($val . ' Executed');
+        }
+
+
+        // Execute SQL Script Import
+        $sqlPath =
+            ['database/scripts/script_1.sql', 'database/scripts/script_2.sql'];
+
+        foreach ($sqlPath as $val) {
+            DB::unprepared(file_get_contents($val));
+            $this->command->info($val . ' Executed');
+        }
     }
 }
