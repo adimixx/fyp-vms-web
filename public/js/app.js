@@ -96887,7 +96887,7 @@ var render = function() {
             ? _c(
                 "div",
                 [
-                  _c("p", { staticClass: "fw-bold text-center" }, [
+                  _c("p", { staticClass: "text-secondary text-start" }, [
                     _vm._v(
                       "\n                Please verify your staff identity to register\n            "
                     )

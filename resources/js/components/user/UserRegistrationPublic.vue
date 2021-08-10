@@ -6,7 +6,7 @@
             mode="out-in"
         >
             <div v-if="!showRegisterForm">
-                <p class="fw-bold text-center">
+                <p class="text-secondary text-start">
                     Please verify your staff identity to register
                 </p>
 
