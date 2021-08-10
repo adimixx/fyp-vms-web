@@ -83,9 +83,15 @@
                                 <h6 class="text-primary fw-bold m-0">Pending Review Maintenance</h6>
                             </div>
                             <div class="card-body">
-                                <maintenance-datatable route="{{ route('maintenance.approval-review') }}"
-                                    api-url="{{ route('api.datatable.maintenance.pending-review') }}">
-                                </maintenance-datatable>
+                                @can('maintenance:crud_pending_review')
+                                    <maintenance-datatable route="{{ route('maintenance.approval-review') }}"
+                                        api-url="{{ route('api.datatable.maintenance.pending-review') }}">
+                                    </maintenance-datatable>
+                                @else
+                                    <maintenance-datatable route="{{ route('maintenance.index') }}"
+                                        api-url="{{ route('api.datatable.maintenance.pending-review') }}">
+                                    </maintenance-datatable>
+                                @endcan
                             </div>
                         </div>
                     </div>

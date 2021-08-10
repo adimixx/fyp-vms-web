@@ -17,6 +17,7 @@
                     class="user"
                 >
                     <FormulateInput
+                        :disabled="loading"
                         input-class="form-control form-control-user"
                         type="text"
                         label="Staff No"
@@ -27,6 +28,7 @@
                     />
 
                     <FormulateInput
+                        :disabled="loading"
                         input-class="form-control form-control-user"
                         type="text"
                         label="NRIC"
@@ -35,11 +37,17 @@
                         validation="required:trim|min:12,length,max:12,length|number"
                     />
 
-                    <input
-                        type="submit"
+                    <button
                         class="btn btn-primary d-block btn-user w-100 text-white"
-                        value="Verify"
-                    />
+                        :disabled="loading"
+                    >
+                        <div
+                            v-if="loading"
+                            class="spinner-border spinner-border-sm"
+                            role="status"
+                        ></div>
+                        <span v-else>Verify</span>
+                    </button>
                 </FormulateForm>
             </div>
 
@@ -68,6 +76,7 @@
                     name="nric"
                     validation="required:trim"
                     input-class="form-control form-control-user"
+                    :disabled="loading"
                 />
 
                 <FormulateInput
@@ -78,6 +87,7 @@
                     validation="required|email"
                     help="Enter your Email Address"
                     input-class="form-control form-control-user"
+                    :disabled="loading"
                 />
 
                 <FormulateInput
@@ -87,6 +97,7 @@
                     validation="required|min:8,length"
                     help="Password must be minimum 8 characters"
                     input-class="form-control form-control-user"
+                    :disabled="loading"
                 />
 
                 <FormulateInput
@@ -95,13 +106,20 @@
                     name="password_confirm"
                     validation="required|confirm"
                     input-class="form-control form-control-user"
+                    :disabled="loading"
                 />
 
-                <input
-                    type="submit"
+                <button
                     class="btn btn-primary d-block btn-user w-100 text-white"
-                    value="Register"
-                />
+                    :disabled="loading"
+                >
+                    <div
+                        v-if="loading"
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                    ></div>
+                    <span v-else>Register</span>
+                </button>
             </FormulateForm>
         </transition>
     </div>
@@ -124,6 +142,7 @@ export default {
     },
     methods: {
         async submitVerifyUser(data) {
+            this.loading = true;
             try {
                 var res = await axios.post(this.verifyUserUrl, data);
                 this.registerUser = res.data;
@@ -138,9 +157,12 @@ export default {
                         "user_verify"
                     );
                 }
+            } finally {
+                this.loading = false;
             }
         },
         async submitRegisterUser(data) {
+            this.loading = true;
             try {
                 data.password_confirmation = data.password_confirm;
                 var res = await axios.post(this.submitUrl, data);
@@ -155,6 +177,8 @@ export default {
                         "user_register"
                     );
                 }
+            } finally {
+                this.loading = false;
             }
         }
     }

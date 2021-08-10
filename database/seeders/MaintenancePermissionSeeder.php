@@ -19,7 +19,7 @@ class MaintenancePermissionSeeder extends Seeder
         ]);
 
         Permission::firstOrCreate([
-            'name' => 'maintenance:pending_review'
+            'name' => 'maintenance:pending'
         ]);
 
         Permission::firstOrCreate([
@@ -32,7 +32,7 @@ class MaintenancePermissionSeeder extends Seeder
         $committee = Role::findOrCreate('committee');
 
         // mP = maintenance Permission
-        $mP = collect(['maintenance:view', 'maintenance:crud', 'maintenance:pending_review', 'maintenance:crud_pending_review']);
+        $mP = collect(['maintenance:view', 'maintenance:crud', 'maintenance:pending', 'maintenance:crud_pending_review']);
 
         $admin->givePermissionTo($mP);
         $management->givePermissionTo($mP->except([3]));

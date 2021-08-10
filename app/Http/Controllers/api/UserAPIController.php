@@ -27,7 +27,7 @@ class UserAPIController extends Controller
         $validated = (object) Validator::make($request->all(), [
             'id' => [Rule::exists('users')],
             'staff_no' => ['required', Rule::unique('users')->where(fn ($query) => $this->uniqueUserVal($query, $request))],
-            'nric' => ['required', Rule::unique('users')->where(fn ($query) => $this->uniqueUserVal($query, $request))],
+            'nric' => ['required','max:12',Rule::unique('users')->where(fn ($query) => $this->uniqueUserVal($query, $request))],
             'roles' => 'required',
             'roles.*' => 'exists:roles,id',
             'email' => ['nullable', Rule::unique('users')->where(fn ($query) => $this->uniqueUserVal($query, $request))],

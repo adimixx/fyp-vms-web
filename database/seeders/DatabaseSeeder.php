@@ -171,13 +171,13 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Execute SQL Script Import
-        $sqlPath =
-            ['database/scripts/script_1.sql', 'database/scripts/script_2.sql'];
+        // $sqlPath =
+        //     ['database/scripts/script_1.sql', 'database/scripts/script_2.sql'];
 
-        foreach ($sqlPath as $val) {
-            DB::unprepared(file_get_contents($val));
-            $this->command->info($val . ' Executed');
-        }
+        // foreach ($sqlPath as $val) {
+        //     DB::unprepared(file_get_contents($val));
+        //     $this->command->info($val . ' Executed');
+        // }
 
         // Execute Seeders
         $this->call([

@@ -96,7 +96,7 @@ class MaintenanceQuotationAPIController extends Controller
             if (!isset($mqi['id'])) {
                 $maintenanceQuotation->maintenanceQuotationItem()->create($mqiData);
             } else {
-                $maintenanceQuotation->maintenanceQuotationItem()->firstWhere('id', $mqi['id'])->update($data);
+                $maintenanceQuotation->maintenanceQuotationItem()->where('id', $mqi['id'])->first()->update($mqiData);
             }
         }
 
@@ -130,9 +130,11 @@ class MaintenanceQuotationAPIController extends Controller
             'maintenance' => 'required|numeric|exists:maintenance_requests,id',
         ])->validate();
 
-        MaintenanceQuotation::find($validated->quotation)->update(['status_id' => Status::maintenanceQuotation('approved')->id]);
+        $approvedMQ = MaintenanceQuotation::find($validated->quotation);
+        $approvedMQ->update(['status_id' => Status::maintenanceQuotation('approved')->id]);
 
-        MaintenanceRequest::find($validated->maintenance)->maintenanceQuotation()->where('id', '!=', $validated->quotation)->where('status_id', Status::maintenanceQuotation('quoted')->id)->update(['status_id' => Status::maintenanceQuotation('declined')->id]);
+        $declinedMQ = MaintenanceRequest::find($validated->maintenance)->maintenanceQuotation()->where('id', '!=', $validated->quotation)->whereNotIn('status_id', [Status::maintenanceQuotation('pending quote')->id]);
+        $declinedMQ->update(['status_id' => Status::maintenanceQuotation('declined')->id]);
 
         return response(['redirect' => route('maintenance.show', $maintenance)]);
     }

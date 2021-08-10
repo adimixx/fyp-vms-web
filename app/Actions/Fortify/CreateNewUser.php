@@ -46,9 +46,9 @@ class CreateNewUser implements CreatesNewUsers
         }
 
         $user->update([
-            'email' => $input['email'],
+            'email' =>  $input['email'],
             'password' => Hash::make($input['password']),
-            'name' => $input['email'],
+            'name' => $user->name ?? $input['email'],
             'status_id' => Status::user('pending activation')->id
         ]);
 

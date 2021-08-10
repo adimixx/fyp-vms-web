@@ -10556,6 +10556,24 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -10580,20 +10598,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _context.prev = 0;
-                _context.next = 3;
+                _this.loading = true;
+                _context.prev = 1;
+                _context.next = 4;
                 return axios.post(_this.verifyUserUrl, data);
 
-              case 3:
+              case 4:
                 res = _context.sent;
                 _this.registerUser = res.data;
                 _this.showRegisterForm = true;
-                _context.next = 11;
+                _context.next = 12;
                 break;
 
-              case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](0);
+              case 9:
+                _context.prev = 9;
+                _context.t0 = _context["catch"](1);
 
                 if (_context.t0.response) {
                   _this.$formulate.handle({
@@ -10602,12 +10621,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }, "user_verify");
                 }
 
-              case 11:
+              case 12:
+                _context.prev = 12;
+                _this.loading = false;
+                return _context.finish(12);
+
+              case 15:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 8]]);
+        }, _callee, null, [[1, 9, 12, 15]]);
       }))();
     },
     submitRegisterUser: function submitRegisterUser(data) {
@@ -10619,20 +10643,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.prev = 0;
+                _this2.loading = true;
+                _context2.prev = 1;
                 data.password_confirmation = data.password_confirm;
-                _context2.next = 4;
+                _context2.next = 5;
                 return axios.post(_this2.submitUrl, data);
 
-              case 4:
+              case 5:
                 res = _context2.sent;
                 window.location.href = _this2.emailSentUrl;
-                _context2.next = 11;
+                _context2.next = 12;
                 break;
 
-              case 8:
-                _context2.prev = 8;
-                _context2.t0 = _context2["catch"](0);
+              case 9:
+                _context2.prev = 9;
+                _context2.t0 = _context2["catch"](1);
 
                 if (_context2.t0.response) {
                   _this2.$formulate.handle({
@@ -10641,12 +10666,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }, "user_register");
                 }
 
-              case 11:
+              case 12:
+                _context2.prev = 12;
+                _this2.loading = false;
+                return _context2.finish(12);
+
+              case 15:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[0, 8]]);
+        }, _callee2, null, [[1, 9, 12, 15]]);
       }))();
     }
   }
@@ -96910,6 +96940,7 @@ var render = function() {
                     [
                       _c("FormulateInput", {
                         attrs: {
+                          disabled: _vm.loading,
                           "input-class": "form-control form-control-user",
                           type: "text",
                           label: "Staff No",
@@ -96922,6 +96953,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("FormulateInput", {
                         attrs: {
+                          disabled: _vm.loading,
                           "input-class": "form-control form-control-user",
                           type: "text",
                           label: "NRIC",
@@ -96932,11 +96964,22 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _c("input", {
-                        staticClass:
-                          "btn btn-primary d-block btn-user w-100 text-white",
-                        attrs: { type: "submit", value: "Verify" }
-                      })
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "btn btn-primary d-block btn-user w-100 text-white",
+                          attrs: { disabled: _vm.loading }
+                        },
+                        [
+                          _vm.loading
+                            ? _c("div", {
+                                staticClass: "spinner-border spinner-border-sm",
+                                attrs: { role: "status" }
+                              })
+                            : _c("span", [_vm._v("Verify")])
+                        ]
+                      )
                     ],
                     1
                   )
@@ -96987,7 +97030,8 @@ var render = function() {
                       label: "NRIC",
                       name: "nric",
                       validation: "required:trim",
-                      "input-class": "form-control form-control-user"
+                      "input-class": "form-control form-control-user",
+                      disabled: _vm.loading
                     }
                   }),
                   _vm._v(" "),
@@ -96999,7 +97043,8 @@ var render = function() {
                       placeholder: "eg: john@vms.psm",
                       validation: "required|email",
                       help: "Enter your Email Address",
-                      "input-class": "form-control form-control-user"
+                      "input-class": "form-control form-control-user",
+                      disabled: _vm.loading
                     }
                   }),
                   _vm._v(" "),
@@ -97010,7 +97055,8 @@ var render = function() {
                       name: "password",
                       validation: "required|min:8,length",
                       help: "Password must be minimum 8 characters",
-                      "input-class": "form-control form-control-user"
+                      "input-class": "form-control form-control-user",
+                      disabled: _vm.loading
                     }
                   }),
                   _vm._v(" "),
@@ -97020,15 +97066,27 @@ var render = function() {
                       label: "Confirm Password",
                       name: "password_confirm",
                       validation: "required|confirm",
-                      "input-class": "form-control form-control-user"
+                      "input-class": "form-control form-control-user",
+                      disabled: _vm.loading
                     }
                   }),
                   _vm._v(" "),
-                  _c("input", {
-                    staticClass:
-                      "btn btn-primary d-block btn-user w-100 text-white",
-                    attrs: { type: "submit", value: "Register" }
-                  })
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "btn btn-primary d-block btn-user w-100 text-white",
+                      attrs: { disabled: _vm.loading }
+                    },
+                    [
+                      _vm.loading
+                        ? _c("div", {
+                            staticClass: "spinner-border spinner-border-sm",
+                            attrs: { role: "status" }
+                          })
+                        : _c("span", [_vm._v("Register")])
+                    ]
+                  )
                 ],
                 1
               )
