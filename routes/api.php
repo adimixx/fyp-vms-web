@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('token', [UserAPIController::class, 'login']);
 Route::get('user', [UserAPIController::class, 'getAuthUser']);
 
-Route::get('complaint',[ComplaintAPIController::class, 'getComplaintList']);
-Route::get('complaint/stats',[ComplaintAPIController::class, 'getComplaintStats']);
+Route::resource('complaint', ComplaintAPIController::class)->only(['index', 'store'])->names(['index' => 'cIndex', 'store' => 'cStore']);
+Route::get('complaint/stats', [ComplaintAPIController::class, 'getComplaintStats']);
 
 Route::resource('vehicle/inventory', VehicleInventoryAPIController::class);

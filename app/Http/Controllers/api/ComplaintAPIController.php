@@ -36,12 +36,14 @@ class ComplaintAPIController extends Controller
             'vehicle_inventory_id' => $validated->vehicle,
             'user_id' => $request->user()->id,
             'status_id' => Status::complaint('pending')->id,
-            'media' => serialize($validated->file) ?? null
+            'media' => serialize($validated?->file ?? null)
         ]);
 
-        foreach ($validated->file as $file) {
-            Storage::disk('azure_complaints')->put($file, Storage::disk('local')->get(sprintf('temp/%s', $file)));
-            FileControllerAPI::destroyTempFile($file);
+        if (isset($validated->file)){
+            foreach ($validated->file as $file) {
+                Storage::disk('azure_complaints')->put($file, Storage::disk('local')->get(sprintf('temp/%s', $file)));
+                FileControllerAPI::destroyTempFile($file);
+            }
         }
 
         $complaint->vehicleInventory()->update(['status_id' =>  Status::vehicleInventory('pending complaints')->id]);
