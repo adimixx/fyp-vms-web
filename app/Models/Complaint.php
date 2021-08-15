@@ -36,7 +36,7 @@ class Complaint extends Model
 
     public function vehicleInventory()
     {
-        return $this->belongsTo(vehicleInventory::class);
+        return $this->belongsTo(VehicleInventory::class);
     }
 
     public function status()
