@@ -7,6 +7,7 @@ use App\Models\MaintenanceRequest;
 use App\Models\Status;
 use App\Models\VehicleInventory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {

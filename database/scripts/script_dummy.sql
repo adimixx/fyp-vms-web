@@ -83,17 +83,17 @@ INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
 
 -- Dumping data for table vms.psm.users: ~13 rows (approximately)
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `two_factor_secret`, `two_factor_recovery_codes`, `remember_token`, `created_at`, `updated_at`, `staff_no`, `nric`, `phone`, `status_id`, `deleted_at`) VALUES
-	(2, 'Admin 01', 'admin01@vms.psm', '2021-08-10 14:12:08', '$2y$10$td9qpo4VvcEtlumo0.XEQOg641RWnE4dHXu4yB0RPI1maYGiBaKtm', NULL, NULL, NULL, '2021-08-10 14:01:11', '2021-08-10 14:26:18', '00001', '010203040507', NULL, 3, NULL),
+	(2, 'Admin 01', 'admin01@vms.psm', '2021-08-10 14:12:08', '$2y$10$hO2H0gDHPgQJunPazZkrbeOdje21RCNaf/cRkdvGoBRrdTiILowpK', NULL, NULL, NULL, '2021-08-10 14:01:11', '2021-08-10 14:26:18', '00001', '010203040507', NULL, 3, NULL),
 	(3, 'Admin 02', 'admin02@vms.psm', NULL, NULL, NULL, NULL, NULL, '2021-08-10 14:01:40', '2021-08-10 14:10:29', '00002', '010203040508', NULL, 1, NULL),
-	(4, 'Management 01', 'management01@vms.psm', '2021-08-10 14:23:09', '$2y$10$/ffxlBaDl./dDdP6b7TEkeUeMfOaaor8vPxow9g.vQu/Ja7V.umga', NULL, NULL, NULL, '2021-08-10 14:02:16', '2021-08-10 14:26:13', '00003', '010203040509', NULL, 3, NULL),
+	(4, 'Management 01', 'management01@vms.psm', '2021-08-10 14:23:09', '$2y$10$wtrqecXS/io0ah9rb6q6uOX/l9u4tINap5prYM3GAgs5LqvEauITG', NULL, NULL, NULL, '2021-08-10 14:02:16', '2021-08-10 14:26:13', '00003', '010203040509', NULL, 3, NULL),
 	(5, 'Management 02', 'management02@vms.psm', NULL, NULL, NULL, NULL, NULL, '2021-08-10 14:02:55', '2021-08-10 14:10:41', '00004', '010203040510', NULL, 1, NULL),
-	(6, 'Committee 01', 'committee01@vms.psm', '2021-08-10 14:24:17', '$2y$10$fiiV6IPGy2nXIEdUI86V7..ze58aJ9B9d89Ej1FSOk2xl0.VjPlx6', NULL, NULL, NULL, '2021-08-10 14:03:43', '2021-08-10 14:26:06', '00005', '010203040511', NULL, 3, NULL),
+	(6, 'Committee 01', 'committee01@vms.psm', '2021-08-10 14:24:17', '$2y$10$MROVp7S8wB75lYno5ESwWu/koL4NL5kZ.36.JN2AiG2N2C38TSvTu', NULL, NULL, NULL, '2021-08-10 14:03:43', '2021-08-10 14:26:06', '00005', '010203040511', NULL, 3, NULL),
 	(7, 'Committee 02', 'committee02@vms.psm', NULL, NULL, NULL, NULL, NULL, '2021-08-10 14:04:23', '2021-08-10 14:10:50', '00006', '010203040512', NULL, 1, NULL),
-	(8, 'Committee 03', 'committee03@vms.psm', NULL, '$2y$10$O08dJwoX4yUjA9E9oJBd.u/xoglWG63t6rcbhaLogTjuOcf1nd/im', NULL, NULL, NULL, '2021-08-10 14:05:00', '2021-08-10 14:26:42', '00007', '010203040513', NULL, 2, NULL),
+	(8, 'Committee 03', 'committee03@vms.psm', NULL, '$2y$10$tkzJLPF8JSe0l0C3DkXZIeb.X9qZNukfdCVqI8Sx7uHkZANuHPAwS', NULL, NULL, NULL, '2021-08-10 14:05:00', '2021-08-10 14:26:42', '00007', '010203040513', NULL, 2, NULL),
 	(9, 'Committee 04', 'committee04@vms.psm', NULL, NULL, NULL, NULL, NULL, '2021-08-10 14:05:33', '2021-08-10 14:10:59', '00009', '010203040514', NULL, 1, NULL),
 	(10, 'Staff 01', 'staff01@vms.psm', NULL, NULL, NULL, NULL, NULL, '2021-08-10 14:06:33', '2021-08-10 14:11:03', '00010', '010203040515', NULL, 1, NULL),
-	(11, 'Staff 02', 'staff02@vms.psm', NULL, '$2y$10$fe9TrEzjSEdRU6x.kOuHCuaqXkLds9wu7kEhKYo3jm8f5IbJA.S2G', NULL, NULL, NULL, '2021-08-10 14:06:56', '2021-08-10 14:27:36', '00011', '010203040516', NULL, 2, NULL),
-	(12, 'Staff 03', 'staff03@vms.psm', '2021-08-10 14:28:15', '$2y$10$b1/m1tWCpatm/snRDrGhouqDasBQ4rce3uR0I0sCxfsfQDG6mGETy', NULL, NULL, NULL, '2021-08-10 14:07:32', '2021-08-10 14:28:15', '00012', '010203040517', NULL, 3, NULL),
+	(11, 'Staff 02', 'staff02@vms.psm', NULL, '$2y$10$yYVwsaFbM7cfktEqLLAXu.3OBpPi.OIu/52CHRiGNwiui4gL4ZOc6', NULL, NULL, NULL, '2021-08-10 14:06:56', '2021-08-10 14:27:36', '00011', '010203040516', NULL, 2, NULL),
+	(12, 'Staff 03', 'staff03@vms.psm', '2021-08-10 14:28:15', '$2y$10$38NnKTXy334jD3AyqdL76.81pTHK/t8RZ51pU/04zWNRouySC2vmK', NULL, NULL, NULL, '2021-08-10 14:07:32', '2021-08-10 14:28:15', '00012', '010203040517', NULL, 3, NULL),
 	(13, 'Staff 04', 'staff04@vms.psm', NULL, NULL, NULL, NULL, NULL, '2021-08-10 14:08:19', '2021-08-10 14:11:19', '00015', '010203040518', NULL, 1, NULL);
 
 -- Dumping data for table vms.psm.vehicle_catalogs: ~0 rows (approximately)

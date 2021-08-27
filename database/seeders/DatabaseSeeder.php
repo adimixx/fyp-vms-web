@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
         $admin = User::create([
             'name' => 'Admin',
             'email' => 'admin@vms.psm',
-            'password' => Hash::make('admin'),
+            'password' => Hash::make('hK0GZXd8jyyn4c1jNKmw'),
             'status_id' => Status::user('active')->id,
             'email_verified_at' => Date::now()
         ]);

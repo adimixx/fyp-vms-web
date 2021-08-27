@@ -50,6 +50,7 @@ class MaintenanceRequestAPIController extends Controller
 
             $maintenanceRequest = MaintenanceRequest::create($data);
             $maintenanceRequest->complaint()?->update(['status_id' => Status::complaint('pending maintenance')->id]);
+            $maintenanceRequest->vehicleInventory()->update(['status_id' => Status::vehicleInventory('maintenance')->id]);
         }
 
         return $maintenanceRequest;
@@ -75,6 +76,11 @@ class MaintenanceRequestAPIController extends Controller
             'status_id' => $status->id,
             'status_note' => $validated->status_note ?? null
         ]);
+
+        if ($status->name == 'rejected'){
+            $maintenance->vehicleInventory()->update(['status_id' => Status::vehicleInventory('available')->id]);
+            $maintenance->complaint()?->update(['status_id' => Status::complaint('dismissed')->id]);
+        }
 
         $request->session()->flash('boldMsg', 'Success!');
         $request->session()->flash('msg', 'Maintenance review has been saved');
@@ -107,6 +113,9 @@ class MaintenanceRequestAPIController extends Controller
             'finalize_file' => (isset($validated->file)) ? serialize((array)$validated->file) : null,
             'status_id' => Status::maintenanceRequest('completed')->id
         ]);
+
+        $maintenance->vehicleInventory()->update(['status_id' => Status::vehicleInventory('available')->id]);
+        $maintenance->complaint()?->update(['status_id' => Status::complaint('resolved')->id]);
 
         $request->session()->flash('boldMsg', 'Success!');
         $request->session()->flash('msg', 'Maintenance has been finalized');
