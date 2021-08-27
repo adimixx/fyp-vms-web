@@ -158,7 +158,7 @@ class DatatableAPIController extends Controller
 
     public function maintenanceVendor(Request $request)
     {
-        $data = MaintenanceVendor::with(['maintenanceQuotation']);
+        $data = MaintenanceVendor::select();
 
         return $this->returnData($data, $request);
     }

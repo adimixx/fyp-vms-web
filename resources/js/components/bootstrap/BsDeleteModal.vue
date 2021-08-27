@@ -64,13 +64,11 @@ export default {
                 this.dataChange = true;
             } catch (error) {
                 if (error.response) {
-                    this.$emit(
-                        "activate-toast",
-                        "Error",
-                        "Server Error. Please Try Again",
-                        "danger"
-                    );
-                    console.log(error.response);
+                    var msg =
+                        error.response.data.message ??
+                        "Server Error. Please Try Again";
+
+                    this.$emit("activate-toast", "Error", msg, "danger");
                 }
             }
 

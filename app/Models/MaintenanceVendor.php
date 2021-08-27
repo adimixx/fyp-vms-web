@@ -18,6 +18,12 @@ class MaintenanceVendor extends Model
         'email'
     ];
 
+    protected $appends = [
+        'pending_quotation',
+        'approved_quotation',
+        'rejected_quotation'
+    ];
+
     protected $hidden = [
         'created_at',
         'updated_at',
@@ -26,5 +32,28 @@ class MaintenanceVendor extends Model
     public function maintenanceQuotation()
     {
         return $this->hasMany(MaintenanceQuotation::class);
+    }
+
+    private function countQuotation($id)
+    {
+        return $this->maintenanceQuotation()->where('status_id', $id)->count();
+    }
+
+    public function getPendingQuotationAttribute()
+    {
+        $status = Status::maintenanceQuotation('pending quote')->id;
+        return $this->countQuotation($status);
+    }
+
+    public function getApprovedQuotationAttribute()
+    {
+        $status = Status::maintenanceQuotation('approved')->id;
+        return $this->countQuotation($status);
+    }
+
+    public function getRejectedQuotationAttribute()
+    {
+        $status = Status::maintenanceQuotation('declined')->id;
+        return $this->countQuotation($status);
     }
 }
