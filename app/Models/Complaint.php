@@ -74,6 +74,13 @@ class Complaint extends Model
             }
         };
 
-        return json_encode(array_map($mapImgUrl, $this->media));
+        if (isset($this->media) && $this->media){
+            return json_encode(array_map($mapImgUrl, $this->media));
+        }
+
+        else {
+            return json_encode(array_map($mapImgUrl, []));
+        }
+
     }
 }
