@@ -23,7 +23,7 @@ class ComplaintAPIController extends Controller
 
         $complaint = Complaint::with(['status', 'vehicleInventory.vehicleCatalog.vehicleCategory']);
 
-        if (!$user->hasRole(['admin', 'management'])) {
+        if (!$user->hasAnyRole(['admin', 'management'])) {
             $complaint->where('user_id', $user->id);
         }
 
@@ -45,13 +45,12 @@ class ComplaintAPIController extends Controller
         $processedPending = Complaint::where('status_id', '!=', Status::complaint('pending')->id);
 
         $user = $request->user();
-        if (!$user->hasRole(['admin', 'management'])) {
+        if (!$user->hasAnyRole(['admin', 'management'])) {
             $complaintPending->where('user_id', $user->id);
             $processedPending->where('user_id', $user->id);
         }
 
-        // $reply = ['pending' => $complaintPending->count(), 'processed' => $processedPending->count()];
-        $reply = ['pending' => 2, 'processed' => 4];
+        $reply = ['pending' => $complaintPending->count(), 'processed' => $processedPending->count()];
 
         return $reply;
     }
