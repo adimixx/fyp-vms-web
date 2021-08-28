@@ -16,10 +16,10 @@ class ComplaintAPIController extends Controller
         $this->middleware(['auth:sanctum']);
     }
 
+
     public function processComplaintList(Request $request, bool $isPending = false)
     {
         $user = $request->user();
-
 
         $complaint = Complaint::with(['status', 'vehicleInventory.vehicleCatalog.vehicleCategory']);
 
@@ -41,10 +41,16 @@ class ComplaintAPIController extends Controller
         // $complaintPending = Complaint::where('user_id', $request->user()->id)->where('status_id', Status::complaint('pending')->id)->count();
         // $processedPending = Complaint::where('user_id', $request->user()->id)->where('status_id', '!=', Status::complaint('pending')->id)->count();
 
-        $complaintPending = Complaint::where('status_id', Status::complaint('pending')->id)->count();
-        $processedPending = Complaint::where('status_id', '!=', Status::complaint('pending')->id)->count();
+        $complaintPending = Complaint::where('status_id', Status::complaint('pending')->id);
+        $processedPending = Complaint::where('status_id', '!=', Status::complaint('pending')->id);
 
-        $reply = ['pending' => $complaintPending, 'processed' => $processedPending];
+        $user = $request->user();
+        if (!$user->hasRole(['admin', 'management'])) {
+            $complaintPending->where('user_id', $user->id);
+            $processedPending->where('user_id', $user->id);
+        }
+
+        $reply = ['pending' => $complaintPending->count(), 'processed' => $processedPending->count()];
 
         return $reply;
     }
