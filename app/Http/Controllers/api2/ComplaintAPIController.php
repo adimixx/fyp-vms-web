@@ -18,10 +18,14 @@ class ComplaintAPIController extends Controller
 
     public function processComplaintList(Request $request, bool $isPending = false)
     {
-        // $userId = $request->user()->id;
+        $user = $request->user();
+
 
         $complaint = Complaint::with(['status', 'vehicleInventory.vehicleCatalog.vehicleCategory']);
-        // $complaint->where('user_id', $userId);
+
+        if (!$user->hasRole(['admin', 'management'])) {
+            $complaint->where('user_id', $user->id);
+        }
 
         if ($isPending) {
             $complaint->where('status_id', Status::complaint('pending')->id);
