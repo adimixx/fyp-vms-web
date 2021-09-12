@@ -1,0 +1,3 @@
+*.sqlite*
+scripts/script_1.sql
+scripts/script_2.sql
