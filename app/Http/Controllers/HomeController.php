@@ -28,11 +28,10 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        if (!$request->user()->hasAnyRole('admin', 'management')){
-            if ($request->user()->hasAnyRole('staff')){
+        if (!$request->user()->hasAnyRole('admin', 'management')) {
+            if ($request->user()->hasAnyRole('staff')) {
                 return redirect()->route('complaint.index');
-            }
-            elseif ($request->user()->hasAnyRole('committee')){
+            } elseif ($request->user()->hasAnyRole('committee')) {
                 return redirect()->route('maintenance.index');
             }
         }

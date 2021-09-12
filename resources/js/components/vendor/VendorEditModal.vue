@@ -89,7 +89,7 @@ export default {
     },
     mounted() {
         if (this.formData != null) {
-            this.header = "Edit User";
+            this.header = "Edit Vendor";
             this.form = this.formData;
         }
 

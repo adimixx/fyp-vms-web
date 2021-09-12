@@ -11336,7 +11336,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     if (this.formData != null) {
-      this.header = "Edit User";
+      this.header = "Edit Vendor";
       this.form = this.formData;
     }
 
